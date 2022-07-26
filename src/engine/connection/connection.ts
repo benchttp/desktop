@@ -1,17 +1,14 @@
-import { Nominal } from "../utils/types";
+import { Nominal } from "../../utils/types";
 
 export type Path = "run" | "status";
 
 export type Connection<T extends Path> = Nominal<WebSocket, T>;
 
-const addr = "localhost:8080";
-const token = "6db67fafc4f5bf965a5a"; // Dummy token used for development.
-
-const url = (socket: Path) => `ws://${addr}/${socket}?access_token=${token}`;
-
-export async function open<T extends Path>(path: T): Promise<Connection<T>> {
+export async function open<T extends Path>(
+  url: string
+): Promise<Connection<T>> {
   return new Promise((resolve, reject) => {
-    const ws = new WebSocket(url(path));
+    const ws = new WebSocket(url);
 
     ws.onopen = () => {
       console.log(`WebSocket connection established at ${ws.url}`);
@@ -20,7 +17,12 @@ export async function open<T extends Path>(path: T): Promise<Connection<T>> {
 
     ws.onerror = (err) => {
       console.log(`WebSocket connection error at ${ws.url}`);
-      reject(err);
+      reject(new Error("WebSocket connection error"));
+    };
+
+    ws.onclose = (ev) => {
+      console.log(`WebSocket connection closed at ${ws.url}`);
+      reject({ code: ev.code, reason: ev.reason });
     };
   });
 }
