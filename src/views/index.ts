@@ -1,1 +1,0 @@
-export { POC } from "./POC";
