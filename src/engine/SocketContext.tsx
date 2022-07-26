@@ -77,6 +77,9 @@ async function reducer(
 
     case "status:open":
       await openConnection(status);
+      assertNonNull(status.conn).onmessage = (ev) => {
+        status.messages.push(ev.data);
+      };
       break;
 
     case "status:close":

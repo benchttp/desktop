@@ -66,6 +66,12 @@ export const POC: React.FunctionComponent = () => {
       </Button>
 
       <pre>{state.status.readyState()}</pre>
+
+      <ul>
+        {state.status.messages.map((m, i) => (
+          <li key={i}>{m}</li>
+        ))}
+      </ul>
     </>
   );
 };
