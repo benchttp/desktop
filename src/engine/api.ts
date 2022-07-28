@@ -2,9 +2,9 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import { IncomingMessage, isIncomingMessage, OutgoingMessage } from "./message";
 import { getWebSocket } from "./socket";
 
-type Store = {
+type Run = {
   events: IncomingMessage["event"][];
-  progress: string[];
+  progress: string;
   output: string | undefined;
 };
 
@@ -41,10 +41,10 @@ export const api = createApi({
     // query response is irrelevant as the incoming messages are streamed into
     // a store. Splitting the behavior from `baseQuery`, we are free to write
     // `baseQuery` as a WebSocket message sender.
-    streamMessages: build.query<Store, void>({
+    run: build.query<Run, void>({
       queryFn: () => {
         return {
-          data: { events: [], progress: [], output: undefined },
+          data: { events: [], progress: "", output: undefined },
         };
       },
       async onCacheEntryAdded(
@@ -70,7 +70,7 @@ export const api = createApi({
               case "progress":
                 updateCachedData((draft) => {
                   draft.events.push(data.event);
-                  draft.progress.push(data.data);
+                  draft.progress = data.data;
                 });
                 break;
 
@@ -103,4 +103,4 @@ export const api = createApi({
   }),
 });
 
-export const { useStreamMessagesQuery, useSendMessageMutation } = api;
+export const { useRunQuery, useSendMessageMutation } = api;

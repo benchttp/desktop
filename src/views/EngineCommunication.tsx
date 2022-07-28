@@ -1,8 +1,4 @@
-import {
-  api,
-  useSendMessageMutation,
-  useStreamMessagesQuery,
-} from "../engine/api";
+import { api, useSendMessageMutation, useRunQuery } from "../engine/api";
 import { Button } from "../components";
 import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
 
@@ -36,29 +32,21 @@ const Pull: React.FunctionComponent = () => {
   return <Button action={send}>Pull</Button>;
 };
 
-const MessageStreamer: React.FunctionComponent = () => {
-  const { data } = useStreamMessagesQuery();
+const RunStreamer: React.FunctionComponent = () => {
+  const { data } = useRunQuery();
 
   if (!data) return <div>Nothing to show</div>;
 
   return (
-    <div style={{ display: "flex" }}>
+    <div>
       <div>
-        <h3>Events</h3>
-        <ul>
-          {data.events.map((event, i) => (
-            <li key={i}>{event}</li>
-          ))}
-        </ul>
+        <h3>Latest event</h3>
+        <div>{data.events.at(-1)}</div>
       </div>
 
       <div>
         <h3>Progress</h3>
-        <ul>
-          {data.progress.map((progress, i) => (
-            <li key={i}>{progress}</li>
-          ))}
-        </ul>
+        <div>{data.progress}</div>
       </div>
 
       <div>
@@ -79,7 +67,7 @@ export const EngineCommunication: React.FunctionComponent = () => {
           <Pull />
         </div>
 
-        <MessageStreamer />
+        <RunStreamer />
       </div>
     </ApiProvider>
   );
