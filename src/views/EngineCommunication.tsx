@@ -10,7 +10,7 @@ const Run: React.FunctionComponent = () => {
   const [sendMessage] = useSendMessageMutation();
 
   const send = () => {
-    sendMessage({ message: "run" });
+    sendMessage({ event: "run", data: undefined });
   };
 
   return <Button action={send}>Run</Button>;
@@ -20,7 +20,7 @@ const Stop: React.FunctionComponent = () => {
   const [sendMessage] = useSendMessageMutation();
 
   const send = () => {
-    sendMessage({ message: "stop" });
+    sendMessage({ event: "stop", data: undefined });
   };
 
   return <Button action={send}>Stop</Button>;
@@ -30,25 +30,41 @@ const Pull: React.FunctionComponent = () => {
   const [sendMessage] = useSendMessageMutation();
 
   const send = () => {
-    sendMessage({ message: "pull" });
+    sendMessage({ event: "pull", data: undefined });
   };
 
   return <Button action={send}>Pull</Button>;
 };
 
 const MessageStreamer: React.FunctionComponent = () => {
-  const { data: messages } = useStreamMessagesQuery();
+  const { data } = useStreamMessagesQuery();
 
-  if (!messages?.length) return <div>No messages</div>;
+  if (!data) return <div>Nothing to show</div>;
 
   return (
-    <div>
-      <div>Messages</div>
-      <ul>
-        {messages.map((message, i) => (
-          <li key={i}>{message}</li>
-        ))}
-      </ul>
+    <div style={{ display: "flex" }}>
+      <div>
+        <h3>Events</h3>
+        <ul>
+          {data.events.map((event, i) => (
+            <li key={i}>{event}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h3>Progress</h3>
+        <ul>
+          {data.progress.map((progress, i) => (
+            <li key={i}>{progress}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h3>Output</h3>
+        <div>{JSON.stringify(data.output)}</div>
+      </div>
     </div>
   );
 };
@@ -56,7 +72,7 @@ const MessageStreamer: React.FunctionComponent = () => {
 export const EngineCommunication: React.FunctionComponent = () => {
   return (
     <ApiProvider api={api}>
-      <div style={{ display: "flex", height: "80vh" }}>
+      <div>
         <div>
           <Run />
           <Stop />

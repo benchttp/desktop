@@ -1,15 +1,11 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
+import { IncomingMessage, isIncomingMessage, OutgoingMessage } from "./message";
 import { getWebSocket } from "./socket";
 
-type IncomingMessage = string;
-
-const isIncomingMessage = (data: unknown): data is IncomingMessage => {
-  // TODO
-  return data != null;
-};
-
-type OutgoingMessage = {
-  message: "run" | "stop" | "pull";
+type Store = {
+  events: IncomingMessage["event"][];
+  progress: string[];
+  output: string | undefined;
 };
 
 export const api = createApi({
@@ -20,9 +16,9 @@ export const api = createApi({
   // We use `baseQuery` in order to send a message using the WebSocket connection.
   // The return value is irrelevant because we do not expect response data
   // from the WebSocket server on send. Thus the return value is an empty object.
-  async baseQuery({ message }: OutgoingMessage) {
+  async baseQuery({ event }: OutgoingMessage) {
     const ws = await getWebSocket();
-    ws.conn.send(message);
+    ws.conn.send(event);
 
     return { data: {} };
   },
@@ -30,9 +26,9 @@ export const api = createApi({
   endpoints: (build) => ({
     // Sends a message using the WebSocket connection through baseQuery.
     sendMessage: build.mutation<unknown, OutgoingMessage>({
-      query: ({ message }) => {
+      query: ({ event, data }) => {
         // TODO any value transformation should be here.
-        return { message };
+        return { event, data };
       },
     }),
 
@@ -41,9 +37,11 @@ export const api = createApi({
     // query response is irrelevant as the incoming messages are streamed into
     // a store. Splitting the behavior from `baseQuery`, we are free to write
     // `baseQuery` as a WebSocket message sender.
-    streamMessages: build.query<IncomingMessage[], void>({
+    streamMessages: build.query<Store, void>({
       queryFn: () => {
-        return { data: [] as IncomingMessage[] };
+        return {
+          data: { events: [], progress: [], output: undefined },
+        };
       },
       async onCacheEntryAdded(
         _,
@@ -56,16 +54,35 @@ export const api = createApi({
           await cacheDataLoaded;
 
           const listener = (event: MessageEvent) => {
-            const data = event.data;
+            const data = JSON.parse(event.data);
 
             // Do not handle if not a message we deal with here.
-            if (!isIncomingMessage(event.data)) {
+            if (!isIncomingMessage(data)) {
               return;
             }
 
-            updateCachedData((draft) => {
-              draft.push(data);
-            });
+            // TODO Cleaner handling.
+            switch (data.event) {
+              case "progress":
+                updateCachedData((draft) => {
+                  draft.events.push(data.event);
+                  draft.progress.push(data.data);
+                });
+                break;
+
+              case "output":
+                updateCachedData((draft) => {
+                  draft.events.push(data.event);
+                  draft.output = data.data;
+                });
+                break;
+
+              default:
+                updateCachedData((draft) => {
+                  draft.events.push(data.event);
+                });
+                break;
+            }
           };
 
           ws.conn.onmessage = listener;

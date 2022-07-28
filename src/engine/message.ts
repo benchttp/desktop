@@ -26,7 +26,7 @@ export const isIncomingMessage = (
   );
 };
 
-export const isIncomingMessageWithData = (
+const isIncomingMessageWithData = (
   message: unknown
 ): message is IncomingMessageWithData => {
   const isValidEvent = typeGuardProperty(
@@ -35,19 +35,17 @@ export const isIncomingMessageWithData = (
       val === "progress" || val === "output"
   );
 
-  const isValidData = typeGuardProperty(
-    "data",
-    (val: unknown): val is string => typeof val === "string"
-  );
+  // TODO Validate message.data.
 
-  return isObject(message) && isValidEvent(message) && isValidData(message);
+  return isObject(message) && isValidEvent(message);
 };
 
-export type OutgoingMessage =
-  | {
-      event: "run";
-      data: string;
-    }
-  | {
-      event: "stop" | "pull";
-    };
+// TODO Limitation on using a discriminated union.
+// Property data is not undefined only for event "run".
+// However, Redux Toolkit's MutationDefinition<T = OutgoingMessage> does not
+// support such discriminated union type when defining mutation.query method.
+// There might be a work around, I don't know one for now.
+export type OutgoingMessage = {
+  event: "run" | "stop" | "pull";
+  data: string | undefined;
+};
