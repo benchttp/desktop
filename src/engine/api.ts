@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { getWebSocket, Topic } from "./socket";
+import { getWebSocket } from "./socket";
 
 type IncomingMessage = string;
 
@@ -9,7 +9,6 @@ const isIncomingMessage = (data: unknown): data is IncomingMessage => {
 };
 
 type OutgoingMessage = {
-  topic: Topic;
   message: "run" | "stop" | "pull";
 };
 
@@ -21,8 +20,8 @@ export const api = createApi({
   // We use `baseQuery` in order to send a message using the WebSocket connection.
   // The return value is irrelevant because we do not expect response data
   // from the WebSocket server on send. Thus the return value is an empty object.
-  async baseQuery({ message, topic }: OutgoingMessage) {
-    const ws = await getWebSocket(topic);
+  async baseQuery({ message }: OutgoingMessage) {
+    const ws = await getWebSocket();
     ws.conn.send(message);
 
     return { data: {} };
@@ -31,9 +30,9 @@ export const api = createApi({
   endpoints: (build) => ({
     // Sends a message using the WebSocket connection through baseQuery.
     sendMessage: build.mutation<unknown, OutgoingMessage>({
-      query: ({ message, topic }) => {
+      query: ({ message }) => {
         // TODO any value transformation should be here.
-        return { message, topic };
+        return { message };
       },
     }),
 
@@ -42,15 +41,15 @@ export const api = createApi({
     // query response is irrelevant as the incoming messages are streamed into
     // a store. Splitting the behavior from `baseQuery`, we are free to write
     // `baseQuery` as a WebSocket message sender.
-    streamMessages: build.query<IncomingMessage[], Topic>({
+    streamMessages: build.query<IncomingMessage[], void>({
       queryFn: () => {
         return { data: [] as IncomingMessage[] };
       },
       async onCacheEntryAdded(
-        arg,
+        _,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
       ) {
-        const ws = await getWebSocket(arg);
+        const ws = await getWebSocket();
 
         try {
           // wait for the initial query to resolve before proceeding

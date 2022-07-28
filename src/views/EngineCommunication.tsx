@@ -1,4 +1,3 @@
-import { Topic } from "../engine/socket";
 import {
   api,
   useSendMessageMutation,
@@ -7,15 +6,11 @@ import {
 import { Button } from "../components";
 import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
 
-interface Props {
-  topic: Topic;
-}
-
 const Run: React.FunctionComponent = () => {
   const [sendMessage] = useSendMessageMutation();
 
   const send = () => {
-    sendMessage({ topic: "run", message: "run" });
+    sendMessage({ message: "run" });
   };
 
   return <Button action={send}>Run</Button>;
@@ -25,7 +20,7 @@ const Stop: React.FunctionComponent = () => {
   const [sendMessage] = useSendMessageMutation();
 
   const send = () => {
-    sendMessage({ topic: "run", message: "stop" });
+    sendMessage({ message: "stop" });
   };
 
   return <Button action={send}>Stop</Button>;
@@ -35,14 +30,14 @@ const Pull: React.FunctionComponent = () => {
   const [sendMessage] = useSendMessageMutation();
 
   const send = () => {
-    sendMessage({ topic: "run", message: "pull" });
+    sendMessage({ message: "pull" });
   };
 
   return <Button action={send}>Pull</Button>;
 };
 
-const MessageStreamer: React.FunctionComponent<Props> = ({ topic }) => {
-  const { data: messages } = useStreamMessagesQuery(topic);
+const MessageStreamer: React.FunctionComponent = () => {
+  const { data: messages } = useStreamMessagesQuery();
 
   if (!messages?.length) return <div>No messages</div>;
 
@@ -59,7 +54,6 @@ const MessageStreamer: React.FunctionComponent<Props> = ({ topic }) => {
 };
 
 export const EngineCommunication: React.FunctionComponent = () => {
-  const topic: Topic = "run";
   return (
     <ApiProvider api={api}>
       <div style={{ display: "flex", height: "80vh" }}>
@@ -69,7 +63,7 @@ export const EngineCommunication: React.FunctionComponent = () => {
           <Pull />
         </div>
 
-        <MessageStreamer topic={topic} />
+        <MessageStreamer />
       </div>
     </ApiProvider>
   );

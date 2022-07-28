@@ -1,22 +1,24 @@
 import { Nominal } from "../utils/types";
 
-export type Topic = "run";
+const endpoint = "run";
 
-type Connection<T extends Topic> = Nominal<WebSocket, T>;
+type Endpoint = typeof endpoint;
+
+type Connection = Nominal<WebSocket, Endpoint>;
 
 const addr = "localhost:8080";
 const token = "6db67fafc4f5bf965a5a"; // Dummy token used for development.
 
-const url = (topic: Topic = "run") =>
-  `ws://${addr}/${topic}?access_token=${token}`;
+const url = (addr: string, endpoint: Endpoint, token: string) =>
+  `ws://${addr}/${endpoint}?access_token=${token}`;
 
-async function openAt<T extends Topic>(url: string): Promise<Connection<T>> {
+async function openAt(url: string): Promise<Connection> {
   return new Promise((resolve, reject) => {
     const ws = new WebSocket(url);
 
     ws.onopen = () => {
       console.log(`WebSocket connection established at ${ws.url}`);
-      resolve(ws as Connection<T>);
+      resolve(ws as Connection);
     };
 
     ws.onerror = (err) => {
@@ -31,30 +33,25 @@ async function openAt<T extends Topic>(url: string): Promise<Connection<T>> {
   });
 }
 
-const open = <T extends Topic>(topic: T) => openAt<T>(url(topic));
+const open = () => openAt(url(addr, endpoint, token));
 
-type Socket<T extends Topic> = {
-  topic: T;
+type Socket = {
   /** The underlying WebSocket. */
-  conn: Connection<T> | null;
-  /** Getter for WebSocket.readyState. */
+  conn: Connection | null;
 };
 
-type OpenSocket<T extends Topic> = Socket<T> & {
-  conn: Connection<T>;
+type OpenSocket = Socket & {
+  conn: Connection;
 };
 
-const socket: Socket<"run"> = {
-  topic: "run",
+const socket: Socket = {
   conn: null,
 };
 
-export async function getWebSocket<T extends Topic>(
-  topic: T
-): Promise<OpenSocket<T>> {
+export async function getWebSocket(): Promise<OpenSocket> {
   if (socket.conn === null) {
-    socket.conn = await open(topic);
+    socket.conn = await open();
   }
 
-  return socket as OpenSocket<T>;
+  return socket as OpenSocket;
 }
