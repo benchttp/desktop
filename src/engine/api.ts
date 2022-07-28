@@ -18,7 +18,11 @@ export const api = createApi({
   // from the WebSocket server on send. Thus the return value is an empty object.
   async baseQuery({ event }: OutgoingMessage) {
     const ws = await getWebSocket();
-    ws.conn.send(event);
+    const message = JSON.stringify({
+      event,
+      data: await import("./benchttp.json"),
+    });
+    ws.conn.send(message);
 
     return { data: {} };
   },
