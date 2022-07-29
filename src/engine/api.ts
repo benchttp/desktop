@@ -1,11 +1,20 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { IncomingMessage, isIncomingMessage, OutgoingMessage } from "./message";
+import {
+  CancelRunMessage,
+  IncomingMessage,
+  isIncomingMessage,
+  StartRunMessage,
+} from "./message";
 import { getWebSocket } from "./socket";
 
-type Run = {
-  events: IncomingMessage["event"][];
-  progress: string;
-  output: string | undefined;
+type RunState = {
+  status: IncomingMessage["event"] | "idle";
+  progressData?: string;
+  runData?: Record<string, any>; // TODO
+  error?: string;
+
+  // Store all incoming messages. Development only.
+  messages: unknown[];
 };
 
 export const api = createApi({
@@ -16,20 +25,37 @@ export const api = createApi({
   // We use `baseQuery` in order to send a message using the WebSocket connection.
   // The return value is irrelevant because we do not expect response data
   // from the WebSocket server on send. Thus the return value is an empty object.
-  async baseQuery({ event, data }: OutgoingMessage) {
+  async baseQuery(arg: StartRunMessage | CancelRunMessage) {
+    // TODO extract function ?
+    let message: string;
+    switch (arg.procedure) {
+      case "run":
+        message = JSON.stringify({ procedure: arg.procedure, data: arg.data });
+        break;
+      case "cancel":
+        message = JSON.stringify({ procedure: arg.procedure });
+        break;
+    }
+
     const ws = await getWebSocket();
-    const message = JSON.stringify({ event, data });
+
     ws.conn.send(message);
 
     return { data: {} };
   },
 
   endpoints: (build) => ({
-    // Sends a message using the WebSocket connection through baseQuery.
-    sendMessage: build.mutation<unknown, OutgoingMessage>({
-      query: ({ event, data }) => {
+    startRun: build.mutation<void, Omit<StartRunMessage, "procedure">>({
+      query: ({ data }): StartRunMessage => {
         // TODO any value transformation should be here.
-        return { event, data };
+        return { procedure: "run", data };
+      },
+    }),
+
+    cancelRun: build.mutation<void, void>({
+      query: (): CancelRunMessage => {
+        // TODO any value transformation should be here.
+        return { procedure: "cancel" };
       },
     }),
 
@@ -38,10 +64,10 @@ export const api = createApi({
     // query response is irrelevant as the incoming messages are streamed into
     // a store. Splitting the behavior from `baseQuery`, we are free to write
     // `baseQuery` as a WebSocket message sender.
-    run: build.query<Run, void>({
+    streamRun: build.query<RunState, void>({
       queryFn: () => {
         return {
-          data: { events: [], progress: "", output: undefined },
+          data: { status: "idle", messages: [] },
         };
       },
       async onCacheEntryAdded(
@@ -66,24 +92,26 @@ export const api = createApi({
             switch (data.event) {
               case "progress":
                 updateCachedData((draft) => {
-                  draft.events.push(data.event);
-                  draft.progress = data.data;
+                  draft.status = "progress";
+                  draft.progressData = data.data;
                 });
                 break;
 
               case "done":
                 updateCachedData((draft) => {
-                  draft.events.push(data.event);
-                  draft.output = data.data;
+                  draft.status = "done";
+                  draft.runData = data.data;
                 });
                 break;
 
-              default:
-                updateCachedData((draft) => {
-                  draft.events.push(data.event);
-                });
+              case "error":
                 break;
             }
+
+            // Development only.
+            updateCachedData((draft) => {
+              draft.messages.push(data);
+            });
           };
 
           ws.conn.onmessage = listener;
@@ -100,4 +128,5 @@ export const api = createApi({
   }),
 });
 
-export const { useRunQuery, useSendMessageMutation } = api;
+export const { useStreamRunQuery, useStartRunMutation, useCancelRunMutation } =
+  api;
