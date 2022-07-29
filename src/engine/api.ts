@@ -16,12 +16,9 @@ export const api = createApi({
   // We use `baseQuery` in order to send a message using the WebSocket connection.
   // The return value is irrelevant because we do not expect response data
   // from the WebSocket server on send. Thus the return value is an empty object.
-  async baseQuery({ event }: OutgoingMessage) {
+  async baseQuery({ event, data }: OutgoingMessage) {
     const ws = await getWebSocket();
-    const message = JSON.stringify({
-      event,
-      data: await import("./benchttp.json"),
-    });
+    const message = JSON.stringify({ event, data });
     ws.conn.send(message);
 
     return { data: {} };
@@ -74,7 +71,7 @@ export const api = createApi({
                 });
                 break;
 
-              case "output":
+              case "done":
                 updateCachedData((draft) => {
                   draft.events.push(data.event);
                   draft.output = data.data;

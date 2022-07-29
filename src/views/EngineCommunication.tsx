@@ -1,4 +1,5 @@
 import { api, useSendMessageMutation, useRunQuery } from "../engine/api";
+import config from "../engine/benchttp.json";
 import { Button } from "../components";
 import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
 
@@ -6,7 +7,7 @@ const Run: React.FunctionComponent = () => {
   const [sendMessage] = useSendMessageMutation();
 
   const send = () => {
-    sendMessage({ event: "run", data: undefined });
+    sendMessage({ event: "run", data: config });
   };
 
   return <Button action={send}>Run</Button>;
@@ -20,16 +21,6 @@ const Stop: React.FunctionComponent = () => {
   };
 
   return <Button action={send}>Stop</Button>;
-};
-
-const Pull: React.FunctionComponent = () => {
-  const [sendMessage] = useSendMessageMutation();
-
-  const send = () => {
-    sendMessage({ event: "pull", data: undefined });
-  };
-
-  return <Button action={send}>Pull</Button>;
 };
 
 const RunStreamer: React.FunctionComponent = () => {
@@ -64,7 +55,6 @@ export const EngineCommunication: React.FunctionComponent = () => {
         <div>
           <Run />
           <Stop />
-          <Pull />
         </div>
 
         <RunStreamer />
