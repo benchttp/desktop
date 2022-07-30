@@ -4,6 +4,7 @@ import { EngineCommunication } from './examples'
 function App() {
   return (
     <div className="App">
+      <h1>Benchttp</h1>
       <EngineCommunication />
     </div>
   )
