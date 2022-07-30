@@ -1,22 +1,13 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 
 import {
-  CancelRunMessage,
-  IncomingMessage,
-  isIncomingMessage,
-  StartRunMessage,
-} from './message'
+  CancelMessage,
+  isStateMessage,
+  serializeActionMessage,
+  RunMessage,
+} from './messages'
 import { getWebSocket } from './socket'
-
-type RunState = {
-  status: IncomingMessage['event'] | 'idle'
-  progressData?: string
-  runData?: Record<string, any> // TODO
-  error?: string
-
-  // Store all incoming messages. Development only.
-  messages: unknown[]
-}
+import { State } from './state'
 
 export const api = createApi({
   // The function that will make the final query. It is used by each endpoint
@@ -26,37 +17,22 @@ export const api = createApi({
   // We use `baseQuery` in order to send a message using the WebSocket connection.
   // The return value is irrelevant because we do not expect response data
   // from the WebSocket server on send. Thus the return value is an empty object.
-  async baseQuery(arg: StartRunMessage | CancelRunMessage) {
-    // TODO extract function ?
-    let message: string
-    switch (arg.procedure) {
-      case 'run':
-        message = JSON.stringify({ procedure: arg.procedure, data: arg.data })
-        break
-      case 'cancel':
-        message = JSON.stringify({ procedure: arg.procedure })
-        break
-    }
-
+  async baseQuery(message: CancelMessage | RunMessage) {
     const ws = await getWebSocket()
-
-    ws.conn.send(message)
-
+    ws.conn.send(serializeActionMessage(message))
     return { data: {} }
   },
 
   endpoints: (build) => ({
-    startRun: build.mutation<void, Omit<StartRunMessage, 'procedure'>>({
-      query: ({ data }): StartRunMessage => {
-        // TODO any value transformation should be here.
-        return { procedure: 'run', data }
+    startRun: build.mutation<void, Omit<RunMessage, 'action'>>({
+      query: ({ data }): RunMessage => {
+        return { action: 'run', data }
       },
     }),
 
     cancelRun: build.mutation<void, void>({
-      query: (): CancelRunMessage => {
-        // TODO any value transformation should be here.
-        return { procedure: 'cancel' }
+      query: (): CancelMessage => {
+        return { action: 'cancel' }
       },
     }),
 
@@ -65,10 +41,10 @@ export const api = createApi({
     // query response is irrelevant as the incoming messages are streamed into
     // a store. Splitting the behavior from `baseQuery`, we are free to write
     // `baseQuery` as a WebSocket message sender.
-    streamRun: build.query<RunState, void>({
+    streamRun: build.query<State, void>({
       queryFn: () => {
         return {
-          data: { status: 'idle', messages: [] },
+          data: { status: 'idle' },
         }
       },
       async onCacheEntryAdded(
@@ -81,41 +57,37 @@ export const api = createApi({
           // wait for the initial query to resolve before proceeding
           await cacheDataLoaded
 
-          const listener = (event: MessageEvent) => {
-            const data = JSON.parse(event.data)
+          ws.conn.onmessage = (event: MessageEvent<string>) => {
+            const message = JSON.parse(event.data)
 
             // Do not handle if not a message we deal with here.
-            if (!isIncomingMessage(data)) {
+            if (!isStateMessage(message)) {
               return
             }
 
-            // TODO Cleaner handling.
-            switch (data.event) {
+            switch (message.state) {
               case 'progress':
                 updateCachedData((draft) => {
                   draft.status = 'progress'
-                  draft.progressData = data.data
+                  draft.progressData = message.data
                 })
                 break
 
               case 'done':
                 updateCachedData((draft) => {
                   draft.status = 'done'
-                  draft.runData = data.data
+                  draft.runData = message.data
                 })
                 break
 
               case 'error':
+                updateCachedData((draft) => {
+                  draft.status = 'error'
+                  draft.error = message.error
+                })
                 break
             }
-
-            // Development only.
-            updateCachedData((draft) => {
-              draft.messages.push(data)
-            })
           }
-
-          ws.conn.onmessage = listener
         } catch {
           // no-op in case `cacheEntryRemoved` resolves before `cacheDataLoaded`,
           // in which case `cacheDataLoaded` will throw

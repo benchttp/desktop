@@ -8,8 +8,8 @@ export const Stream: React.FunctionComponent = () => {
   return (
     <div>
       <div>
-        <h3>Latest message</h3>
-        <div>{JSON.stringify(data.messages.at(-1))}</div>
+        <h3>Status</h3>
+        <div>{data.status}</div>
       </div>
 
       <div>
