@@ -1,4 +1,4 @@
-import { isObject, typeGuardProperty } from '../utils/types'
+import { isObject, typeGuardProperty } from '../utils/guards'
 
 export type StartRunMessage = {
   procedure: 'run'
