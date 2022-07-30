@@ -45,6 +45,10 @@ rules:
     - error
     - never
 
+  # Overrides
+  no-unused-vars: off
+  '@typescript-eslint/no-unused-vars': error
+
   # Import rules
   import/newline-after-import: error
   import/no-default-export: error
