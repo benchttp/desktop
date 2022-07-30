@@ -1,7 +1,7 @@
-declare const brand: unique symbol;
-export type Nominal<T, U> = T & { readonly [brand]: U };
+declare const brand: unique symbol
+export type Nominal<T, U> = T & { readonly [brand]: U }
 
-type TypeGuard<T, U extends T> = (val: T) => val is U;
+type TypeGuard<T, U extends T> = (val: T) => val is U
 
 /**
  * Returns a custom type guard guarding that an object has `key`
@@ -19,9 +19,9 @@ export const typeGuardProperty = <Key extends string, Type>(
   guard: TypeGuard<unknown, Type>
 ) => {
   return (obj: Record<string, unknown>): obj is { [K in Key]: Type } =>
-    guard(obj[key]);
-};
+    guard(obj[key])
+}
 
 export const isObject = (val: unknown): val is Record<string, unknown> => {
-  return typeof val === "object" && val !== null;
-};
+  return typeof val === 'object' && val !== null
+}

@@ -1,21 +1,22 @@
-import { createApi } from "@reduxjs/toolkit/query/react";
+import { createApi } from '@reduxjs/toolkit/query/react'
+
 import {
   CancelRunMessage,
   IncomingMessage,
   isIncomingMessage,
   StartRunMessage,
-} from "./message";
-import { getWebSocket } from "./socket";
+} from './message'
+import { getWebSocket } from './socket'
 
 type RunState = {
-  status: IncomingMessage["event"] | "idle";
-  progressData?: string;
-  runData?: Record<string, any>; // TODO
-  error?: string;
+  status: IncomingMessage['event'] | 'idle'
+  progressData?: string
+  runData?: Record<string, any> // TODO
+  error?: string
 
   // Store all incoming messages. Development only.
-  messages: unknown[];
-};
+  messages: unknown[]
+}
 
 export const api = createApi({
   // The function that will make the final query. It is used by each endpoint
@@ -27,35 +28,35 @@ export const api = createApi({
   // from the WebSocket server on send. Thus the return value is an empty object.
   async baseQuery(arg: StartRunMessage | CancelRunMessage) {
     // TODO extract function ?
-    let message: string;
+    let message: string
     switch (arg.procedure) {
-      case "run":
-        message = JSON.stringify({ procedure: arg.procedure, data: arg.data });
-        break;
-      case "cancel":
-        message = JSON.stringify({ procedure: arg.procedure });
-        break;
+      case 'run':
+        message = JSON.stringify({ procedure: arg.procedure, data: arg.data })
+        break
+      case 'cancel':
+        message = JSON.stringify({ procedure: arg.procedure })
+        break
     }
 
-    const ws = await getWebSocket();
+    const ws = await getWebSocket()
 
-    ws.conn.send(message);
+    ws.conn.send(message)
 
-    return { data: {} };
+    return { data: {} }
   },
 
   endpoints: (build) => ({
-    startRun: build.mutation<void, Omit<StartRunMessage, "procedure">>({
+    startRun: build.mutation<void, Omit<StartRunMessage, 'procedure'>>({
       query: ({ data }): StartRunMessage => {
         // TODO any value transformation should be here.
-        return { procedure: "run", data };
+        return { procedure: 'run', data }
       },
     }),
 
     cancelRun: build.mutation<void, void>({
       query: (): CancelRunMessage => {
         // TODO any value transformation should be here.
-        return { procedure: "cancel" };
+        return { procedure: 'cancel' }
       },
     }),
 
@@ -67,66 +68,66 @@ export const api = createApi({
     streamRun: build.query<RunState, void>({
       queryFn: () => {
         return {
-          data: { status: "idle", messages: [] },
-        };
+          data: { status: 'idle', messages: [] },
+        }
       },
       async onCacheEntryAdded(
         _,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
       ) {
-        const ws = await getWebSocket();
+        const ws = await getWebSocket()
 
         try {
           // wait for the initial query to resolve before proceeding
-          await cacheDataLoaded;
+          await cacheDataLoaded
 
           const listener = (event: MessageEvent) => {
-            const data = JSON.parse(event.data);
+            const data = JSON.parse(event.data)
 
             // Do not handle if not a message we deal with here.
             if (!isIncomingMessage(data)) {
-              return;
+              return
             }
 
             // TODO Cleaner handling.
             switch (data.event) {
-              case "progress":
+              case 'progress':
                 updateCachedData((draft) => {
-                  draft.status = "progress";
-                  draft.progressData = data.data;
-                });
-                break;
+                  draft.status = 'progress'
+                  draft.progressData = data.data
+                })
+                break
 
-              case "done":
+              case 'done':
                 updateCachedData((draft) => {
-                  draft.status = "done";
-                  draft.runData = data.data;
-                });
-                break;
+                  draft.status = 'done'
+                  draft.runData = data.data
+                })
+                break
 
-              case "error":
-                break;
+              case 'error':
+                break
             }
 
             // Development only.
             updateCachedData((draft) => {
-              draft.messages.push(data);
-            });
-          };
+              draft.messages.push(data)
+            })
+          }
 
-          ws.conn.onmessage = listener;
+          ws.conn.onmessage = listener
         } catch {
           // no-op in case `cacheEntryRemoved` resolves before `cacheDataLoaded`,
           // in which case `cacheDataLoaded` will throw
         }
         // cacheEntryRemoved will resolve when the cache subscription is no longer active
-        await cacheEntryRemoved;
+        await cacheEntryRemoved
         // perform cleanup steps once the `cacheEntryRemoved` promise resolves
-        ws.conn.close();
+        ws.conn.close()
       },
     }),
   }),
-});
+})
 
 export const { useStreamRunQuery, useStartRunMutation, useCancelRunMutation } =
-  api;
+  api

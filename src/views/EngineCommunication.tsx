@@ -1,37 +1,38 @@
+import { ApiProvider } from '@reduxjs/toolkit/dist/query/react'
+
+import { Button } from '../components'
 import {
   api,
   useCancelRunMutation,
   useStartRunMutation,
   useStreamRunQuery,
-} from "../engine/api";
-import config from "../engine/benchttp.json";
-import { Button } from "../components";
-import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
+} from '../engine/api'
+import config from '../engine/benchttp.json'
 
 const Run: React.FunctionComponent = () => {
-  const [send] = useStartRunMutation();
+  const [send] = useStartRunMutation()
 
   const start = () => {
-    send({ data: config });
-  };
+    send({ data: config })
+  }
 
-  return <Button action={start}>Run</Button>;
-};
+  return <Button action={start}>Run</Button>
+}
 
 const Stop: React.FunctionComponent = () => {
-  const [send] = useCancelRunMutation();
+  const [send] = useCancelRunMutation()
 
   const cancel = () => {
-    send();
-  };
+    send()
+  }
 
-  return <Button action={cancel}>Stop</Button>;
-};
+  return <Button action={cancel}>Stop</Button>
+}
 
 const RunStreamer: React.FunctionComponent = () => {
-  const { data } = useStreamRunQuery();
+  const { data } = useStreamRunQuery()
 
-  if (!data || data.status === "idle") return <div>Nothing to show</div>;
+  if (!data || data.status === 'idle') return <div>Nothing to show</div>
 
   return (
     <div>
@@ -55,8 +56,8 @@ const RunStreamer: React.FunctionComponent = () => {
         <div>{data.error}</div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export const EngineCommunication: React.FunctionComponent = () => {
   return (
@@ -70,5 +71,5 @@ export const EngineCommunication: React.FunctionComponent = () => {
         <RunStreamer />
       </div>
     </ApiProvider>
-  );
-};
+  )
+}
