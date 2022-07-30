@@ -1,5 +1,5 @@
 import './App.css'
-import { EngineCommunication } from './views'
+import { EngineCommunication } from './examples'
 
 function App() {
   return (
