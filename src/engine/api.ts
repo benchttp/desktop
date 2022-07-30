@@ -9,6 +9,19 @@ import {
 import { getWebSocket } from './socket'
 import { EngineCall } from './state'
 
+/**
+ * To use the engine API, you must pass it to an `ApiProvider`
+ * wrapping the components that need the API.
+ * @example
+ * ```tsx
+ * import { ApiProvider } from '@reduxjs/toolkit/dist/query/react'
+ * import { api } from 'engine'
+ *
+ * <ApiProvider api={api}>
+ *   <ConsumerComponent>
+ * </ApiProvider>
+ * ```
+ */
 export const api = createApi({
   // The function that will make the final query. It is used by each endpoint
   // declared with the method `query` (i.e. sendMessage) and will be called
@@ -24,7 +37,7 @@ export const api = createApi({
   },
 
   endpoints: (build) => ({
-    startRun: build.mutation<void, Omit<RunMessage, 'action'>>({
+    doRun: build.mutation<void, Omit<RunMessage, 'action'>>({
       query: ({ data }): RunMessage => {
         return { action: 'run', data }
       },
@@ -101,5 +114,22 @@ export const api = createApi({
   }),
 })
 
-export const { useStreamRunQuery, useStartRunMutation, useCancelRunMutation } =
-  api
+/**
+ * A custom hook returning a function to ask the engine to
+ * cancel the current run. Cancelling when the engine is
+ * not running is silently handled as a noop engine-side.
+ */
+export const useCancelRunMutation = api.useCancelRunMutation
+
+/**
+ * A custom hook returning a function to ask the engine to
+ * do a run given a configuration object. Doing a run will
+ * stream the run data updates via {@link useStreamRunQuery}.
+ */
+export const useDoRunMutation = api.useDoRunMutation
+
+/**
+ * A custom hook returning a stateful object representing the
+ * state of the call to the engine doing the run.
+ */
+export const useStreamRunQuery = api.useStreamRunQuery

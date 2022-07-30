@@ -1,10 +1,10 @@
 import { Button } from 'components'
-import { useStartRunMutation } from 'engine/api'
+import { useDoRunMutation } from 'engine/api'
 
 import config from './benchttp.json'
 
 export const Run: React.FunctionComponent = () => {
-  const [send] = useStartRunMutation()
+  const [send] = useDoRunMutation()
 
   const start = () => {
     send({ data: config })
