@@ -1,12 +1,13 @@
-import "./App.css";
-import { EngineCommunication } from "./views";
+import './App.css'
+import { EngineCommunication } from './views'
 
 function App() {
   return (
     <div className="App">
       <EngineCommunication />
     </div>
-  );
+  )
 }
 
-export default App;
+// eslint-disable-next-line import/no-default-export
+export default App

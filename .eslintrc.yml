@@ -1,0 +1,81 @@
+env:
+  browser: true
+  es2021: true
+extends:
+  - eslint:recommended
+  - plugin:react/recommended
+  - plugin:@typescript-eslint/recommended
+  - plugin:import/errors
+  - plugin:import/warnings
+  - plugin:import/typescript
+  - plugin:prettier/recommended
+parser: '@typescript-eslint/parser'
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  ecmaVersion: latest
+  sourceType: module
+  project: [./tsconfig.json]
+plugins:
+  - react
+  - react-hooks
+  - import
+  - '@typescript-eslint'
+  - prettier
+settings:
+  react:
+    version: detect
+  import/resolver:
+    node:
+      paths:
+        - src
+        - nodes_modules
+ignorePatterns: [/build, /public, /src-tauri]
+
+rules:
+  linebreak-style:
+    - error
+    - unix
+  quotes:
+    - error
+    - single
+    - avoidEscape: true
+      allowTemplateLiterals: false
+  semi:
+    - error
+    - never
+
+  # Overrides
+  no-unused-vars: off
+  '@typescript-eslint/no-unused-vars': error
+
+  # Import rules
+  import/newline-after-import: error
+  import/no-default-export: error
+  import/order:
+    - error
+    - groups:
+        - builtin
+        - external
+        - internal
+        - [parent, sibling]
+        - index
+      newlines-between: always
+      alphabetize:
+        order: asc
+        caseInsensitive: true
+
+  # Naming conventions
+  '@typescript-eslint/naming-convention':
+    - error
+    - selector: function
+      format: [camelCase, PascalCase]
+    - selector: variable
+      format: [camelCase, PascalCase, UPPER_CASE]
+    - selector: [class, interface, typeAlias, typeParameter, enum]
+      format: [PascalCase]
+
+  # React rules
+  react/react-in-jsx-scope: off
+  react-hooks/rules-of-hooks: error
+  react-hooks/exhaustive-deps: error
