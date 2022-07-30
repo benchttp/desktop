@@ -14,12 +14,12 @@ export const Stream: React.FunctionComponent = () => {
 
       <div>
         <h3>Progress</h3>
-        <div>{data.progressData}</div>
+        <div>{data.progress}</div>
       </div>
 
       <div>
         <h3>Output</h3>
-        <div>{JSON.stringify(data.runData)}</div>
+        <div>{JSON.stringify(data.result)}</div>
       </div>
 
       <div>

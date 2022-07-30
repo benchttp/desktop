@@ -1,8 +1,14 @@
 import { StateMessage } from './messages'
 
-export type State = {
+/**
+ * Represents the state of the call to the engine API.
+ * EngineCall is continuously updated by streaming data
+ * from the engine. To persist a snapshot of the state,
+ * you must store the data yourself.
+ */
+export type EngineCall = {
   status: StateMessage['state'] | 'idle'
-  progressData?: string
-  runData?: Record<string, unknown>
+  progress?: string
+  result?: Record<string, unknown>
   error?: string
 }

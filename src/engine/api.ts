@@ -7,7 +7,7 @@ import {
   RunMessage,
 } from './messages'
 import { getWebSocket } from './socket'
-import { State } from './state'
+import { EngineCall } from './state'
 
 export const api = createApi({
   // The function that will make the final query. It is used by each endpoint
@@ -41,7 +41,7 @@ export const api = createApi({
     // query response is irrelevant as the incoming messages are streamed into
     // a store. Splitting the behavior from `baseQuery`, we are free to write
     // `baseQuery` as a WebSocket message sender.
-    streamRun: build.query<State, void>({
+    streamRun: build.query<EngineCall, void>({
       queryFn: () => {
         return {
           data: { status: 'idle' },
@@ -69,14 +69,14 @@ export const api = createApi({
               case 'progress':
                 updateCachedData((draft) => {
                   draft.status = 'progress'
-                  draft.progressData = message.data
+                  draft.progress = message.data
                 })
                 break
 
               case 'done':
                 updateCachedData((draft) => {
                   draft.status = 'done'
-                  draft.runData = message.data
+                  draft.result = message.data
                 })
                 break
 
