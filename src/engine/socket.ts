@@ -12,7 +12,7 @@ const token = '6db67fafc4f5bf965a5a' // Dummy token used for development.
 const url = (addr: string, endpoint: Endpoint, token: string) =>
   `ws://${addr}/${endpoint}?access_token=${token}`
 
-async function openAt(url: string): Promise<Connection> {
+function openAt(url: string): Promise<Connection> {
   return new Promise((resolve, reject) => {
     const ws = new WebSocket(url)
 
