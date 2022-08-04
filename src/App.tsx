@@ -1,11 +1,11 @@
 import './App.css'
-import { EngineCommunication } from './examples'
+import { SimpleStream } from './examples'
 
 function App() {
   return (
     <div className="App">
       <h1>Benchttp</h1>
-      <EngineCommunication />
+      <SimpleStream />
     </div>
   )
 }
