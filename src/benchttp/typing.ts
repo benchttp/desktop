@@ -1,3 +1,26 @@
+export type GoDuration = `${number}${'ns' | 'µs' | 'ms' | 's' | 'm' | 'h'}`
+
+export type MetricField = DurationField | IntegerField
+
+type MetricFieldId = MetricField['id']
+
+type DurationField = { id: 'AVG' | 'MAX' | 'MIN'; value: GoDuration }
+
+type IntegerField = {
+  id: 'FAILURE_COUNT' | 'SUCCESS_COUNT' | 'TOTAL_COUNT'
+  value: number
+}
+
+export type MetricType = number | GoDuration
+
+type MetricTypeForId<T extends MetricFieldId> = T extends DurationField['id']
+  ? DurationField['value']
+  : T extends IntegerField['id']
+  ? IntegerField['value']
+  : never
+
+export type TestPredicate = 'EQ' | 'NEQ' | 'GT' | 'GTE' | 'LT' | 'LTE'
+
 export interface RunProgress {
   Done: boolean
   DoneCount: number
@@ -11,6 +34,9 @@ export interface RunReport {
     Min: number
     Max: number
     Avg: number
+    SuccessCount: number
+    FailureCount: number
+    TotalCount: number
   }
 }
 
@@ -30,6 +56,12 @@ export interface RunConfiguration {
     requestTimeout: GoDuration
     globalTimeout: GoDuration
   }
+  tests: TestCase<MetricField>[]
 }
 
-type GoDuration = `${number}${'ns' | 'µs' | 'ms' | 's' | 'm' | 'h'}`
+interface TestCase<T extends MetricField> {
+  name: string
+  field: T['id']
+  predicate: TestPredicate
+  target: T['value']
+}
