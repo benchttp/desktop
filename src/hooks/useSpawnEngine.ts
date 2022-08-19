@@ -6,9 +6,12 @@ export function useSpawnEngine() {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    setIsLoading(true)
-    spawnEngine()
-    setIsLoading(false)
+    const spawn = async () => {
+      setIsLoading(true)
+      await spawnEngine()
+      setIsLoading(false)
+    }
+    spawn()
   }, [])
 
   return { isLoading }
