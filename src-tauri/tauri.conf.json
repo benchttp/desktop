@@ -42,7 +42,7 @@
       "longDescription": "",
       "macOS": {
         "entitlements": null,
-        "exceptionDomain": "",
+        "exceptionDomain": "localhost",
         "frameworks": [],
         "providerShortName": null,
         "signingIdentity": null
