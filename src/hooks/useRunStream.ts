@@ -1,7 +1,7 @@
 import { useRef, useReducer } from 'react'
 
-import { RunProgress, RunReport } from 'benchttp/typing'
-import { RunStreamer, RunStream } from 'engine/stream'
+import { RunProgress, RunReport } from '@/benchttp'
+import { RunStreamer, RunStream } from '@/engine/stream'
 
 interface State {
   progress: RunProgress | null

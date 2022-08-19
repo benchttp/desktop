@@ -26,11 +26,13 @@ settings:
   react:
     version: detect
   import/resolver:
+    typescript:
+      project: ./tsconfig.json
     node:
-      paths:
-        - src
-        - nodes_modules
-ignorePatterns: [/build, /public, /src-tauri]
+      paths: [src, nodes_modules]
+  import/parsers:
+    '@typescript-eslint/parser': [.ts, .tsx]
+ignorePatterns: [/dist, /public, /src-tauri]
 
 rules:
   linebreak-style:

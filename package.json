@@ -1,60 +1,38 @@
 {
-  "name": "desktop",
-  "version": "0.1.0",
+  "name": "benchttp-desktop",
   "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
   "dependencies": {
     "@tauri-apps/api": "^1.0.2",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.11.45",
-    "@types/react": "^18.0.15",
-    "@types/react-dom": "^18.0.6",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-redux": "^8.0.2",
-    "react-scripts": "5.0.1",
-    "typescript": "^4.7.4",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "cross-env BROWSER=none react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "lint": "eslint .",
-    "eject": "react-scripts eject",
-    "tauri": "tauri"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^1.0.4",
-    "@typescript-eslint/eslint-plugin": "^5.31.0",
-    "@typescript-eslint/parser": "^5.31.0",
-    "cross-env": "^7.0.3",
-    "eslint": "^8.20.0",
+    "@tauri-apps/cli": "^1.0.5",
+    "@types/node": "^18.7.6",
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.33.1",
+    "@typescript-eslint/parser": "^5.33.1",
+    "@vitejs/plugin-react": "^2.0.1",
+    "eslint": "^8.22.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^3.4.2",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "typescript": "^4.6.4",
+    "vite": "^3.0.7"
   }
 }

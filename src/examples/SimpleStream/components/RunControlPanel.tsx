@@ -1,4 +1,4 @@
-import { RunProgress } from 'benchttp'
+import { RunProgress } from '@/benchttp'
 
 interface Props {
   progress: RunProgress | null
