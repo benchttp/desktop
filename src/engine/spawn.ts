@@ -4,8 +4,6 @@ const program = 'benchttp-server'
 
 const command = Command.sidecar(`bin/${program}`)
 
-// const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
-
 export const spawn = async () => {
   command.on('close', (data) =>
     console.log(
