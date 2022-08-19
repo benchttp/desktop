@@ -4,7 +4,7 @@ const program = 'benchttp-server'
 
 const command = Command.sidecar(`bin/${program}`)
 
-export const spawn = async () => {
+export const spawnEngine = async () => {
   command.on('close', (data) =>
     console.log(
       `${program} finished with code ${data.code} and signal ${data.signal}`

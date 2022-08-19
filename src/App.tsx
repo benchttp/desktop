@@ -1,20 +1,15 @@
-import { useEffect } from 'react'
-
-import { spawn } from '@/engine/spawn'
+import { useSpawnEngine } from '@/hooks'
 
 import './App.css'
 import { SimpleStream } from './examples'
 
 function App() {
-  useEffect(() => {
-    const callSpawn = async () => await spawn()
-    callSpawn()
-  }, [])
+  const { isLoading } = useSpawnEngine()
 
   return (
     <div className="App">
       <h1>Benchttp</h1>
-      <SimpleStream />
+      {isLoading ? <div>Loading</div> : <SimpleStream />}
     </div>
   )
 }
