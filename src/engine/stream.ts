@@ -21,6 +21,7 @@ interface RunStreamerOptions {
 
 export class RunStreamer {
   #canceled = false
+  #aborter = new AbortController()
 
   constructor(private emit: RunStreamerOptions) {}
 
@@ -33,8 +34,10 @@ export class RunStreamer {
     new ReadableStream({
       start: async (controller) => {
         this.#canceled = false
+        this.#aborter = new AbortController()
+
         try {
-          const reader = await startRunStream(config)
+          const reader = await startRunStream(config, this.#aborter.signal)
 
           while (!this.#canceled) {
             const { done, value } = await reader.read()
@@ -50,7 +53,12 @@ export class RunStreamer {
       .pipeTo(runStreamWriter(this.emit.onStream))
   }
 
-  cancel = () => !this.#canceled && (this.#canceled = true)
+  cancel = (): boolean => {
+    if (this.#canceled) return false
+    this.#canceled = true
+    this.#aborter.abort()
+    return true
+  }
 }
 
 const runStreamDecoder = () =>
@@ -67,10 +75,14 @@ const runStreamWriter = (write: (s: RunStream) => void) =>
  * Makes the HTTP request to start a run and returns a ReadableStream
  * to stream the emitted progress and report data.
  */
-const startRunStream = async (config: RunConfiguration) => {
+const startRunStream = async (
+  config: RunConfiguration,
+  signal: AbortSignal
+) => {
   const response = await fetch(streamUrl, {
     method: 'POST',
     body: JSON.stringify(config),
+    signal,
   })
   const reader = response?.body?.getReader()
 
