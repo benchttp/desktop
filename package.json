@@ -4,13 +4,16 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "target": "node scripts/sidecar-target-triple.js",
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
+    "dev": "tauri dev",
+    "build": "CI=true tauri build",
     "tauri": "tauri",
+    "web:dev": "vite",
+    "web:build": "tsc && vite build",
+    "web:preview": "vite preview",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "sidecar:mv": "node scripts/sidecar-target-triple.js",
+    "sidecar:exec": "echo 'would run ./src-tauri/bin/benchttp-server'"
   },
   "dependencies": {
     "@tauri-apps/api": "^1.0.2",
