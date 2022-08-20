@@ -14,7 +14,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "sidecar:mv": "node scripts/sidecar-target-triple.js",
-    "sidecar:exec": "echo 'would run ./src-tauri/bin/benchttp-server'"
+    "sidecar:exec": "scripts/sidecar-exec.sh"
   },
   "dependencies": {
     "@tauri-apps/api": "^1.0.2",
