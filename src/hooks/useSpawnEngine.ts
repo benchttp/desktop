@@ -46,7 +46,7 @@ const tryWeb = (
     `Running in the browser: cannot spawn sidecar with @tauri-apps/api/shell. Make sure engine is running:
     npm run sidecar:exec`
   )
-  setPort(import.meta.env.VITE_ENGINE_PORT as number)
+  setPort(import.meta.env.VITE_ENGINE_PORT)
   return true
 }
 
