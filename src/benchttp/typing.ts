@@ -14,6 +14,10 @@ export interface RunReport {
   }
 }
 
+export interface RunError {
+  Error: string
+}
+
 export interface RunConfiguration {
   request: {
     method: string

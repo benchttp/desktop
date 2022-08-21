@@ -25,6 +25,8 @@ function reducer(state: State, [type, data]: Msg) {
           return { ...state, progress: data.data }
         case 'report':
           return { ...state, report: data.data }
+        case 'error':
+          return { ...state, error: data.data }
       }
       //@ts-expect-error unless non exhaustive switch
       throw new Error(`Unknown action type: ${type}.${data.kind}`)

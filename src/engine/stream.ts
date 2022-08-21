@@ -1,8 +1,8 @@
-import { RunProgress, RunReport, RunConfiguration } from 'benchttp'
+import { RunProgress, RunReport, RunError, RunConfiguration } from 'benchttp'
 
 const streamUrl = 'http://localhost:8080/stream'
 
-export type RunStream = ProgressStream | ReportStream
+export type RunStream = ProgressStream | ReportStream | ErrorStream
 
 interface ProgressStream {
   kind: 'progress'
@@ -12,6 +12,11 @@ interface ProgressStream {
 interface ReportStream {
   kind: 'report'
   data: RunReport
+}
+
+interface ErrorStream {
+  kind: 'error'
+  data: string
 }
 
 interface RunStreamerOptions {
@@ -102,11 +107,14 @@ const decodeStream = (chunk: Uint8Array): RunStream => {
 const assertRunStream = (data: unknown): RunStream => {
   if (isProgress(data)) return { kind: 'progress', data }
   if (isReport(data)) return { kind: 'report', data }
+  if (isError(data)) return { kind: 'error', data: data.Error }
   throw new Error('Unhandled stream value')
 }
 
 const isProgress = (v: unknown): v is RunProgress => hasKey(v, 'Done')
 
 const isReport = (v: unknown): v is RunReport => hasKey(v, 'Metrics')
+
+const isError = (v: unknown): v is RunError => hasKey(v, 'Error')
 
 const hasKey = (v: unknown, k: string) => !!v && typeof v === 'object' && k in v
