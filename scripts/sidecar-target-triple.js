@@ -19,8 +19,7 @@ async function main() {
   const targetTriple = await getTargetTriple()
 
   if (!targetTriple) {
-    console.error('Error: Failed to determine platform target triple')
-    process.exit(1)
+    throw new Error('Failed to determine platform target triple')
   }
 
   const newPath = suffixBinary(targetTriple)
