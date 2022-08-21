@@ -1,5 +1,6 @@
-import { execa } from 'execa'
 import { existsSync, renameSync } from 'fs'
+
+import { execa } from 'execa'
 
 const ext = process.platform === 'win32' ? '.exe' : ''
 const bin = 'benchttp-server'

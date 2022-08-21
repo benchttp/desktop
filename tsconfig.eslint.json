@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.json",
+  // Extend tsconfig with all directories which must be lint.
+  "include": ["src", "scripts"]
+}

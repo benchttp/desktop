@@ -1,6 +1,7 @@
 env:
   browser: true
   es2021: true
+  node: true
 extends:
   - eslint:recommended
   - plugin:react/recommended
@@ -15,7 +16,7 @@ parserOptions:
     jsx: true
   ecmaVersion: latest
   sourceType: module
-  project: [./tsconfig.json]
+  project: [./tsconfig.eslint.json]
 plugins:
   - react
   - react-hooks
