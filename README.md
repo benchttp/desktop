@@ -1,46 +1,68 @@
-# Getting Started with Create React App
+# benchttp desktop
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About
 
-## Available Scripts
+The Benchttp desktop app is a GUI for [benchttp/engine](https://github.com/benchttp/engine#readme).
 
-In the project directory, you can run:
+## Installation
 
-### `npm start`
+Download from release (when it is ready).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Or build from source (see below).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Development
 
-### `npm test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Node.js, Rust and Tauri. Follow [this guide](https://tauri.app/v1/guides/getting-started/prerequisites/) to set up Tauri environment.
 
-### `npm run build`
+Install dependencies.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```sh
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The app requires `benchttp/engine` embedded as a [sidecar](https://tauri.app/v1/guides/building/sidecar).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Build `benchttp/engine` as a server (package `cmd/server`) and move the binary targeting the correct platform inside `./src-tauri/bin` under the name `benchttp-server`:
 
-### `npm run eject`
+```sh
+GOOS=<target_os> GOARCH=<target_arch> go build -o ./desktop/src-tauri/bin/benchttp-server ./engine/cmd/server
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Tauri asks for the binary to be suffixed with the `-$TARGET_TRIPLE` for the platform. Rename the binary according to your platform:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```sh
+npm run sidecar:mv
+# src-tauri/bin/benhttp-server -> src-tauri/bin/benhttp-server-x86_64-apple-darwin
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Note: `npm run sidecar:mv` is run via scripts `predev` and `prebuild`.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Serve the app
 
-## Learn More
+```sh
+npm run dev
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Serve for the browser
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+When running in the browser (i.e. not in the Tauri app window), Tauri APIs are not available. API `@tauri-apps/api/shell` cannot be used to interact with a sidecar program. Instead, run the engine on a local server.
+
+```sh
+# start the dev server
+npm run web:dev
+```
+
+```sh
+# start the engine in another terminal
+npm run sidecar:exec
+```
+
+### Build
+
+```sh
+npm run build
+```
+
+Bundles are available at `./src-tauri/target/release/bundle`.

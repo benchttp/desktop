@@ -1,4 +1,4 @@
-import { useRunStream } from 'hooks'
+import { useRunStream } from '@/hooks'
 
 import { inputConfig } from '../inputConfig'
 import { RunControlPanel, RunDisplay } from './components'

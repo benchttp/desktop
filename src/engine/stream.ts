@@ -1,4 +1,4 @@
-import { RunProgress, RunReport, RunError, RunConfiguration } from 'benchttp'
+import { RunProgress, RunReport, RunError, RunConfiguration } from '@/benchttp'
 
 const streamUrl = 'http://localhost:8080/stream'
 

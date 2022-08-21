@@ -28,4 +28,4 @@ jobs:
         run: npm run test
 
       - name: Build
-        run: npm run build
+        run: npm run web:build # build for the web on ci while we figure out the requirements for building tauri on ci.
