@@ -1,24 +1,32 @@
 import { execa } from 'execa'
-import { renameSync } from 'fs'
+import { existsSync, renameSync } from 'fs'
 
-let extension = ''
-if (process.platform === 'win32') {
-  extension = '.exe'
+const ext = process.platform === 'win32' ? '.exe' : ''
+const bin = 'benchttp-server'
+const bindir = 'src-tauri/bin'
+const oldPath = `${bindir}/${bin}${ext}`
+
+function suffixBinary(targetTriple) {
+  return `${bindir}/${bin}-${targetTriple}${ext}`
 }
 
-const binaries = ['benchttp-server']
+async function getTargetTriple() {
+  const rustInfo = (await execa('rustc', ['-vV'])).stdout
+  return /host: (\S+)/g.exec(rustInfo)[1]
+}
 
 async function main() {
-  const rustInfo = (await execa('rustc', ['-vV'])).stdout
-  const targetTriple = /host: (\S+)/g.exec(rustInfo)[1]
+  const targetTriple = await getTargetTriple()
+
   if (!targetTriple) {
-    console.error('Failed to determine platform target triple')
+    console.error('Error: Failed to determine platform target triple')
+    process.exit(1)
   }
-  for (const binary of binaries) {
-    renameSync(
-      `src-tauri/bin/${binary}${extension}`,
-      `src-tauri/bin/${binary}-${targetTriple}${extension}`
-    )
+
+  const newPath = suffixBinary(targetTriple)
+
+  if (!existsSync(newPath)) {
+    renameSync(oldPath, newPath)
   }
 }
 

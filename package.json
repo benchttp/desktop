@@ -14,7 +14,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "sidecar:mv": "node scripts/sidecar-target-triple.js",
-    "sidecar:exec": "scripts/sidecar-exec.sh"
+    "sidecar:exec": "scripts/sidecar-exec.sh",
+    "predev": "npm run sidecar:mv",
+    "prebuild": "npm run sidecar:mv"
   },
   "dependencies": {
     "@tauri-apps/api": "^1.0.2",

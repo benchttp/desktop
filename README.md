@@ -37,6 +37,8 @@ npm run sidecar:mv
 # src-tauri/bin/benhttp-server -> src-tauri/bin/benhttp-server-x86_64-apple-darwin
 ```
 
+Note: `npm run sidecar:mv` is run via scripts `predev` and `prebuild`.
+
 ### Serve the app
 
 ```sh
