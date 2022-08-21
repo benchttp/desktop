@@ -24,10 +24,17 @@ npm install
 
 The app requires `benchttp/engine` embedded as a [sidecar](https://tauri.app/v1/guides/building/sidecar).
 
-Build `benchttp/engine` as a server (package `cmd/server`) and move the binary targeting the correct platform inside `./src-tauri/bin` under the name `benchttp-server`.
+Build `benchttp/engine` as a server (package `cmd/server`) and move the binary targeting the correct platform inside `./src-tauri/bin` under the name `benchttp-server`:
 
 ```sh
 GOOS=<target_os> GOARCH=<target_arch> go build -o ./desktop/src-tauri/bin/benchttp-server ./engine/cmd/server
+```
+
+Tauri asks for the binary to be suffixed with the `-$TARGET_TRIPLE` for the platform. Rename the binary according to your platform:
+
+```sh
+npm run sidecar:mv
+# src-tauri/bin/benhttp-server -> src-tauri/bin/benhttp-server-x86_64-apple-darwin
 ```
 
 ### Serve the app
