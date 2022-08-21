@@ -1,6 +1,6 @@
 import { RunProgress, RunReport, RunError, RunConfiguration } from '@/benchttp'
 
-const streamUrl = 'http://localhost:8080/stream'
+const streamUrl = (port: number) => `http://localhost:${port}/stream`
 
 export type RunStream = ProgressStream | ReportStream | ErrorStream
 
@@ -28,7 +28,7 @@ export class RunStreamer {
   #canceled = false
   #aborter = new AbortController()
 
-  constructor(private emit: RunStreamerOptions) {}
+  constructor(private port: number, private emit: RunStreamerOptions) {}
 
   /**
    * Sends a run request to the local benchttp server with the input config,
@@ -42,7 +42,11 @@ export class RunStreamer {
         this.#aborter = new AbortController()
 
         try {
-          const reader = await startRunStream(config, this.#aborter.signal)
+          const reader = await startRunStream(
+            config,
+            this.port,
+            this.#aborter.signal
+          )
 
           while (!this.#canceled) {
             const { done, value } = await reader.read()
@@ -82,16 +86,18 @@ const runStreamWriter = (write: (s: RunStream) => void) =>
  */
 const startRunStream = async (
   config: RunConfiguration,
+  port: number,
   signal: AbortSignal
 ) => {
-  const response = await fetch(streamUrl, {
+  const url = streamUrl(port)
+  const response = await fetch(url, {
     method: 'POST',
     body: JSON.stringify(config),
     signal,
   })
   const reader = response?.body?.getReader()
 
-  if (!reader) throw new Error(`Cannot fetch ${streamUrl}`)
+  if (!reader) throw new Error(`Cannot fetch ${url}`)
   return reader
 }
 

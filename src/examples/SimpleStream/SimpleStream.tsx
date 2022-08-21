@@ -3,8 +3,12 @@ import { useRunStream } from '@/hooks'
 import { inputConfig } from '../inputConfig'
 import { RunControlPanel, RunDisplay } from './components'
 
-export const SimpleStream = () => {
-  const { start, stop, reset, progress, report, error } = useRunStream()
+interface Props {
+  port: number
+}
+
+export const SimpleStream: React.FC<Props> = ({ port }) => {
+  const { start, stop, reset, progress, report, error } = useRunStream(port)
 
   return (
     <main style={{ textAlign: 'center' }}>

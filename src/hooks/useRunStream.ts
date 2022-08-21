@@ -39,11 +39,11 @@ function reducer(state: State, [type, data]: Msg) {
   throw new Error(`Unknown action type: ${type.toString()}`)
 }
 
-export function useRunStream() {
+export function useRunStream(port: number) {
   const [state, dispatch] = useReducer(reducer, initState())
 
   const stream = useRef(
-    new RunStreamer({
+    new RunStreamer(port, {
       onError: (err) => dispatch(['ERROR', err.message]),
       onStream: (stream) => dispatch(['STREAM', stream]),
     })
