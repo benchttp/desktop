@@ -7,7 +7,7 @@ import { useOnce } from './useOnce'
 export function useSpawnEngine() {
   const [isLoading, setIsLoading] = useState(false)
 
-  const spawnAsync = () => {
+  const spawnSync = () => {
     const spawn = async () => {
       setIsLoading(true)
 
@@ -29,7 +29,7 @@ export function useSpawnEngine() {
   const once = useOnce()
 
   useEffect(() => {
-    once.do(spawnAsync)
+    once.do(spawnSync)
   }, [once])
 
   return { isLoading }
