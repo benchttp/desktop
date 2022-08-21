@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react'
 
 import { spawnEngine } from '@/engine/spawn'
 
+import { useOnce } from './useOnce'
+
 export function useSpawnEngine() {
   const [isLoading, setIsLoading] = useState(false)
 
-  useEffect(() => {
+  const spawnAsync = () => {
     const spawn = async () => {
       setIsLoading(true)
 
@@ -15,14 +17,20 @@ export function useSpawnEngine() {
         if (!isWeb()) throw error
         console.warn(
           `Running in the browser: cannot spawn sidecar with @tauri-apps/api/shell. Make sure engine is running:
-                npm run sidecar:exec`
+                    npm run sidecar:exec`
         )
       }
 
       setIsLoading(false)
     }
     spawn()
-  }, [])
+  }
+
+  const once = useOnce()
+
+  useEffect(() => {
+    once.do(spawnAsync)
+  }, [once])
 
   return { isLoading }
 }
