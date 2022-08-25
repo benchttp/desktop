@@ -19,6 +19,7 @@ export const spawnEngine = async (): Promise<number> => {
     )
 
     command.stdout.on('data', (line) => {
+      // Wait for the ready signal line before resolving the enclosing Promise.
       resolvePort(resolve, line)
 
       console.log(`${program} stdout: "${line}"`)
@@ -32,13 +33,21 @@ export const spawnEngine = async (): Promise<number> => {
   })
 }
 
-const resolvePort = (
-  resolve: (value: number | PromiseLike<number>) => void,
-  line: unknown
-): void => {
-  const prefix = 'port:'
-  if (typeof line === 'string' && line.startsWith(prefix)) {
-    const port = parseInt(line.split(prefix)[1])
-    resolve(port)
-  }
+const readySignal = 'READY'
+
+const host = 'localhost'
+
+type ReadySignalLine = `${typeof readySignal} http://${typeof host}:${number}`
+
+const isReadySignal = (line: unknown): line is ReadySignalLine =>
+  typeof line === 'string' && line.startsWith(readySignal)
+
+// Expect the engine to always respect the ready signal contract.
+// Then we know the port is index 2.
+const getPort = (line: ReadySignalLine): number => parseInt(line.split(':')[2])
+
+type PromiseResolve<T> = (value: T | PromiseLike<T>) => void
+
+const resolvePort = (resolve: PromiseResolve<number>, line: unknown): void => {
+  isReadySignal(line) && resolve(getPort(line))
 }
