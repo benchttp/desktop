@@ -4,6 +4,11 @@ const program = 'benchttp-server'
 
 const command = Command.sidecar(`bin/${program}`)
 
+/**
+ * Spawns benchttp-server as a child process and returns a Promise
+ * that will resolve with the port the server is listening on, or
+ * reject if the process closes or produces an unexpected error.
+ */
 export const spawnEngine = async (): Promise<number> => {
   const child = await command.spawn()
 
