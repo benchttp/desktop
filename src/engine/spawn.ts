@@ -7,16 +7,17 @@ const command = Command.sidecar(`bin/${program}`)
 export const spawnEngine = async (): Promise<number> => {
   const child = await command.spawn()
 
-  return new Promise((resolve) => {
-    command.on('close', (data) =>
-      console.log(
-        `${program} finished with code ${data.code} and signal ${data.signal}`
-      )
-    )
+  return new Promise((resolve, reject) => {
+    command.on('close', (data) => {
+      const { code, signal } = data
+      console.log(`${program} finished with code ${code} and signal ${signal}`)
+      reject({ message: `${program} closed unexpectedly`, code, signal })
+    })
 
-    command.on('error', (error) =>
+    command.on('error', (error) => {
       console.error(`${program} error: "${error}"`)
-    )
+      reject({ message: `${program} error`, error })
+    })
 
     command.stdout.on('data', (line) => {
       // Wait for the ready signal line before resolving the enclosing Promise.
