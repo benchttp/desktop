@@ -1,0 +1,54 @@
+@use '../../../style/variables/colors.scss';
+
+.typography {
+  &--font-inter {
+    font-family: 'Inter', sans-serif;
+  }
+  &--font-poppins {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  &--size-small {
+    font-size: 12.8px;
+    line-height: 19.2px;
+  }
+  &--size-base {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  &--size-h4 {
+    font-size: 20px;
+    line-height: 24px;
+  }
+  &--size-h3 {
+    font-size: 25px;
+    line-height: 30px;
+  }
+  &--size-h2 {
+    font-size: 31.25px;
+    line-height: 37.5px;
+  }
+  &--size-h1 {
+    font-size: 39.06px;
+    line-height: 46.8px;
+  }
+
+  &--weight-regular {
+    font-weight: 400;
+  }
+  &--weight-medium {
+    font-weight: 500;
+  }
+  &--weight-semi {
+    font-weight: 600;
+  }
+  &--weight-bold {
+    font-weight: 700;
+  }
+
+  @each $colorName, $colorValue in colors.$colors {
+    &--color-#{$colorName} {
+      color: $colorValue;
+    }
+  }
+}
