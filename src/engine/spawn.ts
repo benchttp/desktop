@@ -9,7 +9,7 @@ const command = Command.sidecar(`bin/${program}`)
  * that will resolve with the address the server is listening on,
  * or reject if the process closes or produces an unexpected error.
  */
-export const spawnEngine = async (): Promise<string> => {
+const spawnEngine = async (): Promise<string> => {
   const child = await command.spawn()
 
   return new Promise((resolve, reject) => {
