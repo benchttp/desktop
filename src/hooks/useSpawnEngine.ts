@@ -1,23 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { mustSpawnEngine } from '@/engine/spawn'
 
+import { useEffectOnce } from './useEffectOnce'
 import { useLoading } from './useLoading'
-import { useOnce } from './useOnce'
 
 export function useSpawnEngine() {
   const [address, setAddress] = useState('')
   const [loadEngine, isLoading] = useLoading(mustSpawnEngine)
-  const once = useOnce()
 
-  useEffect(() => {
-    once.do(() => {
-      const spawn = async () => {
-        setAddress(await loadEngine())
-      }
-      spawn()
-    })
-  }, [once, loadEngine])
+  useEffectOnce(() => {
+    const spawn = async () => {
+      setAddress(await loadEngine())
+    }
+    spawn()
+  })
 
   return { isLoading, address }
 }
