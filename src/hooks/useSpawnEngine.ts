@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { spawnEngine } from '@/engine/spawn'
+import { mustSpawnEngine } from '@/engine/spawn'
 
 import { useOnce } from './useOnce'
 
@@ -11,21 +11,7 @@ export function useSpawnEngine() {
   const spawnSync = () => {
     const spawn = async () => {
       setIsLoading(true)
-
-      try {
-        setAddress(await spawnEngine())
-      } catch (error) {
-        if (isWeb()) {
-          console.warn(
-            `Running in the browser: cannot spawn sidecar with @tauri-apps/api/shell. Make sure engine is running:
-            npm run sidecar:exec`
-          )
-          setAddress(import.meta.env.VITE_ENGINE_ADDRESS)
-        } else {
-          throw error
-        }
-      }
-
+      setAddress(await mustSpawnEngine())
       setIsLoading(false)
     }
     spawn()
@@ -39,8 +25,3 @@ export function useSpawnEngine() {
 
   return { isLoading, address }
 }
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type WindowTauri = typeof window & { __TAURI__: any }
-
-const isWeb = () => (window as WindowTauri).__TAURI__ === undefined
