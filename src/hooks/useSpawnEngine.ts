@@ -6,16 +6,16 @@ import { useOnce } from './useOnce'
 
 export function useSpawnEngine() {
   const [isLoading, setIsLoading] = useState(false)
-  const [port, setPort] = useState(0)
+  const [address, setAddress] = useState('')
 
   const spawnSync = () => {
     const spawn = async () => {
       setIsLoading(true)
 
       try {
-        setPort(await spawnEngine())
+        setAddress(await spawnEngine())
       } catch (error) {
-        tryWeb(setPort) || throwError(error)
+        tryWeb(setAddress) || throwError(error)
       }
 
       setIsLoading(false)
@@ -29,7 +29,7 @@ export function useSpawnEngine() {
     once.do(spawnSync)
   }, [once])
 
-  return { isLoading, port }
+  return { isLoading, address }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -38,7 +38,7 @@ type WindowTauri = typeof window & { __TAURI__: any }
 const isWeb = () => (window as WindowTauri).__TAURI__ === undefined
 
 const tryWeb = (
-  setPort: React.Dispatch<React.SetStateAction<number>>
+  setAddress: React.Dispatch<React.SetStateAction<string>>
 ): boolean => {
   if (!isWeb()) return false
 
@@ -46,7 +46,7 @@ const tryWeb = (
     `Running in the browser: cannot spawn sidecar with @tauri-apps/api/shell. Make sure engine is running:
     npm run sidecar:exec`
   )
-  setPort(import.meta.env.VITE_ENGINE_PORT)
+  setAddress(import.meta.env.VITE_ENGINE_ADDRESS)
   return true
 }
 

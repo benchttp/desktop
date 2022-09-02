@@ -6,10 +6,10 @@ const command = Command.sidecar(`bin/${program}`)
 
 /**
  * Spawns benchttp-server as a child process and returns a Promise
- * that will resolve with the port the server is listening on, or
- * reject if the process closes or produces an unexpected error.
+ * that will resolve with the address the server is listening on,
+ * or reject if the process closes or produces an unexpected error.
  */
-export const spawnEngine = async (): Promise<number> => {
+export const spawnEngine = async (): Promise<string> => {
   const child = await command.spawn()
 
   return new Promise((resolve, reject) => {
@@ -26,7 +26,7 @@ export const spawnEngine = async (): Promise<number> => {
 
     command.stdout.on('data', (line) => {
       // Wait for the ready signal line before resolving the enclosing Promise.
-      resolvePort(resolve, line)
+      resolveAddr(resolve, line)
 
       console.log(`${program} stdout: "${line}"`)
     })
@@ -49,11 +49,11 @@ const isReadySignal = (line: unknown): line is ReadySignalLine =>
   typeof line === 'string' && line.startsWith(readySignal)
 
 // Expect the engine to always respect the ready signal contract.
-// Then we know the port is index 2.
-const getPort = (line: ReadySignalLine): number => parseInt(line.split(':')[2])
+// Then we know the address is index 1.
+const getAddr = (line: ReadySignalLine): string => line.split(' ')[1]
 
 type PromiseResolve<T> = (value: T | PromiseLike<T>) => void
 
-const resolvePort = (resolve: PromiseResolve<number>, line: unknown): void => {
-  isReadySignal(line) && resolve(getPort(line))
+const resolveAddr = (resolve: PromiseResolve<string>, line: unknown): void => {
+  isReadySignal(line) && resolve(getAddr(line))
 }

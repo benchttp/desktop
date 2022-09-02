@@ -4,12 +4,12 @@ import './App.css'
 import { SimpleStream } from './examples'
 
 function App() {
-  const { isLoading, port } = useSpawnEngine()
+  const { isLoading, address } = useSpawnEngine()
 
   return (
     <div className="App">
       <h1>Benchttp</h1>
-      {isLoading ? <div>Loading</div> : <SimpleStream port={port} />}
+      {isLoading ? <div>Loading</div> : <SimpleStream address={address} />}
     </div>
   )
 }
