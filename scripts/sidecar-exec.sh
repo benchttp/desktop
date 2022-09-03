@@ -7,6 +7,6 @@ target_triple=$(rustc -Vv | grep host | cut -f2 -d' ')
 program="benchttp-server-$target_triple"
 
 # Run with .env variables loaded.
-flag="--any-port=false"
+flag="--auto-port=false"
 
 ./src-tauri/bin/$program $flag
