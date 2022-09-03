@@ -68,19 +68,15 @@ const resolveAddr = (resolve: PromiseResolve<string>, line: unknown): void => {
  * If the address cannot be resolved by any strategy, throws an exception.
  */
 export async function mustSpawnEngine(): Promise<string> {
-  try {
-    return await spawnEngine()
-  } catch (error) {
-    if (isWeb()) {
-      console.warn(
-        `Running in the browser: cannot spawn sidecar with @tauri-apps/api/shell. Make sure engine is running:
-        npm run sidecar:exec`
-      )
-      return import.meta.env.VITE_ENGINE_ADDRESS
-    } else {
-      throw error
-    }
+  if (isWeb()) {
+    console.warn(
+      `Running in the browser: cannot spawn sidecar with @tauri-apps/api/shell. Make sure engine is running:
+      npm run sidecar:exec`
+    )
+    return import.meta.env.VITE_ENGINE_ADDRESS
   }
+
+  return await spawnEngine()
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
