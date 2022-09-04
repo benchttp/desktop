@@ -1,4 +1,5 @@
 @use '../../../style/variables/colors.scss';
+@use '../../../style/mixins/font-config.scss';
 
 .typography {
   &--font-inter {
@@ -9,28 +10,22 @@
   }
 
   &--size-small {
-    font-size: 12.8px;
-    line-height: 19.2px;
+    @include font-config.small-font-config;
   }
   &--size-base {
-    font-size: 16px;
-    line-height: 24px;
+    @include font-config.base-font-config;
   }
   &--size-h4 {
-    font-size: 20px;
-    line-height: 24px;
+    @include font-config.h4-font-config;
   }
   &--size-h3 {
-    font-size: 25px;
-    line-height: 30px;
+    @include font-config.h3-font-config;
   }
   &--size-h2 {
-    font-size: 31.25px;
-    line-height: 37.5px;
+    @include font-config.h2-font-config;
   }
   &--size-h1 {
-    font-size: 39.06px;
-    line-height: 46.8px;
+    @include font-config.h1-font-config;
   }
 
   &--weight-regular {
