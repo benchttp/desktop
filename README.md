@@ -4,10 +4,6 @@
 
 The Benchttp desktop app is a GUI for [benchttp/engine](https://github.com/benchttp/engine#readme).
 
-## IDE Configuration
-
-For an optimal developping experience, [use the workspace version of Typescript](https://code.visualstudio.com/docs/typescript/typescript-compiling#_using-the-workspace-version-of-typescript). This allows typescript-plugin-css-modules to autocomplete SCSS class names.
-
 ## Installation
 
 Download from release (when it is ready).
@@ -15,6 +11,10 @@ Download from release (when it is ready).
 Or build from source (see below).
 
 ## Development
+
+### IDE Configuration
+
+For an optimal developping experience, [use the workspace version of Typescript](https://code.visualstudio.com/docs/typescript/typescript-compiling#_using-the-workspace-version-of-typescript). This allows typescript-plugin-css-modules to autocomplete SCSS class names.
 
 ### Prerequisites
 
