@@ -1,7 +1,7 @@
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 
+import { getClassNames } from './core/typography.helpers'
 import { IProps } from './core/typography.interfaces'
-import s from './core/typography.module.scss'
 
 export const Typography: FC<IProps> = ({
   children,
@@ -12,47 +12,30 @@ export const Typography: FC<IProps> = ({
   weight,
   color,
 }) => {
-  const [classNames, setClassNames] = useState<string[]>([])
+  const classNames = getClassNames(font, weight, size, color, className)
 
-  useEffect(() => {
-    const classNames = []
-
-    if (font) {
-      classNames.push(s[`typography--font-${font}`])
-    }
-    if (weight) {
-      classNames.push(s[`typography--weight-${weight}`])
-    }
-    if (size) {
-      classNames.push(s[`typography--size-${size}`])
-    }
-    if (color) {
-      classNames.push(s[`typography--color-${color}`])
-    }
-    if (className) {
-      classNames.push(className)
-    }
-
-    setClassNames(classNames)
-  }, [element, font, size, weight, color, className])
+  const props = {
+    className: classNames.join(' '),
+    children,
+  }
 
   switch (element) {
     case 'p':
-      return <p className={classNames.join(' ')}>{children}</p>
+      return <p {...props} />
     case 'pre':
-      return <pre className={classNames.join(' ')}>{children}</pre>
+      return <pre {...props} />
     case 'span':
-      return <span className={classNames.join(' ')}>{children}</span>
+      return <span {...props} />
     case 'code':
-      return <code className={classNames.join(' ')}>{children}</code>
+      return <code {...props} />
     case 'h1':
-      return <h1 className={classNames.join(' ')}>{children}</h1>
+      return <h1 {...props} />
     case 'h2':
-      return <h2 className={classNames.join(' ')}>{children}</h2>
+      return <h2 {...props} />
     case 'h3':
-      return <h3 className={classNames.join(' ')}>{children}</h3>
+      return <h3 {...props} />
     case 'h4':
-      return <h4 className={classNames.join(' ')}>{children}</h4>
+      return <h4 {...props} />
     default:
       return null
   }
