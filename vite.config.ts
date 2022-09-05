@@ -1,3 +1,5 @@
+/// <reference types="vitest" />
+
 import path from 'path'
 
 import { defineConfig } from 'vite'
@@ -14,5 +16,10 @@ export default defineConfig({
     alias: {
       '@': path.resolve('./src'),
     },
+  },
+  test: {
+    include: ['**/*.test.{ts,tsx}'],
+    globals: true,
+    environment: 'jsdom',
   },
 })
