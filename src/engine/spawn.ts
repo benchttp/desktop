@@ -59,27 +59,37 @@ const resolveAddr = (resolve: PromiseResolve<string>, line: unknown): void => {
 }
 
 /**
- * Spawns benchttp-server as a child process and returns a Promise
- * that will resolve with the address the server is listening on.
+ * Spawns benchttp-server as a child process.
  *
- * If called in the browser, `mustSpawnEngine` will read and return
+ * If called in the browser, `mustSpawnEngine` will read
  * the address to use from the current environment.
  *
- * If the address cannot be resolved by any strategy, throws an exception.
+ * If the address cannot be resolved, throws an exception.
  */
-export async function mustSpawnEngine(): Promise<string> {
+export async function mustSpawnEngine(): Promise<void> {
+  let addr = ''
   if (isWeb()) {
     console.warn(
       `Running in the browser: cannot spawn sidecar with @tauri-apps/api/shell. Make sure engine is running:
       npm run sidecar:exec`
     )
-    return import.meta.env.VITE_ENGINE_ADDRESS
+    addr = import.meta.env.VITE_ENGINE_ADDRESS
   }
+  addr = await spawnEngine()
 
-  return await spawnEngine()
+  setAddress(addr)
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type WindowTauri = typeof window & { __TAURI__: any }
 
 const isWeb = () => (window as WindowTauri).__TAURI__ === undefined
+
+/**
+ * The address at which benchttp-server is listening.
+ */
+export let address: string
+
+function setAddress(value: string): void {
+  address = value
+}

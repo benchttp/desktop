@@ -1,6 +1,7 @@
 import { useRef, useReducer } from 'react'
 
 import { RunProgress, RunReport } from '@/benchttp'
+import { address } from '@/engine/spawn'
 import { RunStreamer, RunStream } from '@/engine/stream'
 
 interface State {
@@ -39,7 +40,7 @@ function reducer(state: State, [type, data]: Msg) {
   throw new Error(`Unknown action type: ${type.toString()}`)
 }
 
-export function useRunStream(address: string) {
+export function useRunStream() {
   const [state, dispatch] = useReducer(reducer, initState())
 
   const stream = useRef(
