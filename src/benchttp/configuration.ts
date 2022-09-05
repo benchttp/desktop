@@ -1,5 +1,5 @@
 import { GoDuration } from './common'
-import { MetricField } from './metrics'
+import { DurationField, MetricField, NumberField } from './metrics'
 import { TestPredicate } from './tests'
 
 export interface RunConfiguration {
@@ -14,10 +14,14 @@ export interface RunConfiguration {
     requestTimeout: GoDuration
     globalTimeout: GoDuration
   }
-  tests?: ConfigurationTestCase<MetricField>[]
+  tests?: ConfigurationTestCase[]
 }
 
-interface ConfigurationTestCase<T extends MetricField> {
+type ConfigurationTestCase =
+  | BaseTestCase<DurationField>
+  | BaseTestCase<NumberField>
+
+interface BaseTestCase<T extends MetricField> {
   name: string
   field: T['id']
   predicate: TestPredicate

@@ -2,9 +2,9 @@ import { GoDuration } from './common'
 
 export type MetricField = DurationField | NumberField
 
-type DurationField = SingleMetricField<DurationMetricId, GoDuration>
+export type DurationField = SingleMetricField<DurationMetricId, GoDuration>
 
-type NumberField = SingleMetricField<NumberMetricId, number>
+export type NumberField = SingleMetricField<NumberMetricId, number>
 
 interface SingleMetricField<M extends MetricId, T> {
   id: M
