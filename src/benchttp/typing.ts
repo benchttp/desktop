@@ -2,8 +2,6 @@ export type GoDuration = `${number}${'ns' | 'µs' | 'ms' | 's' | 'm' | 'h'}`
 
 export type MetricField = DurationField | IntegerField
 
-type MetricFieldId = MetricField['id']
-
 type DurationField = { id: 'AVG' | 'MAX' | 'MIN'; value: GoDuration }
 
 type IntegerField = {
@@ -12,12 +10,6 @@ type IntegerField = {
 }
 
 export type MetricType = number | GoDuration
-
-type MetricTypeForId<T extends MetricFieldId> = T extends DurationField['id']
-  ? DurationField['value']
-  : T extends IntegerField['id']
-  ? IntegerField['value']
-  : never
 
 export type TestPredicate = 'EQ' | 'NEQ' | 'GT' | 'GTE' | 'LT' | 'LTE'
 
