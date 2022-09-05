@@ -1,5 +1,5 @@
-import { IProps } from './typography.interfaces'
 import s from './typography.module.scss'
+import { IProps } from './typography.typings'
 
 export const getClassNames = (
   font: IProps['font'],

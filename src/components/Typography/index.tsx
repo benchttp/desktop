@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { getClassNames } from './core/typography.helpers'
-import { IProps } from './core/typography.interfaces'
+import { IProps } from './core/typography.typings'
 
 export const Typography: FC<IProps> = ({
   children,
