@@ -8,36 +8,36 @@ interface Props {
 
 export const RunDisplay: React.FC<Props> = ({ progress, report, error }) => (
   <div>
-    {progress && !progress.Done && <ProgressSection {...progress} />}
+    {progress && !progress.done && <ProgressSection {...progress} />}
     {report && <ReportSection {...report} />}
     {error && <ErrorSection error={error} />}
   </div>
 )
 
 const ProgressSection: React.FC<RunProgress> = ({
-  DoneCount,
-  MaxCount,
-  Elapsed,
-  Timeout,
+  doneCount,
+  maxCount,
+  elapsed,
+  timeout,
 }) => (
   <section>
     <h3>Recording Progress</h3>
     <p>
-      {DoneCount} / {MaxCount} requests ({(100 * DoneCount) / MaxCount}%)
+      {doneCount} / {maxCount} requests ({(100 * doneCount) / maxCount}%)
       <br />
-      <progress max={MaxCount} value={DoneCount} />
+      <progress max={maxCount} value={doneCount} />
       <br />
-      {((Timeout - Elapsed) / 1_000_000_000).toFixed(0)}s
+      {((timeout - elapsed) / 1_000_000_000).toFixed(0)}s
     </p>
   </section>
 )
 
-const ReportSection: React.FC<RunReport> = ({ Metrics }) => (
+const ReportSection: React.FC<RunReport> = ({ metrics }) => (
   <section>
     <h3>Report</h3>
-    <div>Min: {formatDuration(Metrics.Min)}</div>
-    <div>Max: {formatDuration(Metrics.Max)}</div>
-    <div>Avg: {formatDuration(Metrics.Avg)}</div>
+    <div>Min: {formatDuration(metrics.responseTimes.min)}</div>
+    <div>Max: {formatDuration(metrics.responseTimes.max)}</div>
+    <div>Avg: {formatDuration(metrics.responseTimes.mean)}</div>
   </section>
 )
 

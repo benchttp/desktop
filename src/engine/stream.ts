@@ -119,7 +119,7 @@ const decodeStream = (chunk: Uint8Array): RunStream => {
 const assertRunStream = (data: unknown): RunStream => {
   if (isProgress(data)) return { kind: 'progress', data }
   if (isReport(data)) return { kind: 'report', data }
-  if (isError(data)) return { kind: 'error', data: data.Error }
+  if (isError(data)) return { kind: 'error', data: data.error }
   throw new Error('Unhandled stream value')
 }
 
