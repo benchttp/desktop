@@ -3,7 +3,7 @@ import { useRunStream } from '@/hooks'
 import { inputConfig } from '../inputConfig'
 import { RunControlPanel, RunDisplay } from './components'
 
-export const SimpleStream = () => {
+export const SimpleStream: React.FC = () => {
   const { start, stop, reset, progress, report, error } = useRunStream()
 
   return (
