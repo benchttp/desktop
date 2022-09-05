@@ -1,10 +1,2 @@
-export type {
-  RunProgress,
-  RunReport,
-  RunError,
-  GoDuration,
-  MetricField,
-  TestPredicate,
-  MetricType,
-  RunConfiguration,
-} from './typing'
+export type { RunConfiguration } from './configuration'
+export type { RunProgress, RunReport, RunError } from './run'
