@@ -1,13 +1,16 @@
 import s from './typography.module.scss'
 import { IProps } from './typography.typings'
 
-export const getClassNames = (
-  font: IProps['font'],
-  weight: IProps['weight'],
-  size: IProps['size'],
-  color: IProps['color'],
-  className: IProps['className']
-): string[] => {
+export const getClassNames = ({
+  font,
+  weight,
+  size,
+  color,
+  className,
+}: Pick<
+  IProps,
+  'font' | 'weight' | 'size' | 'color' | 'className'
+>): string[] => {
   const classNames = []
 
   if (font) {
