@@ -1,0 +1,24 @@
+@use 'sass:map';
+@use '../../../style/variables/colors.scss';
+
+.main-layout {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar {
+  flex: 0 0 300px;
+  background: map.get(colors.$colors, 'grey');
+  box-sizing: border-box;
+
+  &__logo {
+    color: map.get(colors.$colors, 'primary');
+  }
+}
+
+.main-content {
+  flex: 1;
+  box-sizing: border-box;
+  height: 100%;
+  overflow-y: scroll;
+}
