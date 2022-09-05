@@ -123,11 +123,11 @@ const assertRunStream = (data: unknown): RunStream => {
   throw new Error('Unhandled stream value')
 }
 
-const isProgress = (v: unknown): v is RunProgress => hasKey(v, 'Done')
+const isProgress = (v: unknown): v is RunProgress => hasKey(v, 'done')
 
-const isReport = (v: unknown): v is RunReport => hasKey(v, 'Metrics')
+const isReport = (v: unknown): v is RunReport => hasKey(v, 'metrics')
 
-const isError = (v: unknown): v is RunError => hasKey(v, 'Error')
+const isError = (v: unknown): v is RunError => hasKey(v, 'error')
 
 const hasKey = (v: unknown, k: string) => !!v && typeof v === 'object' && k in v
 
