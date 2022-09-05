@@ -42,15 +42,15 @@ export interface RunReport {
   tests: {
     pass: boolean
     results: {
-      input: TestCase<MetricField>[]
+      input: TestCaseResponse
       pass: boolean
       summary: string
     }[]
-    metadata: {
-      config: RunConfiguration
-      startedAt: number
-      finishedAt: number
-    }
+  }
+  metadata: {
+    config: RunConfiguration
+    startedAt: number
+    finishedAt: number
   }
 }
 
@@ -78,4 +78,8 @@ interface TestCase<T extends MetricField> {
   field: T['id']
   predicate: TestPredicate
   target: T['value']
+}
+
+interface TestCaseResponse extends TestCase<MetricField> {
+  target: number
 }
