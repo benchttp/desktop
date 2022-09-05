@@ -1,0 +1,59 @@
+@use 'sass:map';
+@use '../../../style/variables/colors.scss';
+@use '../../../style/variables/spaces.scss';
+@use '../../../style/mixins/font-config.scss';
+
+.button {
+  font-family: 'Poppins', sans-serif;
+  border: none;
+  border-radius: map.get(spaces.$spaces, '1');
+  font-weight: 600;
+  transition: box-shadow 0.15s ease-out;
+  cursor: pointer;
+  svg {
+    margin-top: -3px;
+    margin-bottom: -3px;
+  }
+
+  &--full-primary {
+    color: map.get(colors.$colors, 'base-white');
+    background: map.get(colors.$colors, 'primary');
+    box-shadow: 0 0 0 1.5px map.get(colors.$colors, 'primary');
+
+    &:hover {
+      box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'primary');
+    }
+  }
+  &--full-white {
+    background: map.get(colors.$colors, 'base-white');
+    color: map.get(colors.$colors, 'grey');
+    box-shadow: 0 0 0 1.5px map.get(colors.$colors, 'base-white');
+
+    &:hover {
+      box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'base-white');
+    }
+  }
+
+  &--outlined-primary {
+    background: transparent;
+    color: map.get(colors.$colors, 'primary');
+    box-shadow: 0 0 0 1.5px map.get(colors.$colors, 'primary');
+
+    &:hover {
+      box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'primary');
+    }
+  }
+  &--outlined-white {
+    background: transparent;
+    color: map.get(colors.$colors, 'base-white');
+    box-shadow: 0 0 0 1.5px map.get(colors.$colors, 'base-white');
+
+    &:hover {
+      box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'base-white');
+    }
+  }
+
+  &--small {
+    @include font-config.small-font-config;
+  }
+}
