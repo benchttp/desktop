@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 
-import App from './App'
+import { Home } from './index'
 
-describe('App', () => {
+describe('Home', () => {
   test('renders the App component', () => {
-    render(App())
+    render(<Home />)
     expect(screen.getByText(/Benchttp/i)).toBeDefined()
   })
 })
