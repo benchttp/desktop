@@ -1,10 +1,18 @@
 import { GoDuration } from './common'
 
-type DurationField = { id: 'AVG' | 'MAX' | 'MIN'; value: GoDuration }
+export type MetricField = DurationField | NumberField
 
-type IntegerField = {
-  id: 'FAILURE_COUNT' | 'SUCCESS_COUNT' | 'TOTAL_COUNT'
-  value: number
+type DurationField = SingleMetricField<DurationMetricId, GoDuration>
+
+type NumberField = SingleMetricField<NumberMetricId, number>
+
+interface SingleMetricField<M extends MetricId, T> {
+  id: M
+  value: T
 }
 
-export type MetricField = DurationField | IntegerField
+type MetricId = MetricField['id']
+
+type DurationMetricId = 'MEAN' | 'MAX' | 'MIN'
+
+type NumberMetricId = 'FAILURE_COUNT' | 'SUCCESS_COUNT' | 'TOTAL_COUNT'
