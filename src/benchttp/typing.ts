@@ -48,7 +48,7 @@ export interface RunConfiguration {
     requestTimeout: GoDuration
     globalTimeout: GoDuration
   }
-  tests: TestCase<MetricField>[]
+  tests?: TestCase<MetricField>[]
 }
 
 interface TestCase<T extends MetricField> {
