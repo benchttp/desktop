@@ -1,0 +1,35 @@
+@use '../variables/spaces.scss';
+
+@each $spaceName, $spaceValue in spaces.$spaces {
+  .mr-#{$spaceName} {
+    margin-right: #{$spaceValue};
+  }
+  .ml-#{$spaceName} {
+    margin-left: #{$spaceValue};
+  }
+  .mt-#{$spaceName} {
+    margin-top: #{$spaceValue};
+  }
+  .mb-#{$spaceName} {
+    margin-bottom: #{$spaceValue};
+  }
+  .m-#{$spaceName} {
+    margin: #{$spaceValue};
+  }
+
+  .pr-#{$spaceName} {
+    padding-right: #{$spaceValue};
+  }
+  .pl-#{$spaceName} {
+    padding-left: #{$spaceValue};
+  }
+  .pt-#{$spaceName} {
+    padding-top: #{$spaceValue};
+  }
+  .pb-#{$spaceName} {
+    padding-bottom: #{$spaceValue};
+  }
+  .p-#{$spaceName} {
+    padding: #{$spaceValue};
+  }
+}

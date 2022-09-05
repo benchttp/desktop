@@ -12,6 +12,10 @@ Or build from source (see below).
 
 ## Development
 
+### IDE Configuration
+
+For an optimal developping experience, [use the workspace version of Typescript](https://code.visualstudio.com/docs/typescript/typescript-compiling#_using-the-workspace-version-of-typescript). This allows typescript-plugin-css-modules to autocomplete SCSS class names.
+
 ### Prerequisites
 
 Node.js, Rust and Tauri. Follow [this guide](https://tauri.app/v1/guides/getting-started/prerequisites/) to set up Tauri environment.
