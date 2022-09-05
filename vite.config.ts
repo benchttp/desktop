@@ -18,6 +18,7 @@ export default defineConfig({
     },
   },
   test: {
+    include: ['**/*.test.{ts,tsx}'],
     passWithNoTests: true,
   },
 })
