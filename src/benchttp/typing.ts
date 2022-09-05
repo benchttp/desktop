@@ -9,31 +9,53 @@ type IntegerField = {
   value: number
 }
 
+type TimeStats = {
+  min: number
+  max: number
+  mean: number
+  stdDev: number
+  median: number
+  deciles: number[] | null
+  quartiles: number[] | null
+}
+
 export type MetricType = number | GoDuration
 
 export type TestPredicate = 'EQ' | 'NEQ' | 'GT' | 'GTE' | 'LT' | 'LTE'
 
 export interface RunProgress {
-  Done: boolean
-  DoneCount: number
-  MaxCount: number
-  Timeout: number
-  Elapsed: number
+  done: boolean
+  doneCount: number
+  maxCount: number
+  timeout: number
+  elapsed: number
 }
 
 export interface RunReport {
-  Metrics: {
-    Min: number
-    Max: number
-    Avg: number
-    SuccessCount: number
-    FailureCount: number
-    TotalCount: number
+  metrics: {
+    responseTimes: TimeStats
+    requestEventTimes: TimeStats
+    statusCodesDistribution: Record<string, number>
+    records: { responseTime: number }[]
+    requestFailures: { reason: string }[]
+  }
+  tests: {
+    pass: boolean
+    results: {
+      input: TestCase<MetricField>[]
+      pass: boolean
+      summary: string
+    }[]
+    metadata: {
+      config: RunConfiguration
+      startedAt: number
+      finishedAt: number
+    }
   }
 }
 
 export interface RunError {
-  Error: string
+  error: string
 }
 
 export interface RunConfiguration {
