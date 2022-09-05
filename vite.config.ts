@@ -9,6 +9,7 @@ export default defineConfig({
   build: {
     target: ['esnext'],
   },
+  envPrefix: ['VITE_', 'TAURI_'],
   resolve: {
     alias: {
       '@': path.resolve('./src'),

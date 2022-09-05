@@ -1,6 +1,7 @@
 import { useRef, useReducer } from 'react'
 
 import { RunProgress, RunReport } from '@/benchttp'
+import { address } from '@/engine/spawn'
 import { RunStreamer, RunStream } from '@/engine/stream'
 
 interface State {
@@ -43,7 +44,7 @@ export function useRunStream() {
   const [state, dispatch] = useReducer(reducer, initState())
 
   const stream = useRef(
-    new RunStreamer({
+    new RunStreamer(address, {
       onError: (err) => dispatch(['ERROR', err.message]),
       onStream: (stream) => dispatch(['STREAM', stream]),
     })
