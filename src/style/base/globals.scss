@@ -1,0 +1,32 @@
+@use '../variables/colors.scss';
+@use '../mixins/font-config.scss';
+@use 'sass:map';
+
+:root {
+  @include font-config.base-font-config;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  color: map.get(colors.$colors, 'base-white');
+  background: map.get(colors.$colors, 'grey-dark');
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+}
+
+h1 {
+  @include font-config.h1-font-config;
+}
+h2 {
+  @include font-config.h2-font-config;
+}
+h3 {
+  @include font-config.h3-font-config;
+}
+h4 {
+  @include font-config.h4-font-config;
+}

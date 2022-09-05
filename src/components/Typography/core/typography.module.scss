@@ -1,0 +1,49 @@
+@use '../../../style/variables/colors.scss';
+@use '../../../style/mixins/font-config.scss';
+
+.typography {
+  &--font-inter {
+    font-family: 'Inter', sans-serif;
+  }
+  &--font-poppins {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  &--size-small {
+    @include font-config.small-font-config;
+  }
+  &--size-base {
+    @include font-config.base-font-config;
+  }
+  &--size-h4 {
+    @include font-config.h4-font-config;
+  }
+  &--size-h3 {
+    @include font-config.h3-font-config;
+  }
+  &--size-h2 {
+    @include font-config.h2-font-config;
+  }
+  &--size-h1 {
+    @include font-config.h1-font-config;
+  }
+
+  &--weight-regular {
+    font-weight: 400;
+  }
+  &--weight-medium {
+    font-weight: 500;
+  }
+  &--weight-semi {
+    font-weight: 600;
+  }
+  &--weight-bold {
+    font-weight: 700;
+  }
+
+  @each $colorName, $colorValue in colors.$colors {
+    &--color-#{$colorName} {
+      color: $colorValue;
+    }
+  }
+}

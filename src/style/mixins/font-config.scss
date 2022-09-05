@@ -1,0 +1,32 @@
+@use 'sass:map';
+@use '../variables/fonts.scss';
+
+@mixin small-font-config {
+  font-size: map.get(fonts.$font-sizes, 'small');
+  line-height: map.get(fonts.$line-heights, 'small');
+}
+
+@mixin base-font-config {
+  font-size: map.get(fonts.$font-sizes, 'base');
+  line-height: map.get(fonts.$line-heights, 'base');
+}
+
+@mixin h4-font-config {
+  font-size: map.get(fonts.$font-sizes, 'h4');
+  line-height: map.get(fonts.$line-heights, 'h4');
+}
+
+@mixin h3-font-config {
+  font-size: map.get(fonts.$font-sizes, 'h3');
+  line-height: map.get(fonts.$line-heights, 'h3');
+}
+
+@mixin h2-font-config {
+  font-size: map.get(fonts.$font-sizes, 'h2');
+  line-height: map.get(fonts.$line-heights, 'h2');
+}
+
+@mixin h1-font-config {
+  font-size: map.get(fonts.$font-sizes, 'h1');
+  line-height: map.get(fonts.$line-heights, 'h1');
+}
