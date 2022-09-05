@@ -21,6 +21,5 @@ export default defineConfig({
     include: ['**/*.test.{ts,tsx}'],
     globals: true,
     environment: 'jsdom',
-    passWithNoTests: true,
   },
 })
