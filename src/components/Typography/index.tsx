@@ -12,7 +12,7 @@ export const Typography: FC<IProps> = ({
   weight,
   color,
 }) => {
-  const classNames = getClassNames(font, weight, size, color, className)
+  const classNames = getClassNames({ font, weight, size, color, className })
 
   const props = {
     className: classNames.join(' '),
