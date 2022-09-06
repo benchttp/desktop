@@ -1,0 +1,20 @@
+@use 'sass:map';
+@use '../../../../../style/variables/colors.scss';
+@use '../../../../../style/variables/spaces.scss';
+
+.sidebar-item {
+  box-sizing: border-box;
+  width: 100%;
+  box-shadow: 0 0 0 2px transparent;
+  border-radius: map.get(spaces.$spaces, '1');
+  transition: color 0.15s ease-out, box-shadow 0.15s ease-out,
+    font-weight 0.15s ease-out;
+  cursor: pointer;
+
+  &--selected,
+  &:hover {
+    font-weight: 600;
+    color: map.get(colors.$colors, 'primary');
+    box-shadow: 0 0 0 2px map.get(colors.$colors, 'primary');
+  }
+}

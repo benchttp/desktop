@@ -1,0 +1,11 @@
+@use 'sass:map';
+@use '../../../style/variables/colors.scss';
+
+.sidebar {
+  background: map.get(colors.$colors, 'grey');
+  box-sizing: border-box;
+
+  &__logo {
+    color: map.get(colors.$colors, 'primary');
+  }
+}
