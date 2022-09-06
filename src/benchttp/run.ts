@@ -16,8 +16,8 @@ export interface RunProgress {
 
 export interface RunReport {
   metrics: {
-    responseTimes: TimeStats
-    requestEventTimes: TimeStats
+    responseTimes: Statistics
+    requestEventTimes: Statistics
     statusCodesDistribution: Record<string, number>
     records: { responseTime: number }[]
     requestFailures: { reason: string }[]
@@ -37,7 +37,7 @@ export interface RunReport {
   }
 }
 
-interface TimeStats {
+interface Statistics {
   min: number
   max: number
   mean: number
