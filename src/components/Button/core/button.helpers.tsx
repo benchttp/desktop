@@ -1,3 +1,6 @@
+import { createElement, ReactNode } from 'react'
+import { Icon } from 'react-feather'
+
 import s from './button.module.scss'
 import { IProps } from './button.typings'
 
@@ -6,11 +9,15 @@ export const getClassNames = ({
   style,
   small,
   className,
-}: Pick<IProps, 'color' | 'style' | 'small' | 'className'>) => {
-  const classNames: string[] = [s['button']]
-
-  classNames.push(s[`button--${style}-${color}`])
-  classNames.push('f f-direction-row f-ai-center')
+}: Pick<IProps, 'className'> &
+  Pick<Required<IProps>, 'color' | 'style' | 'small'>) => {
+  const classNames: string[] = [
+    s['button'],
+    s[`button--${style}-${color}`],
+    'f',
+    'f-direction-row',
+    'f-ai-center',
+  ]
 
   if (small) {
     classNames.push('p-1')
@@ -24,4 +31,14 @@ export const getClassNames = ({
   }
 
   return classNames
+}
+
+export const createIcon = ({
+  icon,
+  small,
+}: { icon: Icon } & Pick<Required<IProps>, 'small'>): ReactNode => {
+  return createElement(icon, {
+    className: small ? 'ml-1' : 'ml-2',
+    size: small ? 18 : 24,
+  })
 }
