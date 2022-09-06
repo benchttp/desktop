@@ -1,9 +1,11 @@
 @use '../variables/colors.scss';
 @use '../mixins/font-config.scss';
+@use '../variables//fonts.scss';
 @use 'sass:map';
 
 :root {
-  @include font-config.base-font-config;
+  font-size: fonts.$base-font;
+  line-height: 1.5rem;
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   color: map.get(colors.$colors, 'base-white');
