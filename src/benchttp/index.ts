@@ -1,6 +1,2 @@
-export type {
-  RunProgress,
-  RunReport,
-  RunError,
-  RunConfiguration,
-} from './typing'
+export type { RunConfiguration } from './configuration'
+export type { RunProgress, RunReport, RunError } from './run'

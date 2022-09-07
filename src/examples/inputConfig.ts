@@ -1,4 +1,6 @@
-export const inputConfig = {
+import { RunConfiguration } from '@/benchttp'
+
+export const inputConfig: RunConfiguration = {
   request: {
     method: 'GET',
     url: 'https://example.com',
@@ -10,4 +12,12 @@ export const inputConfig = {
     requestTimeout: '2s',
     globalTimeout: '20s',
   },
-} as const
+  tests: [
+    {
+      name: 'My endpoint has no latency',
+      field: 'MAX',
+      predicate: 'LT',
+      target: '100ms',
+    },
+  ],
+}

@@ -106,21 +106,39 @@ const startRunStream = async (
  */
 const decodeStream = (chunk: Uint8Array): RunStream => {
   const text = new TextDecoder().decode(chunk)
-  const data = JSON.parse(text)
+  const data = JSON.parse(text, function (key: string, value: unknown) {
+    // TODO: remove this block once the engine is updated
+    // and returns only camel-cased JSON.
+    if (!key) return value
+
+    const camelCaseKey = lowerFirstChar(key)
+
+    if (key !== camelCaseKey) {
+      this[camelCaseKey] = value
+      return undefined // unset value for CamelCase key
+    }
+    return value
+  })
   return assertRunStream(data)
 }
 
 const assertRunStream = (data: unknown): RunStream => {
   if (isProgress(data)) return { kind: 'progress', data }
   if (isReport(data)) return { kind: 'report', data }
-  if (isError(data)) return { kind: 'error', data: data.Error }
+  if (isError(data)) return { kind: 'error', data: data.error }
   throw new Error('Unhandled stream value')
 }
 
-const isProgress = (v: unknown): v is RunProgress => hasKey(v, 'Done')
+const isProgress = (v: unknown): v is RunProgress => hasKey(v, 'done')
 
-const isReport = (v: unknown): v is RunReport => hasKey(v, 'Metrics')
+const isReport = (v: unknown): v is RunReport => hasKey(v, 'metrics')
 
-const isError = (v: unknown): v is RunError => hasKey(v, 'Error')
+const isError = (v: unknown): v is RunError => hasKey(v, 'error')
 
 const hasKey = (v: unknown, k: string) => !!v && typeof v === 'object' && k in v
+
+export const lowerFirstChar = (s: string) => {
+  if (!s) return ''
+  const [firstChar, ...rest] = s
+  return `${firstChar.toLowerCase()}${rest.join('')}`
+}
