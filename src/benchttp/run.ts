@@ -1,4 +1,5 @@
 import { HTTPCode } from '@/typings/http-code'
+
 import { Distribution, RequestEvent, Statistics } from './common'
 import { RunConfiguration } from './configuration'
 import { Metric } from './metrics'

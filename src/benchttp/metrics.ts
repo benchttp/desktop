@@ -8,7 +8,7 @@ export type Metric =
   | RequestCountMetric
   | HTTPCodeDistributionMetric
 
-export type NumberMetric = Extract<Metric, { value: Number }>
+export type NumberMetric = Extract<Metric, { value: number }>
 
 export type DurationMetric = Extract<Metric, { value: GoDuration }>
 
