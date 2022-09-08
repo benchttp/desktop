@@ -1,0 +1,52 @@
+@use 'sass:map';
+@use '../../../style/variables/colors.scss';
+@use '../../../style/variables/spaces.scss';
+@use '../../../style/mixins/font-config.scss';
+
+.tag {
+  color: map.get(colors.$colors, 'base-white');
+  border-radius: map.get(spaces.$spaces, '1');
+
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  size: 16px;
+  line-height: 24px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 12px;
+
+  width: 52px;
+  height: 40px;
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+
+  &-white {
+    color: map.get(colors.$colors, 'grey');
+    background: map.get(colors.$colors, 'base-white');
+  }
+
+  &-post {
+    background: map.get(colors.$colors, 'http-post');
+  }
+
+  &-get {
+    background: map.get(colors.$colors, 'http-get');
+  }
+
+  &-put {
+    background: map.get(colors.$colors, 'http-put');
+  }
+
+  &-patch {
+    background: map.get(colors.$colors, 'http-patch');
+  }
+
+  &-delete {
+    background: map.get(colors.$colors, 'http-delete');
+  }
+}
