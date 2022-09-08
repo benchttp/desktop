@@ -1,4 +1,4 @@
-import { Home, UI } from '@/pages'
+import { Run, UI } from '@/pages'
 
 import { AppRoute } from './router.interfaces'
 
@@ -9,8 +9,8 @@ export const APP_ROUTES: AppRoute[] = [
     element: UI,
   },
   {
-    key: 'home',
-    path: '/',
-    element: Home,
+    key: 'run',
+    path: 'run/*',
+    element: Run,
   },
 ]

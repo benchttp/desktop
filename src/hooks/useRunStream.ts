@@ -52,7 +52,7 @@ export function useRunStream() {
 
   return {
     ...state,
-    start: stream.current.start,
+    start: stream.current.start, // TODO +reset before
     reset: () => dispatch(['RESET']),
     stop: () => stream.current.cancel() && dispatch(['ERROR', 'Run canceled']),
   }
