@@ -6,6 +6,12 @@ export interface RunConfiguration {
   request: {
     method: string
     url: string
+    queryParams?: Record<string, string>
+    header?: Record<string, string[]>
+    body?: {
+      type: 'raw' // other values are not implemented
+      content: string
+    }
   }
   runner: {
     requests: number
