@@ -1,0 +1,39 @@
+@use 'sass:map';
+@use '../../../style/variables/colors.scss';
+@use '../../../style/variables/spaces.scss';
+@use '../../../style/mixins/font-config.scss';
+
+.tab {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: transparent;
+  text-decoration: none;
+
+  &--primary {
+    border-bottom: 2px map.get(colors.$colors, 'primary') solid;
+    color: map.get(colors.$colors, 'primary');
+
+    &:hover {
+      box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'primary');
+    }
+  }
+
+  &--white {
+    border-bottom: 2px map.get(colors.$colors, 'white') solid;
+    color: map.get(colors.$colors, 'white');
+
+    &:hover {
+      box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'white');
+    }
+  }
+
+  &--grey-light {
+    border-bottom: 2px map.get(colors.$colors, 'grey-light') solid;
+    color: map.get(colors.$colors, 'grey-light');
+
+    &:hover {
+      box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'grey-light');
+    }
+  }
+}
