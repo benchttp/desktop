@@ -1,59 +1,37 @@
-import { useRef, useReducer } from 'react'
+import { useRef } from 'react'
 
-import { RunProgress, RunReport } from '@/benchttp'
 import { address } from '@/engine/spawn'
 import { RunStreamer, RunStream } from '@/engine/stream'
+import { reset, setError, setProgress, setReport } from '@/store/run'
 
-interface State {
-  progress: RunProgress | null
-  report: RunReport | null
-  error: string
-}
+import { useAppDispatch } from './useAppDispatch'
 
-const initState = (): State => ({
-  progress: null,
-  report: null,
-  error: '',
-})
-
-type Msg = ['STREAM', RunStream] | ['ERROR', string] | ['RESET']
-
-function reducer(state: State, [type, data]: Msg) {
-  switch (type) {
-    case 'STREAM':
-      switch (data.kind) {
-        case 'progress':
-          return { ...state, progress: data.data }
-        case 'report':
-          return { ...state, report: data.data }
-        case 'error':
-          return { ...state, error: data.data }
-      }
-      //@ts-expect-error unless non exhaustive switch
-      throw new Error(`Unknown action type: ${type}.${data.kind}`)
-    case 'ERROR':
-      return { ...state, error: data }
-    case 'RESET':
-      return initState()
+function matchPayloadAction(stream: RunStream) {
+  switch (stream.kind) {
+    case 'progress':
+      return setProgress(stream.data)
+    case 'report':
+      return setReport(stream.data)
+    case 'error':
+      return setError(stream.data)
   }
-  //@ts-expect-error unless non-exhaustive switch
-  throw new Error(`Unknown action type: ${type.toString()}`)
+  // @ts-expect-error unless non-exhaustive switch
+  throw new Error(`Unknown stream kind: ${stream.kind}`)
 }
 
 export function useRunStream() {
-  const [state, dispatch] = useReducer(reducer, initState())
+  const dispatch = useAppDispatch()
 
   const stream = useRef(
     new RunStreamer(address, {
-      onError: (err) => dispatch(['ERROR', err.message]),
-      onStream: (stream) => dispatch(['STREAM', stream]),
+      onError: (err) => dispatch(setError(err.message)),
+      onStream: (stream) => dispatch(matchPayloadAction(stream)),
     })
   )
 
   return {
-    ...state,
     start: stream.current.start,
-    reset: () => dispatch(['RESET']),
-    stop: () => stream.current.cancel() && dispatch(['ERROR', 'Run canceled']),
+    reset: () => dispatch(reset()),
+    stop: () => stream.current.cancel() && dispatch(setError('Run canceled')),
   }
 }
