@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { RunProgress, RunReport } from '@/benchttp'
 
+import { useAppSelector } from './hooks'
+
 interface State {
   progress: RunProgress | null
   report: RunReport | null
@@ -34,3 +36,7 @@ const runSlice = createSlice({
 export const { setProgress, setReport, setError, reset } = runSlice.actions
 
 export const runReducer = runSlice.reducer
+
+export function useRunState() {
+  return useAppSelector((state) => state.run)
+}

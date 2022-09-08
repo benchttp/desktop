@@ -2,9 +2,8 @@ import { useRef } from 'react'
 
 import { address } from '@/engine/spawn'
 import { RunStreamer, RunStream } from '@/engine/stream'
+import { useAppDispatch } from '@/store/hooks'
 import { reset, setError, setProgress, setReport } from '@/store/run'
-
-import { useAppDispatch } from './useAppDispatch'
 
 function matchPayloadAction(stream: RunStream) {
   switch (stream.kind) {
