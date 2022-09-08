@@ -1,41 +1,37 @@
 import { HTTPCode } from '@/typings/http-code'
-import { GoDuration, Statistics } from './common'
 
-export type MetricField = DurationField | NumberField
+import { GoDuration, RequestEvent, Statistics } from './common'
 
-export type DurationField = SingleMetricField<DurationMetricId, GoDuration>
+export type Metric =
+  | ResponseTimeMetric
+  | RequestEventMetric
+  | RequestCountMetric
+  | HTTPCodeDistributionMetric
 
-export type NumberField = SingleMetricField<NumberMetricId, number>
+export type NumberMetric = Extract<Metric, { value: Number }>
 
-interface SingleMetricField<M extends MetricId, T> {
-  id: M
-  value: T
+export type DurationMetric = Extract<Metric, { value: GoDuration }>
+
+type RequestCountMetric = NumberMetricOf<
+  'RequestCount' | 'RequestFailureCount' | 'RequestSuccessCount'
+>
+
+type RequestEventMetric = DurationMetricOf<
+  StatisticsOf<`RequestEventTimes.${RequestEvent}`>
+>
+
+type ResponseTimeMetric = DurationMetricOf<StatisticsOf<'ResponseTimes'>>
+
+type HTTPCodeDistributionMetric =
+  NumberMetricOf<`StatusCodesDistribution.${HTTPCode}`>
+
+interface SingleMetric<Type, Field extends string> {
+  field: Field
+  value: Type
 }
 
-type MetricId = MetricField['id']
+type DurationMetricOf<Field extends string> = SingleMetric<GoDuration, Field>
 
-type DurationMetricId = ResponseTimeId | RequestEventId
-
-type NumberMetricId = RequestCountId | HTTPCodeDistributionId
-
-type RequestCountId =
-  | 'RequestCount'
-  | 'RequestFailureCount'
-  | 'RequestSuccessCount'
-
-type RequestEvent =
-  | 'DNSDone'
-  | 'ConnectDone'
-  | 'TLSHandshakeDone'
-  | 'WroteHeaders'
-  | 'WroteRequest'
-  | 'GotFirstResponseByte'
-  | 'PutIdleConn'
-
-type ResponseTimeId = StatisticsOf<'ResponseTimes'>
-
-type RequestEventId = StatisticsOf<`RequestEventTimes.${RequestEvent}`>
-
-type HTTPCodeDistributionId = `StatusCodesDistribution.${HTTPCode}`
+type NumberMetricOf<Field extends string> = SingleMetric<number, Field>
 
 type StatisticsOf<T extends string> = `${T}.${Capitalize<keyof Statistics>}`

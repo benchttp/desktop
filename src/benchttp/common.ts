@@ -9,3 +9,14 @@ export interface Statistics {
   deciles: number[] | null
   quartiles: number[] | null
 }
+
+export type RequestEvent =
+  | 'DNSDone'
+  | 'ConnectDone'
+  | 'TLSHandshakeDone'
+  | 'WroteHeaders'
+  | 'WroteRequest'
+  | 'GotFirstResponseByte'
+  | 'PutIdleConn'
+
+export type Distribution<K extends string> = Record<K, number>
