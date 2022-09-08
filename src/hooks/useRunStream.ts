@@ -1,6 +1,6 @@
 import { useRef, useReducer } from 'react'
 
-import { RunProgress, RunReport } from '@/benchttp'
+import { RunConfiguration, RunProgress, RunReport } from '@/benchttp'
 import { address } from '@/engine/spawn'
 import { RunStreamer, RunStream } from '@/engine/stream'
 
@@ -52,8 +52,16 @@ export function useRunStream() {
 
   return {
     ...state,
-    start: stream.current.start, // TODO +reset before
-    reset: () => dispatch(['RESET']),
+    /**
+     * `start` calls `RunStreamer.start` and triggers the update of the state.
+     * If the streamer has already run to completion, it will reset the state and start again.
+     */
+    start: (config: RunConfiguration) => {
+      if (state.report !== null || state.error !== '') {
+        dispatch(['RESET'])
+      }
+      stream.current.start(config)
+    },
     stop: () => stream.current.cancel() && dispatch(['ERROR', 'Run canceled']),
   }
 }
