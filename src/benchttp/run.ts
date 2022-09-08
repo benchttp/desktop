@@ -1,3 +1,4 @@
+import { Statistics } from './common'
 import { RunConfiguration } from './configuration'
 import { MetricField } from './metrics'
 import { TestPredicate } from './tests'
@@ -35,16 +36,6 @@ export interface RunReport {
     startedAt: number
     finishedAt: number
   }
-}
-
-interface Statistics {
-  min: number
-  max: number
-  mean: number
-  stdDev: number
-  median: number
-  deciles: number[] | null
-  quartiles: number[] | null
 }
 
 interface RunTestCase {

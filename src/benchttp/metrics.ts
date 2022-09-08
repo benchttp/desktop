@@ -1,4 +1,5 @@
-import { GoDuration } from './common'
+import { HTTPCode } from '@/typings/http-code'
+import { GoDuration, Statistics } from './common'
 
 export type MetricField = DurationField | NumberField
 
@@ -13,6 +14,28 @@ interface SingleMetricField<M extends MetricId, T> {
 
 type MetricId = MetricField['id']
 
-type DurationMetricId = 'MEAN' | 'MAX' | 'MIN'
+type DurationMetricId = ResponseTimeId | RequestEventId
 
-type NumberMetricId = 'FAILURE_COUNT' | 'SUCCESS_COUNT' | 'TOTAL_COUNT'
+type NumberMetricId = RequestCountId | HTTPCodeDistributionId
+
+type RequestCountId =
+  | 'RequestCount'
+  | 'RequestFailureCount'
+  | 'RequestSuccessCount'
+
+type RequestEvent =
+  | 'DNSDone'
+  | 'ConnectDone'
+  | 'TLSHandshakeDone'
+  | 'WroteHeaders'
+  | 'WroteRequest'
+  | 'GotFirstResponseByte'
+  | 'PutIdleConn'
+
+type ResponseTimeId = StatisticsOf<'ResponseTimes'>
+
+type RequestEventId = StatisticsOf<`RequestEventTimes.${RequestEvent}`>
+
+type HTTPCodeDistributionId = `StatusCodesDistribution.${HTTPCode}`
+
+type StatisticsOf<T extends string> = `${T}.${Capitalize<keyof Statistics>}`
