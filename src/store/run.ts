@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { RunProgress, RunReport } from '@/benchttp'
 
-export interface State {
+interface State {
   progress: RunProgress | null
   report: RunReport | null
   error: string
