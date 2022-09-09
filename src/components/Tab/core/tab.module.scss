@@ -12,6 +12,7 @@
   padding: map.get(spaces.$spaces, '1');
   display: inline-flex;
   transition: background-color 0.15s ease-out;
+  margin-right: map.get(spaces.$spaces, '3');
 
   &--primary {
     border-bottom: 2px map.get(colors.$colors, 'primary') solid;
