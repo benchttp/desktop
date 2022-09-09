@@ -1,4 +1,4 @@
-import { HTTPCode } from '@/typings/http-code'
+import { HTTPCode } from '@/typing'
 
 import { Distribution, RequestEvent, Statistics } from './common'
 import { RunConfiguration } from './configuration'

@@ -1,4 +1,4 @@
-import { HTTPCode } from '@/typings/http-code'
+import { HTTPCode } from '@/typing'
 
 import { GoDuration, RequestEvent, Statistics } from './common'
 

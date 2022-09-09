@@ -1,4 +1,4 @@
-import { FixedArray } from '@/typings/tuple'
+import { FixedArray } from '@/typing'
 
 export type GoDuration = `${number}${'ns' | 'µs' | 'ms' | 's' | 'm' | 'h'}`
 

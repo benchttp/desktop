@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import { IColors } from '@/typings/colors'
+import { IColors } from '@/typing/colors'
 
 export interface IProps {
   children: ReactNode
