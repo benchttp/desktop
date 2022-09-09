@@ -53,10 +53,9 @@ export function useRunStream() {
   return {
     ...state,
     /**
-     * `start` calls `RunStreamer.start` and triggers the update of the state.
-     * If the streamer has already run to completion, it will reset the state and start again.
-     * If the streamer is already running, it will cancel the run,
-     * reset the state and start again.
+     * Starts a Run stream, updating `progress` until `report` or `error`
+     * is received. If any of these values were already set by a previous
+     * call to start, they will be reset and the run will start over.
      */
     start: (config: RunConfiguration) => {
       if (state.progress !== null) {
