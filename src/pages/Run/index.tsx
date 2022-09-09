@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import { NavLink, Route, Routes, useNavigate } from 'react-router-dom'
 
+import { RunConfiguration } from '@/benchttp'
 import { Typography } from '@/components'
 import { useRunStream } from '@/hooks'
 
@@ -28,8 +29,10 @@ export const Run: FC = () => {
           path="/config"
           element={
             <RunConfigurationPanel
-              start={start}
-              redirectOnStart={() => navigate('./result', { replace: true })}
+              onStart={(config: RunConfiguration) => {
+                start(config)
+                navigate('./result', { replace: true })
+              }}
             />
           }
         />

@@ -5,25 +5,20 @@ import { Button, Typography } from '@/components'
 import { inputConfig } from '@/examples/inputConfig'
 
 interface Props {
-  start: (config: RunConfiguration) => void
-  redirectOnStart: () => void
+  onStart: (config: RunConfiguration) => void
 }
 
-export const RunConfigurationPanel: React.FC<Props> = ({
-  start,
-  redirectOnStart,
-}) => {
+export const RunConfigurationPanel: React.FC<Props> = ({ onStart }) => {
   const config = inputConfig
-
-  const onStart = () => {
-    start(config)
-    redirectOnStart()
-  }
 
   return (
     <div>
       <Typography element="h3">Configuration</Typography>
-      <Button text="Start run" onClick={onStart} iconEnd={ChevronRight} />
+      <Button
+        text="Start run"
+        onClick={() => onStart(config)}
+        iconEnd={ChevronRight}
+      />
     </div>
   )
 }
