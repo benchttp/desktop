@@ -1,3 +1,5 @@
+import { FixedArray } from '@/typings/tuple'
+
 export type GoDuration = `${number}${'ns' | 'µs' | 'ms' | 's' | 'm' | 'h'}`
 
 export interface Statistics {
@@ -6,8 +8,8 @@ export interface Statistics {
   mean: number
   stdDev: number
   median: number
-  deciles: number[] | null
-  quartiles: number[] | null
+  deciles: FixedArray<number, 10> | null
+  quartiles: FixedArray<number, 4> | null
 }
 
 export type RequestEvent =
