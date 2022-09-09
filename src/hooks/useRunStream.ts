@@ -58,10 +58,8 @@ export function useRunStream() {
      * call to start, they will be reset and the run will start over.
      */
     start: (config: RunConfiguration) => {
-      if (state.progress !== null) {
+      if (isNonNull(state)) {
         stream.current.cancel()
-      }
-      if (state.report !== null || state.error !== '') {
         dispatch(['RESET'])
       }
       stream.current.start(config)
@@ -69,3 +67,6 @@ export function useRunStream() {
     stop: () => stream.current.cancel() && dispatch(['ERROR', 'Run canceled']),
   }
 }
+
+const isNonNull = (state: State): boolean =>
+  state.progress !== null || state.report !== null || state.error !== ''
