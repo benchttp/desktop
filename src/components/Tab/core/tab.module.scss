@@ -9,22 +9,25 @@
   cursor: pointer;
   background-color: transparent;
   text-decoration: none;
+  padding: map.get(spaces.$spaces, '1');
+  display: inline-flex;
+  transition: background-color 0.15s ease-out;
 
   &--primary {
     border-bottom: 2px map.get(colors.$colors, 'primary') solid;
     color: map.get(colors.$colors, 'primary');
 
     &:hover {
-      box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'primary');
+      background-color: map.get(colors.$colors, 'grey-light');
     }
   }
 
   &--white {
-    border-bottom: 2px map.get(colors.$colors, 'white') solid;
-    color: map.get(colors.$colors, 'white');
+    border-bottom: 2px solid map.get(colors.$colors, 'base-white');
+    color: map.get(colors.$colors, 'base-white');
 
     &:hover {
-      box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'white');
+      background-color: map.get(colors.$colors, 'grey-light');
     }
   }
 
@@ -32,8 +35,8 @@
     border-bottom: 2px map.get(colors.$colors, 'grey-light') solid;
     color: map.get(colors.$colors, 'grey-light');
 
-    &:hover {
-      box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'grey-light');
-    }
+    // &:hover {
+    //   background-color: map.get(colors.$colors, 'grey-light');
+    // }
   }
 }

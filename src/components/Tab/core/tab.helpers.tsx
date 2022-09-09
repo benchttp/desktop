@@ -10,10 +10,10 @@ export const getClassNames = ({
 }: Pick<IProps, 'className'> & Pick<Required<IProps>, 'color'>) => {
   const classNames: string[] = [
     s['tab'],
-    s[`button--${color}`],
-    'f',
-    'f-direction-row',
-    'f-ai-center',
+    s[`tab--${color}`],
+    // 'f',
+    // 'f-direction-row',
+    // 'f-ai-center',
   ]
 
   if (className) {
@@ -25,7 +25,7 @@ export const getClassNames = ({
 
 export const createIcon = ({ icon }: { icon: Icon }): ReactNode => {
   return createElement(icon, {
-    className: 'ml-2',
+    className: 'mr-1',
     size: 24,
   })
 }

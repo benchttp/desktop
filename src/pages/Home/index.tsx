@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { Settings } from 'react-feather'
 
 import { Typography } from '@/components'
 import { Tab } from '@/components/Tab'
@@ -9,7 +10,7 @@ export const Home: FC = () => {
     <>
       <Typography element="h1">Benchttp</Typography>
       <SimpleStream />
-      <Tab color="primary" text="Oui bonsoir" />
+      <Tab color="white" text="Oui bonsoir" iconStart={Settings} />
     </>
   )
 }

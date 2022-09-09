@@ -3,7 +3,12 @@ import { FC } from 'react'
 import { createIcon, getClassNames } from './core/tab.helpers'
 import { IProps } from './core/tab.typings'
 
-export const Tab: FC<IProps> = ({ text, color, iconStart, className }) => {
+export const Tab: FC<IProps> = ({
+  text,
+  color = 'grey-light',
+  iconStart,
+  className,
+}) => {
   const classNames = getClassNames({ color, className })
 
   return (
