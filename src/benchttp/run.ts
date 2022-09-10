@@ -1,5 +1,8 @@
+import { HTTPCode } from '@/typing'
+
+import { Distribution, RequestEvent, Statistics } from './common'
 import { RunConfiguration } from './configuration'
-import { MetricField } from './metrics'
+import { Metric } from './metrics'
 import { TestPredicate } from './tests'
 
 export interface RunError {
@@ -17,8 +20,8 @@ export interface RunProgress {
 export interface RunReport {
   metrics: {
     responseTimes: Statistics
-    requestEventTimes: Statistics
-    statusCodesDistribution: Record<string, number>
+    requestEventTimes: Record<RequestEvent, Statistics>
+    statusCodesDistribution: Distribution<HTTPCode>
     records: { responseTime: number }[]
     requestFailures: { reason: string }[]
   }
@@ -37,19 +40,9 @@ export interface RunReport {
   }
 }
 
-interface Statistics {
-  min: number
-  max: number
-  mean: number
-  stdDev: number
-  median: number
-  deciles: number[] | null
-  quartiles: number[] | null
-}
-
 interface RunTestCase {
   name: string
-  field: MetricField['id']
+  field: Metric['field']
   predicate: TestPredicate
   target: number
 }

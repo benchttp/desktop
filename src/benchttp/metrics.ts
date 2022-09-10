@@ -1,18 +1,37 @@
-import { GoDuration } from './common'
+import { HTTPCode } from '@/typing'
 
-export type MetricField = DurationField | NumberField
+import { GoDuration, RequestEvent, Statistics } from './common'
 
-export type DurationField = SingleMetricField<DurationMetricId, GoDuration>
+export type Metric =
+  | ResponseTimeMetric
+  | RequestEventMetric
+  | RequestCountMetric
+  | HTTPCodeDistributionMetric
 
-export type NumberField = SingleMetricField<NumberMetricId, number>
+export type NumberMetric = Extract<Metric, { value: number }>
 
-interface SingleMetricField<M extends MetricId, T> {
-  id: M
-  value: T
+export type DurationMetric = Extract<Metric, { value: GoDuration }>
+
+type RequestCountMetric = NumberMetricOf<
+  'RequestCount' | 'RequestFailureCount' | 'RequestSuccessCount'
+>
+
+type RequestEventMetric = DurationMetricOf<
+  StatisticsOf<`RequestEventTimes.${RequestEvent}`>
+>
+
+type ResponseTimeMetric = DurationMetricOf<StatisticsOf<'ResponseTimes'>>
+
+type HTTPCodeDistributionMetric =
+  NumberMetricOf<`StatusCodesDistribution.${HTTPCode}`>
+
+interface SingleMetric<Type, Field extends string> {
+  field: Field
+  value: Type
 }
 
-type MetricId = MetricField['id']
+type DurationMetricOf<Field extends string> = SingleMetric<GoDuration, Field>
 
-type DurationMetricId = 'MEAN' | 'MAX' | 'MIN'
+type NumberMetricOf<Field extends string> = SingleMetric<number, Field>
 
-type NumberMetricId = 'FAILURE_COUNT' | 'SUCCESS_COUNT' | 'TOTAL_COUNT'
+type StatisticsOf<T extends string> = `${T}.${Capitalize<keyof Statistics>}`
