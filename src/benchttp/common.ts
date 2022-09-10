@@ -12,13 +12,4 @@ export interface Statistics {
   quartiles: FixedArray<number, 4> | null
 }
 
-export type RequestEvent =
-  | 'DNSDone'
-  | 'ConnectDone'
-  | 'TLSHandshakeDone'
-  | 'WroteHeaders'
-  | 'WroteRequest'
-  | 'GotFirstResponseByte'
-  | 'PutIdleConn'
-
 export type Distribution<K extends string> = Record<K, number>
