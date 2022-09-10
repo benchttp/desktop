@@ -1,7 +1,7 @@
 import { HTTPCode } from '@/typing'
 
-import { Distribution, RequestEvent, Statistics } from './common'
-import { RunConfiguration } from './configuration'
+import { Distribution, Statistics } from './common'
+import { RequestEventKey } from './field'
 import { Metric } from './metrics'
 import { TestPredicate } from './tests'
 
@@ -20,7 +20,7 @@ export interface RunProgress {
 export interface RunReport {
   metrics: {
     responseTimes: Statistics
-    requestEventTimes: Record<RequestEvent, Statistics>
+    requestEventTimes: Record<RequestEventKey, Statistics>
     statusCodesDistribution: Distribution<HTTPCode>
     records: { responseTime: number }[]
     requestFailures: { reason: string }[]
@@ -34,7 +34,6 @@ export interface RunReport {
     }[]
   }
   metadata: {
-    config: RunConfiguration
     startedAt: number
     finishedAt: number
   }
