@@ -1,3 +1,4 @@
+export { FieldNode } from './core/node'
 export {
   type RequestCountField,
   type HTTPCodeDistributionField,
@@ -5,3 +6,4 @@ export {
   type ResponseTimeStatisticsField,
 } from './core/field'
 export { RequestEventKey } from './core/key'
+export { parseField } from './core/parse'
