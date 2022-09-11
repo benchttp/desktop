@@ -101,24 +101,9 @@ const startRunStream = async (
   return reader
 }
 
-/**
- * @TODO use a dedicated field from server response for identification.
- */
 const decodeStream = (chunk: Uint8Array): RunStream => {
   const text = new TextDecoder().decode(chunk)
-  const data = JSON.parse(text, function (key: string, value: unknown) {
-    // TODO: remove this block once the engine is updated
-    // and returns only camel-cased JSON.
-    if (!key) return value
-
-    const camelCaseKey = lowerFirstChar(key)
-
-    if (key !== camelCaseKey) {
-      this[camelCaseKey] = value
-      return undefined // unset value for CamelCase key
-    }
-    return value
-  })
+  const data = JSON.parse(text)
   return assertRunStream(data)
 }
 
