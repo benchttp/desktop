@@ -6,8 +6,8 @@ export interface Statistics {
   min: number
   max: number
   mean: number
-  stdDev: number
   median: number
+  standardDeviation: number
   deciles: FixedArray<number, 10> | null
   quartiles: FixedArray<number, 4> | null
 }

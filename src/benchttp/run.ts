@@ -1,7 +1,6 @@
 import { HTTPCode } from '@/typing'
 
 import { Distribution, RequestEvent, Statistics } from './common'
-import { RunConfiguration } from './configuration'
 import { Metric } from './metrics'
 import { TestPredicate } from './tests'
 
@@ -34,7 +33,6 @@ export interface RunReport {
     }[]
   }
   metadata: {
-    config: RunConfiguration
     startedAt: number
     finishedAt: number
   }
