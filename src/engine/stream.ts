@@ -60,6 +60,12 @@ export class RunStreamer {
       .pipeTo(runStreamWriter(this.emit.onStream))
   }
 
+  /**
+   * Cancels the current run stream, if any.
+   * Returns whether the stream was canceled.
+   * If the stream was already canceled and not started again yet,
+   * this method does nothing.
+   */
   cancel = (): boolean => {
     if (this.#canceled) return false
     this.#canceled = true
