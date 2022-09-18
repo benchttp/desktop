@@ -9,6 +9,7 @@ export const getClassNames = ({
     s['tag'],
     s[`tag-${color}`],
     'f',
+    'f-jc-center',
     'f-direction-row',
     'f-ai-center',
   ]
