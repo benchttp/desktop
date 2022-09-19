@@ -8,13 +8,7 @@ export const getClassNames = ({
   color,
   className,
 }: Pick<IProps, 'className'> & Pick<Required<IProps>, 'color'>) => {
-  const classNames: string[] = [
-    s['tab'],
-    s[`tab--${color}`],
-    // 'f',
-    // 'f-direction-row',
-    // 'f-ai-center',
-  ]
+  const classNames: string[] = [s['tab'], s[`tab--${color}`]]
 
   if (className) {
     classNames.push(className)

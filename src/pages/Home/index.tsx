@@ -10,9 +10,9 @@ export const Home: FC = () => {
     <>
       <Typography element="h1">Benchttp</Typography>
       <SimpleStream />
-      <Tab color="primary" text="Configure" iconStart={Settings} />
-      <Tab color="white" text="Test results" iconStart={CheckCircle} />
-      <Tab color="white" text="Summary" iconStart={PieChart} />
+      <Tab link="#" color="primary" text="Configure" iconStart={Settings} />
+      <Tab link="#" color="white" text="Test results" iconStart={CheckCircle} />
+      <Tab link="#" color="white" text="Summary" iconStart={PieChart} />
     </>
   )
 }

@@ -7,12 +7,13 @@ export const Tab: FC<IProps> = ({
   text,
   color = 'grey-light',
   iconStart,
+  link,
   className,
 }) => {
   const classNames = getClassNames({ color, className })
 
   return (
-    <a href="#" className={classNames.join(' ')}>
+    <a href={link} className={classNames.join(' ')}>
       {iconStart && createIcon({ icon: iconStart })}
       {text}
     </a>

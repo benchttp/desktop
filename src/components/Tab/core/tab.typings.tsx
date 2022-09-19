@@ -5,4 +5,5 @@ export interface IProps {
   text: string
   color: 'primary' | 'white' | 'grey-light'
   iconStart?: Icon
+  link: string
 }
