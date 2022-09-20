@@ -14,30 +14,20 @@
   transition: background-color 0.15s ease-out;
   margin-right: map.get(spaces.$spaces, '3');
 
-  &--primary {
+  border-bottom: 2px solid map.get(colors.$colors, 'base-white');
+  color: map.get(colors.$colors, 'base-white');
+
+  &:hover {
+    background-color: map.get(colors.$colors, 'grey-light');
+  }
+
+  &--selected {
     border-bottom: 2px map.get(colors.$colors, 'primary') solid;
     color: map.get(colors.$colors, 'primary');
-
-    &:hover {
-      background-color: map.get(colors.$colors, 'grey-light');
-    }
   }
 
-  &--white {
-    border-bottom: 2px solid map.get(colors.$colors, 'base-white');
-    color: map.get(colors.$colors, 'base-white');
-
-    &:hover {
-      background-color: map.get(colors.$colors, 'grey-light');
-    }
-  }
-
-  &--grey-light {
+  &--disabled {
     border-bottom: 2px map.get(colors.$colors, 'grey-light') solid;
     color: map.get(colors.$colors, 'grey-light');
-
-    // &:hover {
-    //   background-color: map.get(colors.$colors, 'grey-light');
-    // }
   }
 }

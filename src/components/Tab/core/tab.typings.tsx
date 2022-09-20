@@ -3,7 +3,8 @@ import { Icon } from 'react-feather'
 export interface IProps {
   className?: string
   text: string
-  color: 'primary' | 'white' | 'grey-light'
+  selected?: boolean
+  disabled?: boolean
   iconStart?: Icon
   link: string
 }

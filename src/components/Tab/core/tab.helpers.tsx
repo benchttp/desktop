@@ -5,13 +5,23 @@ import s from './tab.module.scss'
 import { IProps } from './tab.typings'
 
 export const getClassNames = ({
-  color,
+  selected,
+  disabled,
   className,
-}: Pick<IProps, 'className'> & Pick<Required<IProps>, 'color'>) => {
-  const classNames: string[] = [s['tab'], s[`tab--${color}`]]
+}: Pick<IProps, 'className'> &
+  Pick<Required<IProps>, 'selected' | 'disabled'>) => {
+  const classNames: string[] = [s['tab']]
 
   if (className) {
     classNames.push(className)
+  }
+
+  if (selected) {
+    classNames.push(s['tab--selected'])
+  }
+
+  if (disabled) {
+    classNames.push(s['tab--disabled'])
   }
 
   return classNames

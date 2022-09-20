@@ -1,21 +1,23 @@
 import { FC } from 'react'
+import { NavLink } from 'react-router-dom'
 
 import { createIcon, getClassNames } from './core/tab.helpers'
 import { IProps } from './core/tab.typings'
 
 export const Tab: FC<IProps> = ({
   text,
-  color = 'grey-light',
+  selected = false,
+  disabled = false,
   iconStart,
   link,
   className,
 }) => {
-  const classNames = getClassNames({ color, className })
+  const classNames = getClassNames({ selected, disabled, className })
 
   return (
-    <a href={link} className={classNames.join(' ')}>
+    <NavLink to={link} className={classNames.join(' ')}>
       {iconStart && createIcon({ icon: iconStart })}
       {text}
-    </a>
+    </NavLink>
   )
 }
