@@ -1,5 +1,5 @@
 export interface IProps {
   className?: string
   text: string
-  color?: 'white' | 'post' | 'get' | 'put' | 'post' | 'delete'
+  color?: 'white' | 'post' | 'get' | 'put' | 'patch' | 'delete'
 }
