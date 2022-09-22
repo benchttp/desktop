@@ -21,7 +21,7 @@ export const getClassNames = ({
   }
 
   if (disabled) {
-    classNames.push(s['tab--disabled'])
+    classNames.push(s['tab--disabled'], s['tab--no-hover'])
   }
 
   return classNames
