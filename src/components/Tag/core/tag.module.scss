@@ -10,7 +10,7 @@
   padding: map.get(spaces.$spaces, '1') map.get(spaces.$spaces, '2');
 
   &-white {
-    color: map.get(colors.$colors, 'grey');
+    color: map.get(colors.$colors, 'grey-dark');
     background: map.get(colors.$colors, 'base-white');
   }
 
