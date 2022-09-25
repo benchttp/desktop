@@ -7,10 +7,6 @@
   color: map.get(colors.$colors, 'base-white');
   border-radius: map.get(spaces.$spaces, '1');
 
-  font-family: 'Poppins', sans-serif;
-  font-style: normal;
-  font-weight: 600;
-
   display: flex;
   flex-direction: row;
   align-items: center;
