@@ -1,11 +1,5 @@
 import { FC } from 'react'
-import {
-  CheckCircle,
-  Loader,
-  PieChart,
-  PlusSquare,
-  Settings,
-} from 'react-feather'
+import { CheckCircle, PieChart, PlusSquare, Settings } from 'react-feather'
 
 import { Button, Typography } from '@/components'
 import { Tab } from '@/components/Tab'
@@ -318,13 +312,18 @@ export const UI: FC = () => {
           Tabs
         </Typography>
         <div className="f f-direction-row f-ai-end mb-3">
-          <Tab link="#" text="Configure" iconStart={Settings} selected />
-          <Tab link="#" text="Test Results" iconStart={CheckCircle} />
-          <Tab link="#" text="Configure" iconStart={PieChart} />
-        </div>
-        <div className="f f-direction-row f-ai-end mb-3">
-          <Tab link="#" text="Configure" iconStart={Settings} disabled />
-          <Tab link="#" text="Test Results" iconStart={Loader} selected />
+          <Tab
+            className="mr-3"
+            link="/"
+            text="Configure"
+            iconStart={Settings}
+          />
+          <Tab
+            className="mr-3"
+            link="/UI"
+            text="Test Results"
+            iconStart={CheckCircle}
+          />
           <Tab link="#" text="Configure" iconStart={PieChart} disabled />
         </div>
       </div>

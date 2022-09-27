@@ -1,23 +1,24 @@
 import { FC } from 'react'
 import { NavLink } from 'react-router-dom'
 
-import { createIcon, getClassNames } from './core/tab.helpers'
+import { Typography } from '@/components'
+
+import { createIcon, getClassName } from './core/tab.helpers'
 import { IProps } from './core/tab.typings'
 
 export const Tab: FC<IProps> = ({
   text,
-  selected = false,
   disabled = false,
   iconStart,
   link,
   className,
 }) => {
-  const classNames = getClassNames({ selected, disabled, className })
-
   return (
-    <NavLink to={link} className={classNames.join(' ')}>
+    <NavLink to={link} className={getClassName({ disabled, className })}>
       {iconStart && createIcon({ icon: iconStart })}
-      {text}
+      <Typography element="span" font="poppins" weight="medium">
+        {text}
+      </Typography>
     </NavLink>
   )
 }
