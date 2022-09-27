@@ -1,8 +1,8 @@
 import { FC } from 'react'
-import { Typography } from '../Typography'
 
-import { IProps } from './core/progressbar.typings'
+import { Typography } from '../Typography'
 import s from './core/progressbar.module.scss'
+import { IProps } from './core/progressbar.typings'
 
 export const ProgressBar: FC<IProps> = ({ percentage }) => {
   return (
