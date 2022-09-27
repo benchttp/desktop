@@ -1,27 +1,44 @@
+import { StopCircle } from 'react-feather'
+
 import { RunProgress, RunReport } from '@/benchttp'
+import { Button, Typography } from '@/components'
 
 interface Props {
   progress: RunProgress | null
   report: RunReport | null
   error: string
+  stop: () => false | void
 }
 
-export const RunDisplay: React.FC<Props> = ({ progress, report, error }) => (
+export const RunResultDisplay: React.FC<Props> = ({
+  progress,
+  report,
+  error,
+  stop,
+}) => (
   <div>
-    {progress && !progress.done && <ProgressSection {...progress} />}
+    {progress && !progress.done && (
+      <ProgressSection {...progress} stop={stop} />
+    )}
     {report && <ReportSection {...report} />}
     {error && <ErrorSection error={error} />}
   </div>
 )
 
-const ProgressSection: React.FC<RunProgress> = ({
+const ProgressSection: React.FC<RunProgress & { stop: () => false | void }> = ({
   doneCount,
   maxCount,
   elapsed,
   timeout,
 }) => (
   <section>
-    <h3>Recording Progress</h3>
+    <Typography element="h3">Recording Progress</Typography>
+    <Button
+      text="Stop run"
+      onClick={() => stop()}
+      style="outlined"
+      iconEnd={StopCircle}
+    />
     <p>
       {doneCount} / {maxCount} requests ({(100 * doneCount) / maxCount}%)
       <br />
@@ -34,7 +51,7 @@ const ProgressSection: React.FC<RunProgress> = ({
 
 const ReportSection: React.FC<RunReport> = ({ metrics }) => (
   <section>
-    <h3>Report</h3>
+    <Typography element="h3">Report</Typography>
     <div>Min: {formatDuration(metrics.responseTimes.min)}</div>
     <div>Max: {formatDuration(metrics.responseTimes.max)}</div>
     <div>Avg: {formatDuration(metrics.responseTimes.mean)}</div>
@@ -43,7 +60,7 @@ const ReportSection: React.FC<RunReport> = ({ metrics }) => (
 
 const ErrorSection: React.FC<{ error: string }> = ({ error }) => (
   <section>
-    <h3>Error</h3>
+    <Typography element="h3">Error</Typography>
     <p>{error}</p>
   </section>
 )
