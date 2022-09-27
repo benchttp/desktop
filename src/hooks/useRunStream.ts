@@ -1,6 +1,6 @@
 import { useRef, useReducer } from 'react'
 
-import { RunProgress, RunReport } from '@/benchttp'
+import { RunConfiguration, RunProgress, RunReport } from '@/benchttp'
 import { address } from '@/engine/spawn'
 import { RunStreamer, RunStream } from '@/engine/stream'
 
@@ -52,8 +52,21 @@ export function useRunStream() {
 
   return {
     ...state,
-    start: stream.current.start,
-    reset: () => dispatch(['RESET']),
+    /**
+     * Starts a Run stream, updating `progress` until `report` or `error`
+     * is received. If any of these values were already set by a previous
+     * call to start, they will be reset and the run will start over.
+     */
+    start: (config: RunConfiguration) => {
+      if (isNonNull(state)) {
+        stream.current.cancel()
+        dispatch(['RESET'])
+      }
+      stream.current.start(config)
+    },
     stop: () => stream.current.cancel() && dispatch(['ERROR', 'Run canceled']),
   }
 }
+
+const isNonNull = (state: State): boolean =>
+  state.progress !== null || state.report !== null || state.error !== ''

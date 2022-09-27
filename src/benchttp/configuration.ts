@@ -1,11 +1,17 @@
 import { GoDuration } from './common'
-import { DurationField, MetricField, NumberField } from './metrics'
+import { DurationMetric, Metric, NumberMetric } from './metrics'
 import { TestPredicate } from './tests'
 
 export interface RunConfiguration {
   request: {
     method: string
     url: string
+    queryParams?: Record<string, string>
+    header?: Record<string, string[]>
+    body?: {
+      type: 'raw' // other values are not implemented
+      content: string
+    }
   }
   runner: {
     requests: number
@@ -18,12 +24,12 @@ export interface RunConfiguration {
 }
 
 type ConfigurationTestCase =
-  | BaseTestCase<DurationField>
-  | BaseTestCase<NumberField>
+  | SingleTestCase<NumberMetric>
+  | SingleTestCase<DurationMetric>
 
-interface BaseTestCase<T extends MetricField> {
+interface SingleTestCase<T extends Metric> {
   name: string
-  field: T['id']
+  field: T['field']
   predicate: TestPredicate
   target: T['value']
 }

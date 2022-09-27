@@ -1,1 +1,0 @@
-export { SimpleStream } from './SimpleStream'

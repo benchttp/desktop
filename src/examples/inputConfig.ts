@@ -15,9 +15,15 @@ export const inputConfig: RunConfiguration = {
   tests: [
     {
       name: 'My endpoint has no latency',
-      field: 'MAX',
+      field: 'RequestEventTimes.ConnectDone.Max',
       predicate: 'LT',
-      target: '100ms',
+      target: '250ms',
+    },
+    {
+      name: 'My endpoint has enough teapots',
+      field: 'StatusCodesDistribution.418',
+      predicate: 'GT',
+      target: 10,
     },
   ],
 }
