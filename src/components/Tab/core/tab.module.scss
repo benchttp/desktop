@@ -1,0 +1,43 @@
+@use 'sass:map';
+@use '../../../style/variables/colors.scss';
+@use '../../../style/variables/spaces.scss';
+@use '../../../style/mixins/font-config.scss';
+
+.tab {
+  position: relative;
+  text-decoration: none;
+  transition: color 0.15s ease-out, font-weight 0.15s ease-out;
+  color: map.get(colors.$colors, 'base-white');
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -#{map.get(spaces.$spaces, '2')};
+    width: 100%;
+    height: 2px;
+    box-shadow: 0 1px 0 0 map.get(colors.$colors, 'base-white');
+    transition: box-shadow 0.15s ease-out;
+  }
+
+  &:hover,
+  &--selected {
+    color: map.get(colors.$colors, 'primary');
+
+    span {
+      font-weight: 600;
+    }
+
+    &::after {
+      box-shadow: 0 2px 0 0 map.get(colors.$colors, 'primary');
+    }
+  }
+
+  &--disabled {
+    &::after {
+      box-shadow: 0 1px 0 0 map.get(colors.$colors, 'grey-light');
+    }
+
+    color: map.get(colors.$colors, 'grey-light');
+    pointer-events: none;
+  }
+}

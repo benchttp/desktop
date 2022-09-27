@@ -1,7 +1,6 @@
 import { FC } from 'react'
-import { PlusSquare } from 'react-feather'
-
-import { Button, ProgressBar, Typography } from '@/components'
+import { CheckCircle, PieChart, PlusSquare, Settings } from 'react-feather'
+import { Button, Tab, ProgressBar, Typography } from '@/components'
 
 export const UI: FC = () => {
   const handleButtonClick = () => {
@@ -306,10 +305,32 @@ export const UI: FC = () => {
           />
         </div>
       </div>
-      <Typography className="mb-4" element="h1">
-        ProgressBar
-      </Typography>
-      <ProgressBar percentage={50} />
+      <div className="mb-4">
+        <Typography className="mb-4" element="h1">
+          ProgressBar
+        </Typography>
+        <ProgressBar percentage={50} />
+      </div>
+      <div className="mb-4">
+        <Typography className="mb-4" element="h1">
+          Tabs
+        </Typography>
+        <div className="f f-direction-row f-ai-end mb-3">
+          <Tab
+            className="mr-3"
+            link="/"
+            text="Configure"
+            iconStart={Settings}
+          />
+          <Tab
+            className="mr-3"
+            link="/UI"
+            text="Test Results"
+            iconStart={CheckCircle}
+          />
+          <Tab link="#" text="Configure" iconStart={PieChart} disabled />
+        </div>
+      </div>
     </div>
   )
 }
