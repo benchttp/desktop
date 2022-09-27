@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { PlusSquare } from 'react-feather'
 
-import { Button, Typography } from '@/components'
+import { Button, ProgressBar, Typography } from '@/components'
 
 export const UI: FC = () => {
   const handleButtonClick = () => {
@@ -306,6 +306,10 @@ export const UI: FC = () => {
           />
         </div>
       </div>
+      <Typography className="mb-4" element="h1">
+        ProgressBar
+      </Typography>
+      <ProgressBar percentage={50} />
     </div>
   )
 }
