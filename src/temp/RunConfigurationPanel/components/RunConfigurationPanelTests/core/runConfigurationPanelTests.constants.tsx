@@ -1,12 +1,11 @@
 import { ISelectInputProps } from '@/components/Inputs/SelectInput'
 
 export const FIELD_OPTIONS: ISelectInputProps['options'] = [
-  { value: 'MEAN', display: 'Mean response time' },
-  { value: 'MAX', display: 'Maximum response time' },
-  { value: 'MIN', display: 'Minimum response time' },
-  { value: 'FAILURE_COUNT', display: 'Number of requests that failed' },
-  { value: 'SUCCESS_COUNT', display: 'Number of successfull requests' },
-  { value: 'TOTAL_COUNT', display: 'Minimum response time' },
+  { value: 'ResponseTimes.Mean', display: 'Mean response time' },
+  { value: 'ResponseTimes.Max', display: 'Maximum response time' },
+  { value: 'ResponseTimes.Min', display: 'Minimum response time' },
+  { value: 'RequestFailureCount', display: 'Number of requests that failed' },
+  { value: 'RequestSuccessCount', display: 'Number of successfull requests' },
 ]
 
 export const PREDICATE_OPTIONS: ISelectInputProps['options'] = [

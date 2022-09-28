@@ -1,12 +1,12 @@
 import { Dispatch, SetStateAction } from 'react'
 
-import { MetricField } from '@/benchttp/metrics'
+import { ConfigurationTestCase } from '@/benchttp/configuration'
 import { TestPredicate } from '@/benchttp/tests'
 
 export interface IProps {
   tests: {
     name: string
-    field: MetricField['id']
+    field: ConfigurationTestCase['field']
     predicate: TestPredicate
     target: string
   }[]
@@ -14,7 +14,7 @@ export interface IProps {
     SetStateAction<
       {
         name: string
-        field: MetricField['id']
+        field: ConfigurationTestCase['field']
         predicate: TestPredicate
         target: string
       }[]
