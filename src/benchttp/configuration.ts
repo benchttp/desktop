@@ -23,7 +23,7 @@ export interface RunConfiguration {
   tests?: ConfigurationTestCase[]
 }
 
-type ConfigurationTestCase =
+export type ConfigurationTestCase =
   | SingleTestCase<NumberMetric>
   | SingleTestCase<DurationMetric>
 

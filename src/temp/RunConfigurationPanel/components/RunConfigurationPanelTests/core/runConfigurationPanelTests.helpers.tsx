@@ -1,6 +1,6 @@
 import { ChangeEventHandler, MouseEventHandler } from 'react'
 
-import { MetricField } from '@/benchttp/metrics'
+import { ConfigurationTestCase } from '@/benchttp/configuration'
 import { TestPredicate } from '@/benchttp/tests'
 
 import { IProps } from './runConfigurationPanelTests.typings'
@@ -30,7 +30,7 @@ export const handleFieldChange = ({
 >): ChangeEventHandler<HTMLSelectElement> => {
   return (e) => {
     const newTests = [...tests]
-    newTests[testIndex].field = e.target.value as MetricField['id']
+    newTests[testIndex].field = e.target.value as ConfigurationTestCase['field']
     setTests(newTests)
   }
 }
@@ -78,7 +78,7 @@ export const handleRemoveTestClick = ({
 
     if (tests.length === 1) {
       newTests[testIndex].name = ''
-      newTests[testIndex].field = 'MEAN'
+      newTests[testIndex].field = 'ResponseTimes.Mean'
       newTests[testIndex].predicate = 'LT'
       newTests[testIndex].target = ''
       setTests(newTests)
@@ -95,7 +95,12 @@ export const handleAddTestClick = ({
 }: Pick<IProps, 'tests' | 'setTests'>): MouseEventHandler => {
   return () => {
     const newTests = [...tests]
-    newTests.push({ name: '', field: 'MEAN', predicate: 'LT', target: '' })
+    newTests.push({
+      name: '',
+      field: 'ResponseTimes.Mean',
+      predicate: 'LT',
+      target: '',
+    })
     setTests(newTests)
   }
 }

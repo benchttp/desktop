@@ -7,7 +7,7 @@ import {
 } from 'react'
 import { NavLink, Route, Routes } from 'react-router-dom'
 
-import { MetricField } from '@/benchttp/metrics'
+import { ConfigurationTestCase } from '@/benchttp/configuration'
 import { TestPredicate } from '@/benchttp/tests'
 import { Typography } from '@/components'
 import { TextInput, SelectInput } from '@/components/Inputs'
@@ -15,12 +15,12 @@ import { TextInput, SelectInput } from '@/components/Inputs'
 import {
   RunConfigurationPanelHeaders,
   RunConfigurationPanelBody,
+  RunConfigurationPanelTests,
 } from './components'
-import { RunConfigurationPanelTests } from './components/RunConfigurationPanelTests'
 
 export const RunConfigurationPanel: FC = () => {
   const [url, setUrl] = useState<string>('')
-  const [method, setMethod] = useState<string>('')
+  const [method, setMethod] = useState<string>('GET')
   const [body, setBody] = useState<string>('')
   const [requests, setRequests] = useState<string>('')
   const [concurrency, setConcurrency] = useState<string>('')
@@ -33,11 +33,11 @@ export const RunConfigurationPanel: FC = () => {
   const [tests, setTests] = useState<
     {
       name: string
-      field: MetricField['id']
+      field: ConfigurationTestCase['field']
       predicate: TestPredicate
       target: string
     }[]
-  >([{ name: '', field: 'MEAN', predicate: 'LT', target: '' }])
+  >([{ name: '', field: 'ResponseTimes.Mean', predicate: 'LT', target: '' }])
 
   const handleInputChange = (
     setter: Dispatch<SetStateAction<string>>
@@ -46,6 +46,19 @@ export const RunConfigurationPanel: FC = () => {
       setter(e.target.value)
     }
   }
+
+  console.log({
+    url,
+    method,
+    body,
+    requests,
+    concurrency,
+    interval,
+    requestTimeout,
+    globalTimeout,
+    headers,
+    tests,
+  })
 
   return (
     <div>
