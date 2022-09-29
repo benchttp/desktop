@@ -1,0 +1,25 @@
+@use 'sass:map';
+@use '../../../style/variables/spaces.scss';
+
+.tooltip {
+  position: relative;
+  cursor:pointer;
+}
+
+.tooltip:hover .text {
+  display: inline-block;
+}
+
+.text {
+  position: absolute;
+  display: none;
+  max-width: 600px;
+  min-width: 150px;
+  color:#000;
+  bottom: 40px;
+  left: -20px;
+  border-radius: map.get(spaces.$spaces, '1');
+  padding: map.get(spaces.$spaces, '2');
+  background: #fff;
+  filter: drop-shadow(0px 0px 8px rgba(0, 0, 0, 0.25));
+}
