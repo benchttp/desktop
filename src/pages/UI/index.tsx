@@ -1,6 +1,6 @@
 import { FC } from 'react'
-
 import { CheckCircle, PieChart, PlusSquare, Settings } from 'react-feather'
+
 import { Button, Tab, ProgressBar, Typography } from '@/components'
 
 export const UI: FC = () => {
