@@ -1,3 +1,4 @@
 export interface IProps {
-  percentage: number
+  value: number
+  max: number
 }

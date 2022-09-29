@@ -310,7 +310,7 @@ export const UI: FC = () => {
         <Typography className="mb-4" element="h1">
           ProgressBar
         </Typography>
-        <ProgressBar percentage={50} />
+        <ProgressBar value={50} max={200} />
       </div>
       <div className="mb-4">
         <Typography className="mb-4" element="h1">

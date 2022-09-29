@@ -4,16 +4,14 @@ import { Typography } from '../Typography'
 import s from './core/progressbar.module.scss'
 import { IProps } from './core/progressbar.typings'
 
-export const ProgressBar: FC<IProps> = ({ percentage }) => {
+export const ProgressBar: FC<IProps> = ({ max, value }) => {
+  const percentage = (value: number, max: number) => (100 * value) / max
   return (
     <div className={s['container']}>
-      <Typography>{percentage}%</Typography>
-      <div className={s['progress-bar']}>
-        <div
-          className={s['progress-bar-active']}
-          style={{ width: `${percentage}%` }}
-        />
-      </div>
+      <Typography>
+        {value}/{max} requests ({percentage(value, max)}%)
+      </Typography>
+      <progress className={s['progress-bar']} max={max} value={value} />
     </div>
   )
 }

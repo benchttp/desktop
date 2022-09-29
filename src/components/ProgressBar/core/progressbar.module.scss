@@ -19,11 +19,6 @@
   flex:0.99;
 }
 
-.progress-bar-active {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  transition: all 200ms ease-out;
+.progress-bar::-webkit-progress-value {
   background: map.get(colors.$colors, 'primary');
 }
