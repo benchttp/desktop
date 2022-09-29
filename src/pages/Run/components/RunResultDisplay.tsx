@@ -1,7 +1,7 @@
 import { StopCircle } from 'react-feather'
 
 import { RunProgress, RunReport } from '@/benchttp'
-import { Button, ProgressBar, Typography } from '@/components'
+import { Button, Typography } from '@/components'
 
 interface Props {
   progress: RunProgress | null
@@ -40,7 +40,9 @@ const ProgressSection: React.FC<RunProgress & { stop: () => false | void }> = ({
       iconEnd={StopCircle}
     />
     <p>
-      <ProgressBar max={maxCount} value={doneCount} />
+      {doneCount} / {maxCount} requests ({(100 * doneCount) / maxCount}%)
+      <br />
+      <progress max={maxCount} value={doneCount} />
       <br />
       {((timeout - elapsed) / 1_000_000_000).toFixed(0)}s
     </p>
