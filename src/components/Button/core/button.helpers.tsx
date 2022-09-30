@@ -36,9 +36,20 @@ export const getClassNames = ({
 export const createIcon = ({
   icon,
   small,
-}: { icon: Icon } & Pick<Required<IProps>, 'small'>): ReactNode => {
+  position,
+}: { icon: Icon; position: 'start' | 'end' } & Pick<
+  Required<IProps>,
+  'small'
+>): ReactNode => {
   return createElement(icon, {
-    className: small ? 'ml-1' : 'ml-2',
+    className:
+      position === 'start'
+        ? small
+          ? 'mr-1'
+          : 'mr-2'
+        : small
+        ? 'ml-1'
+        : 'ml-2',
     size: small ? 18 : 24,
   })
 }

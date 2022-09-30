@@ -17,9 +17,9 @@ export const Button: FC<IProps> = ({
 
   return (
     <button onClick={onClick} className={classNames.join(' ')}>
-      {iconStart && createIcon({ icon: iconStart, small })}
+      {iconStart && createIcon({ icon: iconStart, small, position: 'start' })}
       {text}
-      {iconEnd && createIcon({ icon: iconEnd, small })}
+      {iconEnd && createIcon({ icon: iconEnd, small, position: 'end' })}
     </button>
   )
 }
