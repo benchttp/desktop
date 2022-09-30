@@ -1,0 +1,28 @@
+@use 'sass:map';
+@use '../../../style/variables/colors.scss';
+
+.container {
+  border-radius: 8px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+
+.percentage {
+  flex:0.17;
+}
+
+.progress-bar {
+  border-radius: 8px;
+  width: 100%;
+  position: relative;
+  background: map.get(colors.$colors, 'grey-light');
+  height: 24px;
+  overflow: hidden;
+  flex:0.99;
+}
+
+.progress-bar::-webkit-progress-value {
+  background: map.get(colors.$colors, 'primary');
+}
