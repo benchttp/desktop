@@ -54,6 +54,7 @@ export const RunConfigurationPanelTests: FC<IProps> = ({ tests, setTests }) => {
             className="mr-3"
             value={test.target}
             label={isNumberMetricField(test.field) ? 'Target' : 'Target (ms)'}
+            type="number"
             onChange={handleTargetChange({ testIndex, tests, setTests })}
           />
           <Trash
