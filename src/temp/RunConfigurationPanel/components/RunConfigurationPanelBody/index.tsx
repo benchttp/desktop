@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { TextAreaInput } from '@/components/Inputs/TextAreaInput'
+import { TextAreaInput } from '@/components/Inputs'
 
 import { handleBodyChange } from './core/RunConfigurationPanelBody.helpers'
 import { IProps } from './core/RunConfigurationPanelBody.typings'
