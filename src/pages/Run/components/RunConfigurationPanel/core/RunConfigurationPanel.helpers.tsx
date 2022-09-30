@@ -51,6 +51,11 @@ export const getRunConfiguration = (
     request: {
       method,
       url,
+      header: headers.reduce<Record<string, string[]>>((acc, prev) => {
+        acc[prev.key] = prev.values
+
+        return acc
+      }, {}),
       body: {
         type: 'raw',
         content: body,
