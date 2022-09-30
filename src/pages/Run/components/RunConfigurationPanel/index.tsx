@@ -6,7 +6,6 @@ import { ConfigurationTestCase } from '@/benchttp/configuration'
 import { TestPredicate } from '@/benchttp/tests'
 import { Button, Tab, Typography } from '@/components'
 import { TextInput, SelectInput } from '@/components/Inputs'
-import { inputConfig } from '@/examples/inputConfig'
 
 import {
   RunConfigurationPanelHeaders,
@@ -14,6 +13,7 @@ import {
   RunConfigurationPanelTests,
 } from './components'
 import {
+  getRunConfiguration,
   handleInputChange,
   handleRunTestClick,
 } from './core/RunConfigurationPanel.helpers'
@@ -159,7 +159,21 @@ export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
       <div className="f f-ai-center f-jc-end">
         <Button
           text="Run test"
-          onClick={handleRunTestClick({ onStart, config: inputConfig })}
+          onClick={handleRunTestClick({
+            onStart,
+            config: getRunConfiguration({
+              method,
+              url,
+              headers,
+              body,
+              requests,
+              concurrency,
+              interval,
+              requestTimeout,
+              globalTimeout,
+              tests,
+            }),
+          })}
           iconEnd={Play}
         />
       </div>

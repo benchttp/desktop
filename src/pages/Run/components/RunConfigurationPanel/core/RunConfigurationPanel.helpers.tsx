@@ -7,6 +7,7 @@ import {
 
 import { RunConfiguration } from '@/benchttp'
 import { ConfigurationTestCase } from '@/benchttp/configuration'
+import { isNumberMetricField } from '@/benchttp/metrics'
 import { TestPredicate } from '@/benchttp/tests'
 
 import { IProps } from './RunConfigurationPanel.typings'
@@ -30,23 +31,34 @@ export const handleRunTestClick = ({
   }
 }
 
-export const getRunConfiguration = (
-  method: string,
-  url: string,
-  headers: { key: string; values: string[] }[],
-  body: string,
-  requests: string,
-  concurrency: string,
-  interval: string,
-  requestTimeout: string,
-  globalTimeout: string,
+export const getRunConfiguration = ({
+  method,
+  url,
+  headers,
+  body,
+  requests,
+  concurrency,
+  interval,
+  requestTimeout,
+  globalTimeout,
+  tests,
+}: {
+  method: string
+  url: string
+  headers: { key: string; values: string[] }[]
+  body: string
+  requests: string
+  concurrency: string
+  interval: string
+  requestTimeout: string
+  globalTimeout: string
   tests: {
     name: string
     field: ConfigurationTestCase['field']
     predicate: TestPredicate
     target: string
   }[]
-): RunConfiguration => {
+}): RunConfiguration => {
   return {
     request: {
       method,
@@ -68,11 +80,18 @@ export const getRunConfiguration = (
       requestTimeout: `${Number(requestTimeout)}s`,
       globalTimeout: `${Number(globalTimeout)}s`,
     },
-    tests: tests.map<ConfigurationTestCase>((test) => ({
-      ...test,
-      //   TODO : the target property causes the type error,
-      //   I think this is due to target type which depends on the value of the field property
-      target: '',
-    })),
+    tests: tests.map<ConfigurationTestCase>((test) => {
+      return isNumberMetricField(test.field)
+        ? {
+            ...test,
+            field: test.field,
+            target: Number(test.target),
+          }
+        : {
+            ...test,
+            field: test.field,
+            target: `${Number(test.target)}ms`,
+          }
+    }),
   }
 }
