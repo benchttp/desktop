@@ -17,6 +17,7 @@ export const RunResultDisplay: React.FC<Props> = ({
   stop,
 }) => (
   <div>
+    <Typography element="h3">Run results</Typography>
     {progress && !progress.done && (
       <ProgressSection {...progress} stop={stop} />
     )}

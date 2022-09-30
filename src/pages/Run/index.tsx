@@ -1,8 +1,9 @@
 import { FC } from 'react'
-import { NavLink, Route, Routes, useNavigate } from 'react-router-dom'
+import { CheckCircle, Settings } from 'react-feather'
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 
 import { RunConfiguration } from '@/benchttp'
-import { Typography } from '@/components'
+import { Tab } from '@/components'
 import { useRunStream } from '@/hooks'
 
 import { RunConfigurationPanel, RunResultDisplay } from './components'
@@ -14,31 +15,36 @@ export const Run: FC = () => {
 
   return (
     <>
-      <Typography element="h1">Benchttp</Typography>
-
-      <NavLink to="./config">
-        <Typography element="span">Config</Typography>
-      </NavLink>
-
-      <NavLink to="./result">
-        <Typography element="span">Result</Typography>
-      </NavLink>
+      <div className="f f-ai-center mb-4">
+        <Tab
+          className="mr-3"
+          text="Configure"
+          link="configure"
+          iconStart={Settings}
+        />
+        <Tab
+          text="Tests results"
+          link="tests-results"
+          iconStart={CheckCircle}
+        />
+      </div>
 
       <Routes>
+        <Route path="*" element={<Navigate replace to="configure" />} />
         <Route
-          path="/config"
+          path="configure/*"
           element={
             <RunConfigurationPanel
               onStart={(config: RunConfiguration) => {
                 start(config)
-                navigate('./result', { replace: true })
+                navigate('tests-results', { replace: true })
               }}
             />
           }
         />
 
         <Route
-          path="/result"
+          path="tests-results"
           element={
             <RunResultDisplay
               progress={progress}

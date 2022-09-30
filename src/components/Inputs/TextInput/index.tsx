@@ -11,6 +11,7 @@ export const TextInput: FC<IProps> = ({
   className,
   disabled,
   placeholder,
+  type,
 }) => {
   const classNames = getClassName({ className })
 
@@ -23,6 +24,7 @@ export const TextInput: FC<IProps> = ({
         id={id}
         value={value}
         onChange={onChange}
+        type={type}
       />
     </div>
   )

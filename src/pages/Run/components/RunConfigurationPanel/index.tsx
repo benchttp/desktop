@@ -1,24 +1,25 @@
-import {
-  ChangeEventHandler,
-  Dispatch,
-  FC,
-  SetStateAction,
-  useState,
-} from 'react'
-import { NavLink, Route, Routes } from 'react-router-dom'
+import { FC, useState } from 'react'
+import { Mail, Package, Play } from 'react-feather'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
 import { ConfigurationTestCase } from '@/benchttp/configuration'
 import { TestPredicate } from '@/benchttp/tests'
-import { Typography } from '@/components'
+import { Button, Tab, Typography } from '@/components'
 import { TextInput, SelectInput } from '@/components/Inputs'
+import { inputConfig } from '@/examples/inputConfig'
 
 import {
   RunConfigurationPanelHeaders,
   RunConfigurationPanelBody,
   RunConfigurationPanelTests,
 } from './components'
+import {
+  handleInputChange,
+  handleRunTestClick,
+} from './core/RunConfigurationPanel.helpers'
+import { IProps } from './core/RunConfigurationPanel.typings'
 
-export const RunConfigurationPanel: FC = () => {
+export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
   const [url, setUrl] = useState<string>('')
   const [method, setMethod] = useState<string>('GET')
   const [body, setBody] = useState<string>('')
@@ -38,14 +39,6 @@ export const RunConfigurationPanel: FC = () => {
       target: string
     }[]
   >([{ name: '', field: 'ResponseTimes.Mean', predicate: 'LT', target: '' }])
-
-  const handleInputChange = (
-    setter: Dispatch<SetStateAction<string>>
-  ): ChangeEventHandler<HTMLInputElement | HTMLSelectElement> => {
-    return (e) => {
-      setter(e.target.value)
-    }
-  }
 
   console.log({
     url,
@@ -89,14 +82,18 @@ export const RunConfigurationPanel: FC = () => {
           />
         </div>
         <div className="f f-direction-row f-ai-center">
-          <NavLink className="mr-2" to="headers">
-            Headers
-          </NavLink>
-          <NavLink to="body">Body</NavLink>
+          <Tab
+            className="mr-3"
+            text="Headers"
+            link="headers"
+            iconStart={Mail}
+          />
+          <Tab link="body" text="Body" iconStart={Package} />
         </div>
         <Routes>
+          <Route path="*" element={<Navigate to="headers" replace />} />
           <Route
-            path="/headers"
+            path="headers"
             element={
               <RunConfigurationPanelHeaders
                 headers={headers}
@@ -105,7 +102,7 @@ export const RunConfigurationPanel: FC = () => {
             }
           />
           <Route
-            path="/body"
+            path="body"
             element={
               <RunConfigurationPanelBody body={body} setBody={setBody} />
             }
@@ -118,6 +115,7 @@ export const RunConfigurationPanel: FC = () => {
             value={requests}
             onChange={handleInputChange(setRequests)}
             label="Number of requests"
+            type="number"
           />
           <TextInput
             className="mr-3"
@@ -125,12 +123,14 @@ export const RunConfigurationPanel: FC = () => {
             value={concurrency}
             onChange={handleInputChange(setConcurrency)}
             label="Concurrent requests"
+            type="number"
           />
           <TextInput
             id="interval"
             value={interval}
             onChange={handleInputChange(setInterval)}
             label="Interval (ms)"
+            type="number"
           />
         </div>
         <div className="f f-direction-row f-ai-center">
@@ -140,6 +140,7 @@ export const RunConfigurationPanel: FC = () => {
             value={globalTimeout}
             onChange={handleInputChange(setGlobalTimeout)}
             label="Global timeout (s)"
+            type="number"
           />
           <TextInput
             className="mr-3"
@@ -147,6 +148,7 @@ export const RunConfigurationPanel: FC = () => {
             value={requestTimeout}
             onChange={handleInputChange(setRequestTimeout)}
             label="Request timeout (s)"
+            type="number"
           />
         </div>
       </div>
@@ -154,6 +156,13 @@ export const RunConfigurationPanel: FC = () => {
         Tests
       </Typography>
       <RunConfigurationPanelTests tests={tests} setTests={setTests} />
+      <div className="f f-ai-center f-jc-end">
+        <Button
+          text="Run test"
+          onClick={handleRunTestClick({ onStart, config: inputConfig })}
+          iconEnd={Play}
+        />
+      </div>
     </div>
   )
 }

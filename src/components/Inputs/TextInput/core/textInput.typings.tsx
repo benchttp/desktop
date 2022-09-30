@@ -1,4 +1,4 @@
-import { ChangeEventHandler } from 'react'
+import { ChangeEventHandler, HTMLInputTypeAttribute } from 'react'
 
 export interface IProps {
   className?: string
@@ -8,4 +8,5 @@ export interface IProps {
   label?: string
   disabled?: boolean
   placeholder?: string
+  type?: HTMLInputTypeAttribute
 }
