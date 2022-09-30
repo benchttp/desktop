@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import { PlusSquare, Trash } from 'react-feather'
 
+import { isNumberMetricField } from '@/benchttp/metrics'
 import { SelectInput, TextInput } from '@/components/Inputs'
 
 import {
@@ -52,7 +53,7 @@ export const RunConfigurationPanelTests: FC<IProps> = ({ tests, setTests }) => {
             id={`test-target-${testIndex}`}
             className="mr-3"
             value={test.target}
-            label="Target"
+            label={isNumberMetricField(test.field) ? 'Target' : 'Target (ms)'}
             onChange={handleTargetChange({ testIndex, tests, setTests })}
           />
           <Trash
