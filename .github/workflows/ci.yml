@@ -67,11 +67,10 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build app
-        run: npm run build
+      - name: Install dependencies and prebuild
+        run: |
+          npm ci
+          npm run prebuild
         shell: bash # Override default shell on windows (pwsh), bash is default on ubuntu and macos
 
       - uses: tauri-apps/tauri-action@v0
