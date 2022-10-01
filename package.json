@@ -14,10 +14,12 @@
     "coverage": "vitest run --coverage",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "sidecar:build": "scripts/sidecar-build.sh",
     "sidecar:mv": "node scripts/sidecar-target-triple.js",
+    "sidecar:rm": "scripts/sidecar-rm.sh",
     "sidecar:exec": "scripts/sidecar-exec.sh",
     "predev": "npm run sidecar:mv",
-    "prebuild": "npm run sidecar:mv"
+    "prebuild": "npm run sidecar:rm && npm run sidecar:build && npm run sidecar:mv"
   },
   "dependencies": {
     "@tauri-apps/api": "^1.1.0",
