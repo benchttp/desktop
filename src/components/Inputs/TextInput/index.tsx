@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
-import { getClassName } from './core/textInput.helpers'
+import { getClassNames } from './core/textInput.helpers'
+import s from './core/textInput.module.scss'
 import { IProps } from './core/textInput.typings'
 
 export const TextInput: FC<IProps> = ({
@@ -9,23 +10,26 @@ export const TextInput: FC<IProps> = ({
   label,
   id,
   className,
-  disabled,
+  disabled = false,
   placeholder,
   type,
 }) => {
-  const classNames = getClassName({ className })
+  const classNames = getClassNames({ className, disabled })
 
   return (
-    <div className={classNames.join(' ')}>
+    <div>
       {label && <label htmlFor={id}>{label}</label>}
-      <input
-        disabled={disabled}
-        placeholder={placeholder}
-        id={id}
-        value={value}
-        onChange={onChange}
-        type={type}
-      />
+      <div className={s['input-container']}>
+        <input
+          className={classNames}
+          disabled={disabled}
+          placeholder={placeholder}
+          id={id}
+          value={value}
+          onChange={onChange}
+          type={type}
+        />
+      </div>
     </div>
   )
 }

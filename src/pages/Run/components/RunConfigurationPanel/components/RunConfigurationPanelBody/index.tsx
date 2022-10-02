@@ -10,6 +10,9 @@ export const RunConfigurationPanelBody: FC<IProps> = ({ body, setBody }) => {
     <TextAreaInput
       id="body"
       value={body}
+      rows={7}
+      className="mt-3"
+      placeholder="{ firstname: “John”, lastname: “Doe }"
       onChange={handleBodyChange({ setBody })}
     />
   )

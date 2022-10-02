@@ -22,7 +22,7 @@ export const RunConfigurationPanelHeaders: FC<IProps> = ({
       {headers.map((header, headerIndex) => (
         <div
           key={`header-${headerIndex}`}
-          className="f f-direction-row f-ai-center"
+          className="f f-direction-row f-ai-center mt-3"
         >
           <TextInput
             className="mr-3"
@@ -38,7 +38,11 @@ export const RunConfigurationPanelHeaders: FC<IProps> = ({
           <div className="f f-direction-column">
             {header.values.map((headerValue, headerValueIndex) => (
               <div
-                className="f f-direction-row f-ai-center mb-3"
+                className={`f f-direction-row f-ai-center ${
+                  header.values.length > 0 && headerValueIndex !== 0
+                    ? 'mt-3'
+                    : ''
+                }`}
                 key={`header-value-${headerValueIndex}`}
               >
                 <TextInput
@@ -79,6 +83,7 @@ export const RunConfigurationPanelHeaders: FC<IProps> = ({
       <Button
         text="Add a new header"
         small
+        className="mt-3"
         iconEnd={PlusSquare}
         onClick={handleAddHeader({ headers, setHeaders })}
         style="outlined"

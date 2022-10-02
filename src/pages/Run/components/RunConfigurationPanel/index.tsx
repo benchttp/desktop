@@ -108,7 +108,7 @@ export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
             }
           />
         </Routes>
-        <div className="f f-direction-row f-ai-center mb-4">
+        <div className="f f-direction-row f-ai-center mt-3 mb-4">
           <TextInput
             className="mr-3"
             id="requests"
@@ -156,7 +156,7 @@ export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
         Tests
       </Typography>
       <RunConfigurationPanelTests tests={tests} setTests={setTests} />
-      <div className="f f-ai-center f-jc-end">
+      <div className="f f-ai-center f-jc-start mt-4">
         <Button
           text="Run test"
           onClick={handleRunTestClick({
