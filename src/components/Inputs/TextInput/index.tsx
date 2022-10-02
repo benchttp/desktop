@@ -2,7 +2,8 @@ import { FC } from 'react'
 
 import { TestingProps } from '@/testing'
 
-import { getClassName } from './core/textInput.helpers'
+import { getClassNames } from './core/textInput.helpers'
+import s from './core/textInput.module.scss'
 import { IProps } from './core/textInput.typings'
 
 export const TextInput: FC<IProps & TestingProps> = ({
@@ -11,27 +12,30 @@ export const TextInput: FC<IProps & TestingProps> = ({
   label,
   id,
   className,
-  disabled,
+  disabled = false,
   placeholder,
   type,
   invalid,
   'data-testid': dataTestid,
 }) => {
-  const classNames = getClassName({ className })
+  const classNames = getClassNames({ className, disabled })
 
   return (
-    <div className={classNames.join(' ')}>
+    <div>
       {label && <label htmlFor={id}>{label}</label>}
-      <input
-        data-testid={dataTestid}
-        disabled={disabled}
-        placeholder={placeholder}
-        id={id}
-        value={value}
-        onChange={onChange}
-        type={type}
-        aria-invalid={`${invalid || false}`}
-      />
+      <div className={s['input-container']}>
+        <input
+          className={classNames}
+          data-testid={dataTestid}
+          disabled={disabled}
+          placeholder={placeholder}
+          id={id}
+          value={value}
+          onChange={onChange}
+          type={type}
+          aria-invalid={`${invalid || false}`}
+        />
+      </div>
     </div>
   )
 }

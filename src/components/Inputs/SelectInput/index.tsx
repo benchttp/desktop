@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 import { getClassName } from './core/selectInput.helpers'
+import s from './core/selectInput.module.scss'
 import { IProps } from './core/selectInput.typings'
 
 export type { IProps as IPropsSelectInput } from './core/selectInput.typings'
@@ -25,6 +26,7 @@ export const SelectInput: FC<IProps> = ({
         value={value}
         onChange={onChange}
         data-testid={dataTestid}
+        className={s['select']}
       >
         {options.map((option) => (
           <option
