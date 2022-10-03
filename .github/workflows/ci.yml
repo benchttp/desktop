@@ -78,7 +78,6 @@ jobs:
         run: |
           npm ci
           npm run prebuild:windows
-        shell: bash # Override default shell on windows (pwsh)
 
       - uses: tauri-apps/tauri-action@v0
         env:
