@@ -1,6 +1,6 @@
 #!/bin/bash
 
-os=false
+os="notset"
 
 case $(uname | tr '[:upper:]' '[:lower:]') in
 linux*)
@@ -11,8 +11,5 @@ darwin*)
     ;;
 msys*)
     os="windows"
-    ;;
-*)
-    os="notset"
     ;;
 esac
