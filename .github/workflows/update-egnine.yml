@@ -1,0 +1,50 @@
+name: Update git submodule
+
+on:
+  repository_dispatch:
+    types: [update-engine]
+
+# github.event object is:
+# {
+#   "event_type": "update_engine",
+#   "client_payload": {
+#     "sha": "8018282583be009ba9103adddd40b42bbda93bdd"
+#   }
+# }
+
+jobs:
+  update-submodule:
+    permissions:
+      contents: write
+
+    env:
+      COMMIT_MESSAGE: 'ci: update engine submodule [skip ci]'
+      PR_BRANCH: ci/update-git-submodule-${{ github.event.client_payload.sha }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+
+      - name: Update git submodule
+        run: git submodule update --remote --merge
+
+      - name: Commit changes
+        id: commit_changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: ${{ env.COMMIT_MESSAGE }}
+          branch: ${{ env.HEAD_BRANCH }}
+          create_branch: true
+          file_pattern: vendor/engine
+
+      - name: Open pull request
+        if: steps.commit_changes.outputs.changes_detected == 'true'
+        run: gh pr create --base ${{ env.TARGET_BRANCH }} --head ${{ env.HEAD_BRANCH }} --title ${{ env.COMMIT_MESSAGE }} --body ${{ env.BODY }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TARGET_BRANCH: main
+          BODY: Automated pull request.
