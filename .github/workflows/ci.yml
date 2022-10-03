@@ -68,10 +68,17 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
 
       - name: Install dependencies and prebuild
+        if: matrix.platform != 'windows-latest'
         run: |
           npm ci
           npm run prebuild
-        shell: bash # Override default shell on windows (pwsh), bash is default on ubuntu and macos
+
+      - name: Install dependencies and prebuild
+        if: matrix.platform == 'windows-latest'
+        run: |
+          npm ci
+          npm run prebuild:windows
+        shell: bash # Override default shell on windows (pwsh)
 
       - uses: tauri-apps/tauri-action@v0
         env:

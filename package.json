@@ -18,8 +18,12 @@
     "sidecar:mv": "node scripts/sidecar-target-triple.js",
     "sidecar:rm": "scripts/sidecar-rm.sh",
     "sidecar:exec": "scripts/sidecar-exec.sh",
+    "sidecar:build:windows": ".\\scripts\\sidecar-build.sh",
+    "sidecar:mv:windows": "node .\\scripts\\sidecar-target-triple.js",
+    "sidecar:rm:windows": ".\\scripts\\sidecar-rm.sh",
     "predev": "npm run sidecar:mv",
-    "prebuild": "npm run sidecar:rm && npm run sidecar:build && npm run sidecar:mv"
+    "prebuild": "npm run sidecar:rm && npm run sidecar:build && npm run sidecar:mv",
+    "prebuild:windows": "npm run sidecar:rm:windows && npm run sidecar:build:windows && npm run sidecar:mv:windows"
   },
   "dependencies": {
     "@tauri-apps/api": "^1.1.0",
