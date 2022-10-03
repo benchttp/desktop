@@ -10,4 +10,5 @@ source="./cmd/server"
 if [[ $os = "windows" ]]; then source=$(cygpath -w $source); fi
 
 cd ./vendor/engine
+echo go build -o "$root""${sidecar_path:?}""${binary_name:?}" "$source"
 go build -o "$root""${sidecar_path:?}""${binary_name:?}" "$source"
