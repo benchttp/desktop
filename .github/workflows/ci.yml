@@ -72,11 +72,11 @@ jobs:
 
       - name: Prebuild (ubuntu and macos)
         if: matrix.platform != 'windows-latest'
-        run: npm run prebuild
+        run: npm run sidecar:build
 
       - name: Prebuild (windows only)
         if: matrix.platform == 'windows-latest'
-        run: npm run prebuild:windows
+        run: npm run sidecar:build-windows
 
       - uses: tauri-apps/tauri-action@v0
         env:
