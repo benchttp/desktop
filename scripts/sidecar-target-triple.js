@@ -5,7 +5,7 @@ import { execa } from 'execa'
 
 const ext = process.platform === 'win32' ? '.exe' : ''
 const bin = 'benchttp-server'
-const bindir = path.join('src-tauri', 'bin')
+const bindir = path.join(process.cwd(), 'src-tauri', 'bin')
 const oldPath = path.join(bindir, bin + ext)
 
 function withTargetTriple(targetTriple) {
