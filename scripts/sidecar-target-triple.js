@@ -1,13 +1,18 @@
 import { existsSync, renameSync } from 'fs'
+import { resolve } from 'path'
 
 import { execa } from 'execa'
 
 const ext = process.platform === 'win32' ? '.exe' : ''
 const bin = 'benchttp-server'
 const bindir = 'src-tauri/bin'
-const oldPath = `${bindir}/${bin}${ext}`
+const oldPath = absolute(`${bindir}/${bin}${ext}`)
 
-function suffixBinary(targetTriple) {
+function absolute(relativePath) {
+  return resolve(process.cwd(), relativePath)
+}
+
+function withTargetTriple(targetTriple) {
   return `${bindir}/${bin}-${targetTriple}${ext}`
 }
 
@@ -17,13 +22,13 @@ async function getTargetTriple() {
 }
 
 async function main() {
-  const targetTriple = await getTargetTriple()
+  const s = await getTargetTriple()
 
-  if (!targetTriple) {
+  if (!s) {
     throw new Error('Failed to determine platform target triple')
   }
 
-  const newPath = suffixBinary(targetTriple)
+  const newPath = absolute(withTargetTriple(s))
 
   if (!existsSync(newPath)) {
     renameSync(oldPath, newPath)
