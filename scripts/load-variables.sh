@@ -13,3 +13,5 @@ binary_name="benchttp-server""$ext"
 sidecar="$binary_name-$target_triple""$ext"
 
 sidecar_path="src-tauri/bin/"
+
+if [[ $os = "windows" ]]; then sidecar_path=$(cygpath -w $sidecar_path); fi
