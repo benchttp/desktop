@@ -5,22 +5,11 @@ import { execa } from 'execa'
 
 const ext = process.platform === 'win32' ? '.exe' : ''
 const bin = 'benchttp-server'
-const bindir = 'src-tauri/bin'
-const oldPath = platformAgnosticPath(`${bindir}/${bin}${ext}`)
-
-/**
- * @param {String} pathString
- * @example
- * platformAgnosticPath("../foo/bar") // ..\\foo\\bar on windows, ../foo/bar/baz on posix
- */
-function platformAgnosticPath(pathString) {
-  return pathString
-    .split(path.sep)
-    .join(process.platform === 'win32' ? path.win32.sep : path.posix.sep)
-}
+const bindir = path.join('src-tauri', 'bin')
+const oldPath = path.join(bindir, bin + ext)
 
 function withTargetTriple(targetTriple) {
-  return `${bindir}/${bin}-${targetTriple}${ext}`
+  return path.join(bindir, `${bin}-${targetTriple}${ext}`)
 }
 
 async function getTargetTriple() {
@@ -35,7 +24,7 @@ async function main() {
     throw new Error('Failed to determine platform target triple')
   }
 
-  const newPath = platformAgnosticPath(withTargetTriple(s))
+  const newPath = withTargetTriple(s)
 
   if (!existsSync(newPath)) {
     renameSync(oldPath, newPath)
