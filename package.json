@@ -17,7 +17,7 @@
     "sidecar:build": "node scripts/sidecar-build.js",
     "sidecar:build-windows": "node .\\scripts\\sidecar-build.js",
     "sidecar:run": "scripts/sidecar-run.sh",
-    "predev": "npm run sidecar:mv",
+    "predev": "npm run sidecar:build",
     "prebuild": "npm run sidecar:build"
   },
   "dependencies": {
