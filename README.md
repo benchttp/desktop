@@ -27,7 +27,16 @@ npm install
 ```
 
 The app requires `benchttp/engine` embedded as a [sidecar](https://tauri.app/v1/guides/building/sidecar).
-The dependency is vendored in this repository (`vendor/engine`), so you don't need to install it separately.
+The dependency is vendored in this repository (`vendor/engine`) as a [git submodule](https://github.blog/2016-02-01-working-with-submodules/), so you don't need to install it separately.
+
+Make sure you have the submodule initialized before proceeding.
+
+```sh
+# If you cloned the repository without the --recursive flag
+git submodule update --init
+# Or if you're cloning for the first time
+git clone --recursive https://github.com/benchttp/desktop.git
+```
 
 Build `benchttp/engine` as a server (package `cmd/server`):
 
