@@ -80,5 +80,5 @@ Commit the changes if needed:
 
 ```sh
 git add vendor/engine
-git commit -m "Update benchttp/engine"
+git commit -m "ci: update engine submodule"
 ```
