@@ -330,6 +330,10 @@ export const UI: FC = () => {
             iconStart={CheckCircle}
           />
           <Tab link="#" text="Configure" iconStart={PieChart} disabled />
+        </div>
+      </div>
+      <div className="mb-4">
+        <Typography className="mb-4" element="h1">
           Tags
         </Typography>
         <div className="f f-direction-row f-ai-end mb-3">
