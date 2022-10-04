@@ -7,13 +7,13 @@ on:
       - main
 
 jobs:
-  build:
+  test-front-end:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
-      - name: Use Node.js 16.x
-        uses: actions/setup-node@v1
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
           node-version: 16.x
           cache: npm
@@ -28,4 +28,56 @@ jobs:
         run: npm run test
 
       - name: Build
-        run: npm run web:build # build for the web on ci while we figure out the requirements for building tauri on ci.
+        run: npm run web:build
+
+  build-tauri:
+    needs: test-front-end
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [macos-latest, ubuntu-latest, windows-latest]
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: npm
+
+      - name: Setup Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.17
+
+      - name: Install dependencies (ubuntu only)
+        if: matrix.platform == 'ubuntu-latest'
+        run: | # -qq flag will silence output except for errors
+          sudo apt-get -qq update
+          sudo apt-get -qq install -y --no-install-recommends libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
+        env:
+          DEBIAN_FRONTEND: noninteractive
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Prebuild (ubuntu and macos)
+        if: matrix.platform != 'windows-latest'
+        run: npm run sidecar:build
+
+      - name: Prebuild (windows only)
+        if: matrix.platform == 'windows-latest'
+        run: npm run sidecar:build-windows
+
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

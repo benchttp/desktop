@@ -1,12 +1,14 @@
 #!/bin/bash
+set -e
 
 # Identify the platform.
 target_triple=$(rustc -Vv | grep host | cut -f2 -d' ')
 
-# The binary is suffixed with the triple target as required by tauri sidecar api.
-program="benchttp-server-$target_triple"
+binary_name="benchttp-server"
 
-# Run with .env variables loaded.
+# The binary is suffixed with the triple target as required by tauri sidecar api.
+sidecar="$binary_name-$target_triple"
+
 flag="--auto-port=false"
 
-./src-tauri/bin/$program $flag
+./src-tauri/bin/"$sidecar" $flag
