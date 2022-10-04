@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { CheckCircle, PieChart, PlusSquare, Settings } from 'react-feather'
 
-import { Button, Tab, ProgressBar, Typography } from '@/components'
+import { Button, Tab, Tag, ProgressBar, Typography } from '@/components'
 
 export const UI: FC = () => {
   const handleButtonClick = () => {
@@ -330,6 +330,21 @@ export const UI: FC = () => {
             iconStart={CheckCircle}
           />
           <Tab link="#" text="Configure" iconStart={PieChart} disabled />
+        </div>
+      </div>
+      <div className="mb-4">
+        <Typography className="mb-4" element="h1">
+          Tags
+        </Typography>
+        <div className="f f-direction-row f-ai-end mb-3">
+          <Tag className="mr-3" color="white" text="Tag" />
+          <Tag className="mr-3" color="post" text="Tag" />
+          <Tag className="mr-3" color="get" text="Tag" />
+        </div>
+        <div className="f f-direction-row f-ai-end mb-3">
+          <Tag className="mr-3" color="put" text="Tag" />
+          <Tag className="mr-3" color="patch" text="Tag" />
+          <Tag className="mr-3" color="delete" text="Tag" />
         </div>
       </div>
     </div>

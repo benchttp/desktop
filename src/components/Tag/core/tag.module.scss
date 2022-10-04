@@ -1,0 +1,36 @@
+@use 'sass:map';
+@use '../../../style/variables/colors.scss';
+@use '../../../style/variables/spaces.scss';
+@use '../../../style/mixins/font-config.scss';
+
+.tag {
+  color: map.get(colors.$colors, 'base-white');
+  border-radius: map.get(spaces.$spaces, '1');
+
+  padding: map.get(spaces.$spaces, '1') map.get(spaces.$spaces, '2');
+
+  &-white {
+    color: map.get(colors.$colors, 'grey-dark');
+    background: map.get(colors.$colors, 'base-white');
+  }
+
+  &-post {
+    background: map.get(colors.$colors, 'http-post');
+  }
+
+  &-get {
+    background: map.get(colors.$colors, 'http-get');
+  }
+
+  &-put {
+    background: map.get(colors.$colors, 'http-put');
+  }
+
+  &-patch {
+    background: map.get(colors.$colors, 'http-patch');
+  }
+
+  &-delete {
+    background: map.get(colors.$colors, 'http-delete');
+  }
+}
