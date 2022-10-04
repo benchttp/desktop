@@ -27,21 +27,16 @@ npm install
 ```
 
 The app requires `benchttp/engine` embedded as a [sidecar](https://tauri.app/v1/guides/building/sidecar).
+The dependency is vendored in this repository (`vendor/engine`), so you don't need to install it separately.
 
-Build `benchttp/engine` as a server (package `cmd/server`) and move the binary targeting the correct platform inside `./src-tauri/bin` under the name `benchttp-server`:
-
-```sh
-GOOS=<target_os> GOARCH=<target_arch> go build -o ./desktop/src-tauri/bin/benchttp-server ./engine/cmd/server
-```
-
-Tauri asks for the binary to be suffixed with the `-$TARGET_TRIPLE` for the platform. Rename the binary according to your platform:
+Build `benchttp/engine` as a server (package `cmd/server`):
 
 ```sh
-npm run sidecar:mv
-# src-tauri/bin/benhttp-server -> src-tauri/bin/benhttp-server-x86_64-apple-darwin
+npm run sidecar:build
+# build output is in src-tauri/bin/benchttp-server
 ```
 
-Note: `npm run sidecar:mv` is run via scripts `predev` and `prebuild`.
+Note: script `sidecar:build` is run inside scripts `predev` and `prebuild`.
 
 ### Serve the app
 
@@ -60,7 +55,7 @@ npm run web:dev
 
 ```sh
 # start the engine in another terminal
-npm run sidecar:exec
+npm run sidecar:run
 ```
 
 ### Build
@@ -70,3 +65,20 @@ npm run build
 ```
 
 Bundles are available at `./src-tauri/target/release/bundle`.
+
+### Update `vendor/engine` submodule
+
+To keep `benchttp/engine` updated, run:
+
+```sh
+npm run sidecar:update
+```
+
+This will update `vendor/engine` submodule to the latest version of the default branch.
+
+Commit the changes if needed:
+
+```sh
+git add vendor/engine
+git commit -m "Update benchttp/engine"
+```
