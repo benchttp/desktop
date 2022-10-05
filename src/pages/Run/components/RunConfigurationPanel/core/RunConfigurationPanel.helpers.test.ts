@@ -15,6 +15,7 @@ const mockRunConfigurationInput = (
   interval: '100ms',
   requestTimeout: '1000ms',
   globalTimeout: '30000ms',
+  isTestsSectionEnabled: true,
   tests: [],
   ...v,
 })
@@ -283,6 +284,21 @@ describe('Parse run configuration', () => {
       expect(() => {
         getRunConfiguration(given)
       }).toThrow()
+    })
+    test('test with disabled test section should return undefined', () => {
+      const given = mockRunConfigurationInput({
+        isTestsSectionEnabled: false,
+        tests: [
+          {
+            name: 'test',
+            field: 'ResponseTimes.Mean',
+            predicate: 'EQ',
+            target: '100ms',
+          },
+        ],
+      })
+      const actual = getRunConfiguration(given)
+      expect(actual.tests).toEqual(undefined)
     })
   })
 })

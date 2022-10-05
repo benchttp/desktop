@@ -77,6 +77,7 @@ export const getRunConfiguration = ({
   interval,
   requestTimeout,
   globalTimeout,
+  isTestsSectionEnabled,
   tests,
 }: IRunConfigurationInput): RunConfiguration => {
   return {
@@ -93,7 +94,7 @@ export const getRunConfiguration = ({
       requestTimeout: parseRequestTimeout(requestTimeout),
       globalTimeout: parseGlobalTimeout(globalTimeout),
     },
-    tests: parseTests(tests),
+    tests: parseTests(tests, isTestsSectionEnabled),
   }
 }
 
@@ -196,9 +197,10 @@ const parseGlobalTimeout = (
 }
 
 const parseTests = (
-  tests: IRunConfigurationInput['tests']
+  tests: IRunConfigurationInput['tests'],
+  isTestsSectionEnabled: boolean
 ): ConfigurationTestCase[] | undefined => {
-  if (tests.length === 0) {
+  if (tests.length === 0 || !isTestsSectionEnabled) {
     return
   }
 

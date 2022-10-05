@@ -175,6 +175,7 @@ export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
               interval,
               requestTimeout,
               globalTimeout,
+              isTestsSectionEnabled,
               tests,
             },
           })}
