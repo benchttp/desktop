@@ -15,7 +15,7 @@ const mockRunConfigurationInput = (
   interval: '100ms',
   requestTimeout: '1000ms',
   globalTimeout: '30000ms',
-  isTestsSectionEnabled: true,
+  areTestsEnabled: true,
   tests: [],
   ...v,
 })
@@ -287,7 +287,7 @@ describe('Parse run configuration', () => {
     })
     test('test with disabled test section should return undefined', () => {
       const given = mockRunConfigurationInput({
-        isTestsSectionEnabled: false,
+        areTestsEnabled: false,
         tests: [
           {
             name: 'test',

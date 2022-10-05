@@ -14,12 +14,12 @@ import { parseInteger, parseMilliseconds } from '@/tools'
 import { IRunConfigurationInput, IProps } from './RunConfigurationPanel.typings'
 
 export const handleEnableTestsSectionChange = ({
-  setIsTestsSectionEnabled,
+  setareTestsEnabled,
 }: {
-  setIsTestsSectionEnabled: Dispatch<SetStateAction<boolean>>
+  setareTestsEnabled: Dispatch<SetStateAction<boolean>>
 }): ChangeEventHandler<HTMLInputElement> => {
   return (e) => {
-    setIsTestsSectionEnabled(e.target.checked)
+    setareTestsEnabled(e.target.checked)
   }
 }
 
@@ -77,7 +77,7 @@ export const getRunConfiguration = ({
   interval,
   requestTimeout,
   globalTimeout,
-  isTestsSectionEnabled,
+  areTestsEnabled,
   tests,
 }: IRunConfigurationInput): RunConfiguration => {
   return {
@@ -94,7 +94,7 @@ export const getRunConfiguration = ({
       requestTimeout: parseRequestTimeout(requestTimeout),
       globalTimeout: parseGlobalTimeout(globalTimeout),
     },
-    tests: parseTests(tests, isTestsSectionEnabled),
+    tests: areTestsEnabled ? parseTests(tests) : undefined,
   }
 }
 
@@ -197,10 +197,9 @@ const parseGlobalTimeout = (
 }
 
 const parseTests = (
-  tests: IRunConfigurationInput['tests'],
-  isTestsSectionEnabled: boolean
+  tests: IRunConfigurationInput['tests']
 ): ConfigurationTestCase[] | undefined => {
-  if (tests.length === 0 || !isTestsSectionEnabled) {
+  if (tests.length === 0) {
     return
   }
 

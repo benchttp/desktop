@@ -22,15 +22,15 @@ import { IProps } from './core/runConfigurationPanelTests.typings'
 export const RunConfigurationPanelTests: FC<IProps> = ({
   tests,
   setTests,
-  isTestsSectionEnabled,
+  areTestsEnabled,
 }) => {
   const trashClassNames = getIconClassNames({
     className: 'mr-3',
-    isTestsSectionEnabled,
+    areTestsEnabled,
   })
 
   const plusClassNames = getIconClassNames({
-    isTestsSectionEnabled,
+    areTestsEnabled,
   })
 
   return (
@@ -46,7 +46,7 @@ export const RunConfigurationPanelTests: FC<IProps> = ({
             value={test.name}
             label="Name"
             onChange={handleNameChange({ testIndex, tests, setTests })}
-            disabled={!isTestsSectionEnabled}
+            disabled={!areTestsEnabled}
           />
           <SelectInput
             id={`test-field-${testIndex}`}
@@ -55,7 +55,7 @@ export const RunConfigurationPanelTests: FC<IProps> = ({
             options={FIELD_OPTIONS}
             label="Field"
             onChange={handleFieldChange({ testIndex, tests, setTests })}
-            disabled={!isTestsSectionEnabled}
+            disabled={!areTestsEnabled}
           />
           <SelectInput
             id={`test-predicate-${testIndex}`}
@@ -64,7 +64,7 @@ export const RunConfigurationPanelTests: FC<IProps> = ({
             options={PREDICATE_OPTIONS}
             label="Predicate"
             onChange={handlePredicateChange({ testIndex, tests, setTests })}
-            disabled={!isTestsSectionEnabled}
+            disabled={!areTestsEnabled}
           />
           <TextInput
             id={`test-target-${testIndex}`}
@@ -73,7 +73,7 @@ export const RunConfigurationPanelTests: FC<IProps> = ({
             label={isNumberMetricField(test.field) ? 'Target' : 'Target (ms)'}
             type="number"
             onChange={handleTargetChange({ testIndex, tests, setTests })}
-            disabled={!isTestsSectionEnabled}
+            disabled={!areTestsEnabled}
           />
           <Trash
             className={trashClassNames.join(' ')}
@@ -81,7 +81,7 @@ export const RunConfigurationPanelTests: FC<IProps> = ({
               testIndex,
               tests,
               setTests,
-              isTestsSectionEnabled,
+              areTestsEnabled,
             })}
           />
           {testIndex === tests.length - 1 && (
@@ -90,7 +90,7 @@ export const RunConfigurationPanelTests: FC<IProps> = ({
               onClick={handleAddTestClick({
                 tests,
                 setTests,
-                isTestsSectionEnabled,
+                areTestsEnabled,
               })}
             />
           )}

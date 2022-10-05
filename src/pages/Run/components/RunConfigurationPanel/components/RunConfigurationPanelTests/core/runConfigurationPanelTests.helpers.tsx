@@ -70,12 +70,12 @@ export const handleRemoveTestClick = ({
   testIndex,
   tests,
   setTests,
-  isTestsSectionEnabled,
+  areTestsEnabled,
 }: { testIndex: number } & Pick<IProps, 'tests' | 'setTests'> & {
-    isTestsSectionEnabled: boolean
+    areTestsEnabled: boolean
   }): MouseEventHandler => {
   return () => {
-    if (!isTestsSectionEnabled) {
+    if (!areTestsEnabled) {
       return
     }
 
@@ -97,12 +97,12 @@ export const handleRemoveTestClick = ({
 export const handleAddTestClick = ({
   tests,
   setTests,
-  isTestsSectionEnabled,
+  areTestsEnabled,
 }: Pick<IProps, 'tests' | 'setTests'> & {
-  isTestsSectionEnabled: boolean
+  areTestsEnabled: boolean
 }): MouseEventHandler => {
   return () => {
-    if (!isTestsSectionEnabled) {
+    if (!areTestsEnabled) {
       return
     }
 
@@ -120,10 +120,10 @@ export const handleAddTestClick = ({
 
 export const getIconClassNames = ({
   className,
-  isTestsSectionEnabled,
+  areTestsEnabled,
 }: {
   className?: string
-  isTestsSectionEnabled: boolean
+  areTestsEnabled: boolean
 }): string[] => {
   const classNames: string[] = []
 
@@ -131,7 +131,7 @@ export const getIconClassNames = ({
     classNames.push(className)
   }
 
-  if (!isTestsSectionEnabled) {
+  if (!areTestsEnabled) {
     classNames.push(s['run-configuration-panel-tests__icon--disabled'])
   }
 

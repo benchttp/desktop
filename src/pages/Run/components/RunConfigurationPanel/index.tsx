@@ -29,7 +29,7 @@ import {
 import { IProps } from './core/RunConfigurationPanel.typings'
 
 export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
-  const [isTestsSectionEnabled, setIsTestsSectionEnabled] = useState(false)
+  const [areTestsEnabled, setareTestsEnabled] = useState(false)
   const [url, setUrl] = useState<string>('')
   const [method, setMethod] = useState<string>('GET')
   const [body, setBody] = useState<string>('')
@@ -149,16 +149,16 @@ export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
         <Toggle
           className="ml-3"
           id="test-section-enabled"
-          checked={isTestsSectionEnabled}
+          checked={areTestsEnabled}
           onChange={handleEnableTestsSectionChange({
-            setIsTestsSectionEnabled,
+            setareTestsEnabled,
           })}
         />
       </div>
       <RunConfigurationPanelTests
         tests={tests}
         setTests={setTests}
-        isTestsSectionEnabled={isTestsSectionEnabled}
+        areTestsEnabled={areTestsEnabled}
       />
       <div className="f f-ai-center f-jc-end">
         <Button
@@ -175,7 +175,7 @@ export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
               interval,
               requestTimeout,
               globalTimeout,
-              isTestsSectionEnabled,
+              areTestsEnabled,
               tests,
             },
           })}

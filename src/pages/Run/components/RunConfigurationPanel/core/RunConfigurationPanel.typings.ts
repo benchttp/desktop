@@ -16,7 +16,7 @@ export interface IRunConfigurationInput {
   interval: `${number}ms` | undefined
   requestTimeout: `${number}ms` | undefined
   globalTimeout: `${number}ms` | undefined
-  isTestsSectionEnabled: boolean
+  areTestsEnabled: boolean
   tests: {
     name: string
     field: ConfigurationTestCase['field']

@@ -20,5 +20,5 @@ export interface IProps {
       }[]
     >
   >
-  isTestsSectionEnabled: boolean
+  areTestsEnabled: boolean
 }
