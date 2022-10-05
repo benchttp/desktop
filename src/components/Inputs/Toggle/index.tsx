@@ -6,7 +6,7 @@ import { IProps } from './core/toggle.typings'
 export const Toggle: FC<IProps> = ({
   className,
   id,
-  value,
+  checked,
   onChange,
   label,
   disabled,
@@ -19,7 +19,7 @@ export const Toggle: FC<IProps> = ({
       <input
         disabled={disabled}
         id={id}
-        value={value}
+        checked={checked}
         onChange={onChange}
         type="checkbox"
       ></input>

@@ -149,7 +149,7 @@ export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
         <Toggle
           className="ml-3"
           id="test-section-enabled"
-          value={isTestsSectionEnabled}
+          checked={isTestsSectionEnabled}
           onChange={handleEnableTestsSectionChange({
             setIsTestsSectionEnabled,
           })}
