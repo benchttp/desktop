@@ -22,7 +22,7 @@ import { IProps } from './core/RunConfigurationPanel.typings'
 
 export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
   const { form, set } = useConfigurationForm()
-  console.log(form)
+
   return (
     <div>
       <Typography element="h1" className="mb-4">
