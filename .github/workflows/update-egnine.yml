@@ -1,25 +1,20 @@
 name: Update git submodule
 
 on:
-  repository_dispatch:
-    types: [update-engine]
-
-# github.event object is:
-# {
-#   "event_type": "update_engine",
-#   "client_payload": {
-#     "sha": "8018282583be009ba9103adddd40b42bbda93bdd"
-#   }
-# }
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: 'The commit SHA on benchttp/engine to update to.'
+        required: true
 
 jobs:
   update-submodule:
     permissions:
       contents: write
+      pull-requests: write
 
     env:
-      COMMIT_MESSAGE: 'ci: update engine submodule [skip ci]'
-      PR_BRANCH: ci/update-git-submodule-${{ github.event.client_payload.sha }}
+      BRANCH: ci/update-engine@${{ inputs.sha }}
 
     runs-on: ubuntu-latest
     steps:
@@ -27,7 +22,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          ref: ${{ github.head_ref }}
+          ref: ${{ github.ref }}
 
       - name: Update git submodule
         run: git submodule update --remote --merge
@@ -36,15 +31,20 @@ jobs:
         id: commit_changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: ${{ env.COMMIT_MESSAGE }}
-          branch: ${{ env.HEAD_BRANCH }}
+          commit_message: 'ci: update engine submodule [skip ci]'
+          branch: $BRANCH
           create_branch: true
           file_pattern: vendor/engine
 
-      - name: Open pull request
-        if: steps.commit_changes.outputs.changes_detected == 'true'
-        run: gh pr create --base ${{ env.TARGET_BRANCH }} --head ${{ env.HEAD_BRANCH }} --title ${{ env.COMMIT_MESSAGE }} --body ${{ env.BODY }}
+      - name: Validate changes
+        if: steps.commit_changes.outputs.changes_detected != 'true'
+        run: |
+          echo "No changes detected, is the submodule already up to date? Exiting with error."
+          exit 1
+
+      - name: Create pull request
+        run: gh pr create --base main --head $BRANCH --title $TITLE --body $BODY
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TARGET_BRANCH: main
+          TITLE: 'ci: update engine@${{ inputs.sha }}'
           BODY: Automated pull request.
