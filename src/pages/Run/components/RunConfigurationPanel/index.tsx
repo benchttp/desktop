@@ -5,7 +5,12 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { ConfigurationTestCase } from '@/benchttp/configuration'
 import { TestPredicate } from '@/benchttp/tests'
 import { Button, Tab, Typography } from '@/components'
-import { TextInput, SelectInput } from '@/components/Inputs'
+import {
+  TextInput,
+  SelectInput,
+  MillisecondInput,
+  NumberInput,
+} from '@/components/Inputs'
 
 import {
   RunConfigurationPanelHeaders,
@@ -13,9 +18,11 @@ import {
   RunConfigurationPanelTests,
 } from './components'
 import {
-  getRunConfiguration,
-  handleInputChange,
+  handleTextInputChange,
   handleRunTestClick,
+  handleSelectInputChange,
+  handleNumberInputChange,
+  handleMillisecondInputChange,
 } from './core/RunConfigurationPanel.helpers'
 import { IProps } from './core/RunConfigurationPanel.typings'
 
@@ -23,11 +30,11 @@ export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
   const [url, setUrl] = useState<string>('')
   const [method, setMethod] = useState<string>('GET')
   const [body, setBody] = useState<string>('')
-  const [requests, setRequests] = useState<string>('')
-  const [concurrency, setConcurrency] = useState<string>('')
-  const [interval, setInterval] = useState<string>('')
-  const [requestTimeout, setRequestTimeout] = useState<string>('')
-  const [globalTimeout, setGlobalTimeout] = useState<string>('')
+  const [requests, setRequests] = useState<number>()
+  const [concurrency, setConcurrency] = useState<number>()
+  const [interval, setInterval] = useState<`${number}ms`>()
+  const [requestTimeout, setRequestTimeout] = useState<`${number}ms`>()
+  const [globalTimeout, setGlobalTimeout] = useState<`${number}ms`>()
   const [headers, setHeaders] = useState<{ key: string; values: string[] }[]>([
     { key: '', values: [''] },
   ])
@@ -64,13 +71,13 @@ export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
             className="mr-3"
             id="url"
             value={url}
-            onChange={handleInputChange(setUrl)}
+            onChange={handleTextInputChange(setUrl)}
             label="Url"
           />
           <SelectInput
             id="method"
             value={method}
-            onChange={handleInputChange(setMethod)}
+            onChange={handleSelectInputChange(setMethod)}
             options={[
               { value: 'GET', display: 'GET' },
               { value: 'POST', display: 'POST' },
@@ -109,46 +116,41 @@ export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
           />
         </Routes>
         <div className="f f-direction-row f-ai-center mb-4">
-          <TextInput
+          <NumberInput
             className="mr-3"
             id="requests"
             value={requests}
-            onChange={handleInputChange(setRequests)}
+            onChange={handleNumberInputChange(setRequests)}
             label="Number of requests"
-            type="number"
           />
-          <TextInput
+          <NumberInput
             className="mr-3"
             id="concurrency"
             value={concurrency}
-            onChange={handleInputChange(setConcurrency)}
+            onChange={handleNumberInputChange(setConcurrency)}
             label="Concurrent requests"
-            type="number"
           />
-          <TextInput
+          <MillisecondInput
             id="interval"
             value={interval}
-            onChange={handleInputChange(setInterval)}
-            label="Interval (ms)"
-            type="number"
+            onChange={handleMillisecondInputChange(setInterval)}
+            label="Interval"
           />
         </div>
         <div className="f f-direction-row f-ai-center">
-          <TextInput
+          <MillisecondInput
             className="mr-3"
             id="global-timeout"
             value={globalTimeout}
-            onChange={handleInputChange(setGlobalTimeout)}
-            label="Global timeout (s)"
-            type="number"
+            onChange={handleMillisecondInputChange(setGlobalTimeout)}
+            label="Global timeout"
           />
-          <TextInput
+          <MillisecondInput
             className="mr-3"
             id="request-timeout"
             value={requestTimeout}
-            onChange={handleInputChange(setRequestTimeout)}
-            label="Request timeout (s)"
-            type="number"
+            onChange={handleMillisecondInputChange(setRequestTimeout)}
+            label="Request timeout"
           />
         </div>
       </div>
@@ -161,7 +163,7 @@ export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
           text="Run test"
           onClick={handleRunTestClick({
             onStart,
-            config: getRunConfiguration({
+            configInput: {
               method,
               url,
               headers,
@@ -172,7 +174,7 @@ export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
               requestTimeout,
               globalTimeout,
               tests,
-            }),
+            },
           })}
           iconEnd={Play}
         />
