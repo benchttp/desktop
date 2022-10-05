@@ -1,14 +1,21 @@
 import { FC } from 'react'
 
 import { TextInput } from '@/components/Inputs'
+import { parseInteger } from '@/tools'
 
-import {
-  getDurationValue,
-  getStringValue,
-} from './core/millisecondInput.helpers'
-import { IProps } from './core/millisecondInput.typings'
+type Millisecond = `${number}ms`
 
-export const MillisecondInput: FC<IProps> = ({
+interface Props {
+  className?: string
+  id: string
+  value: Millisecond | undefined
+  onChange: (value: Millisecond | undefined) => void
+  label?: string
+  disabled?: boolean
+  placeholder?: string
+}
+
+export const MillisecondInput: FC<Props> = ({
   className,
   id,
   value,
@@ -28,3 +35,17 @@ export const MillisecondInput: FC<IProps> = ({
     type="number"
   />
 )
+
+const getDurationValue = (value: string): Millisecond => {
+  if (value === '') {
+    return '0ms'
+  }
+  return value === '' ? '0ms' : `${parseInteger(value)}ms`
+}
+
+const getStringValue = (value: Millisecond | undefined): string => {
+  if (value === undefined) {
+    return ''
+  }
+  return value.slice(0, -2)
+}
