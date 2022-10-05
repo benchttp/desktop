@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { ChangeEventHandler, FC } from 'react'
 
 import { TextInput } from '@/components/Inputs'
 import { parseInteger } from '@/tools'
@@ -28,13 +28,19 @@ export const MillisecondInput: FC<Props> = ({
     className={className}
     id={id}
     value={getStringValue(value)}
-    onChange={(e) => onChange(getDurationValue(e.target.value))}
+    onChange={handleChangeAsDuration(onChange)}
     label={`${label} (ms)`}
     disabled={disabled}
     placeholder={placeholder}
     type="number"
   />
 )
+
+const handleChangeAsDuration = (
+  onChange: Props['onChange']
+): ChangeEventHandler<HTMLInputElement> => {
+  return (e) => onChange(getDurationValue(e.target.value))
+}
 
 const getDurationValue = (value: string): Millisecond => {
   if (value === '') {

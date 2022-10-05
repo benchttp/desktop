@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { ChangeEventHandler, FC } from 'react'
 
 import { TextInput } from '@/components/Inputs'
 import { parseInteger } from '@/tools'
@@ -26,13 +26,19 @@ export const NumberInput: FC<Props> = ({
     className={className}
     id={id}
     value={getStringValue(value)}
-    onChange={(e) => onChange(getNumberValue(e.target.value))}
+    onChange={handleChangeAsNumber(onChange)}
     label={label}
     disabled={disabled}
     placeholder={placeholder}
     type="number"
   />
 )
+
+const handleChangeAsNumber = (
+  onChange: Props['onChange']
+): ChangeEventHandler<HTMLInputElement> => {
+  return (e) => onChange(getNumberValue(e.target.value))
+}
 
 const getNumberValue = (value: string): number => {
   if (value === '') {
