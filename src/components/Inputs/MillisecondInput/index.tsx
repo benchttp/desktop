@@ -1,11 +1,10 @@
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 
 import { TextInput } from '@/components/Inputs'
 
 import {
-  getInternalValue,
-  handleChange,
-  handleInternalChange,
+  getDurationValue,
+  getStringValue,
 } from './core/millisecondInput.helpers'
 import { IProps } from './core/millisecondInput.typings'
 
@@ -17,25 +16,15 @@ export const MillisecondInput: FC<IProps> = ({
   label,
   disabled,
   placeholder,
-}) => {
-  const [internalValue, setInternalValue] = useState(
-    getInternalValue({ value })
-  )
-
-  useEffect(() => {
-    handleChange({ internalValue, onChange })
-  }, [internalValue, onChange])
-
-  return (
-    <TextInput
-      className={className}
-      id={id}
-      value={internalValue === undefined ? '' : `${internalValue}`}
-      onChange={handleInternalChange({ setInternalValue })}
-      label={`${label} (ms)`}
-      disabled={disabled}
-      placeholder={placeholder}
-      type="number"
-    />
-  )
-}
+}) => (
+  <TextInput
+    className={className}
+    id={id}
+    value={getStringValue(value)}
+    onChange={(e) => onChange(getDurationValue(e.target.value))}
+    label={`${label} (ms)`}
+    disabled={disabled}
+    placeholder={placeholder}
+    type="number"
+  />
+)
