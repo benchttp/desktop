@@ -84,18 +84,16 @@ export const RunConfigurationPanelTests: FC<IProps> = ({
               areTestsEnabled,
             })}
           />
-          {testIndex === tests.length - 1 && (
-            <PlusSquare
-              className={plusClassNames.join(' ')}
-              onClick={handleAddTestClick({
-                tests,
-                setTests,
-                areTestsEnabled,
-              })}
-            />
-          )}
         </div>
       ))}
+      <PlusSquare
+        className={plusClassNames.join(' ')}
+        onClick={handleAddTestClick({
+          tests,
+          setTests,
+          areTestsEnabled,
+        })}
+      />
     </div>
   )
 }

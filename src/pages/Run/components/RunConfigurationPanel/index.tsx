@@ -1,9 +1,7 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { Mail, Package, Play } from 'react-feather'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
-import { ConfigurationTestCase } from '@/benchttp/configuration'
-import { TestPredicate } from '@/benchttp/tests'
 import { Button, Tab, Typography } from '@/components'
 import {
   TextInput,
@@ -11,45 +9,20 @@ import {
   MillisecondInput,
   NumberInput,
   Toggle,
+  TextAreaInput,
 } from '@/components/Inputs'
+import { useConfigurationForm } from '@/hooks'
 
 import {
   RunConfigurationPanelHeaders,
-  RunConfigurationPanelBody,
   RunConfigurationPanelTests,
 } from './components'
-import {
-  handleTextInputChange,
-  handleRunTestClick,
-  handleSelectInputChange,
-  handleNumberInputChange,
-  handleMillisecondInputChange,
-  handleEnableTestsSectionChange,
-} from './core/RunConfigurationPanel.helpers'
+import { handleRunTestClick } from './core/RunConfigurationPanel.helpers'
 import { IProps } from './core/RunConfigurationPanel.typings'
 
 export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
-  const [areTestsEnabled, setareTestsEnabled] = useState(false)
-  const [url, setUrl] = useState<string>('')
-  const [method, setMethod] = useState<string>('GET')
-  const [body, setBody] = useState<string>('')
-  const [requests, setRequests] = useState<number>()
-  const [concurrency, setConcurrency] = useState<number>()
-  const [interval, setInterval] = useState<`${number}ms`>()
-  const [requestTimeout, setRequestTimeout] = useState<`${number}ms`>()
-  const [globalTimeout, setGlobalTimeout] = useState<`${number}ms`>()
-  const [headers, setHeaders] = useState<{ key: string; values: string[] }[]>([
-    { key: '', values: [''] },
-  ])
-  const [tests, setTests] = useState<
-    {
-      name: string
-      field: ConfigurationTestCase['field']
-      predicate: TestPredicate
-      target: string
-    }[]
-  >([{ name: '', field: 'ResponseTimes.Mean', predicate: 'LT', target: '' }])
-
+  const { form, set } = useConfigurationForm()
+  console.log(form)
   return (
     <div>
       <Typography element="h1" className="mb-4">
@@ -60,20 +33,20 @@ export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
           <TextInput
             className="mr-3"
             id="url"
-            value={url}
-            onChange={handleTextInputChange(setUrl)}
-            label="Url"
+            value={form.url}
+            onChange={(e) => set({ url: e.target.value })}
+            label="URL"
           />
           <SelectInput
             id="method"
-            value={method}
-            onChange={handleSelectInputChange(setMethod)}
+            value={form.method}
+            onChange={(e) => set({ method: e.target.value })}
             options={[
               { value: 'GET', display: 'GET' },
-              { value: 'POST', display: 'POST' },
-              { value: 'PUT', display: 'PUT' },
-              { value: 'PATCH', display: 'PATCH' },
-              { value: 'DELETE', display: 'DELETE' },
+              { value: 'POST', display: 'POST', disabled: true },
+              { value: 'PUT', display: 'PUT', disabled: true },
+              { value: 'PATCH', display: 'PATCH', disabled: true },
+              { value: 'DELETE', display: 'DELETE', disabled: true },
             ]}
             label="Method"
           />
@@ -93,15 +66,19 @@ export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
             path="headers"
             element={
               <RunConfigurationPanelHeaders
-                headers={headers}
-                setHeaders={setHeaders}
+                headers={form.headers}
+                setHeaders={(v) => set({ headers: v })}
               />
             }
           />
           <Route
             path="body"
             element={
-              <RunConfigurationPanelBody body={body} setBody={setBody} />
+              <TextAreaInput
+                id="body"
+                value={form.body}
+                onChange={(e) => set({ body: e.target.value })}
+              />
             }
           />
         </Routes>
@@ -109,21 +86,21 @@ export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
           <NumberInput
             className="mr-3"
             id="requests"
-            value={requests}
-            onChange={handleNumberInputChange(setRequests)}
+            value={form.requests}
+            onChange={(v) => set({ requests: v })}
             label="Number of requests"
           />
           <NumberInput
             className="mr-3"
             id="concurrency"
-            value={concurrency}
-            onChange={handleNumberInputChange(setConcurrency)}
+            value={form.concurrency}
+            onChange={(v) => set({ concurrency: v })}
             label="Concurrent requests"
           />
           <MillisecondInput
             id="interval"
-            value={interval}
-            onChange={handleMillisecondInputChange(setInterval)}
+            value={form.interval}
+            onChange={(v) => set({ interval: v })}
             label="Interval"
           />
         </div>
@@ -131,15 +108,15 @@ export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
           <MillisecondInput
             className="mr-3"
             id="global-timeout"
-            value={globalTimeout}
-            onChange={handleMillisecondInputChange(setGlobalTimeout)}
+            value={form.globalTimeout}
+            onChange={(v) => set({ globalTimeout: v })}
             label="Global timeout"
           />
           <MillisecondInput
             className="mr-3"
             id="request-timeout"
-            value={requestTimeout}
-            onChange={handleMillisecondInputChange(setRequestTimeout)}
+            value={form.requestTimeout}
+            onChange={(v) => set({ requestTimeout: v })}
             label="Request timeout"
           />
         </div>
@@ -149,35 +126,21 @@ export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
         <Toggle
           className="ml-3"
           id="test-section-enabled"
-          checked={areTestsEnabled}
-          onChange={handleEnableTestsSectionChange({
-            setareTestsEnabled,
-          })}
+          checked={form.areTestsEnabled}
+          onChange={(e) => set({ areTestsEnabled: e.target.checked })}
         />
       </div>
       <RunConfigurationPanelTests
-        tests={tests}
-        setTests={setTests}
-        areTestsEnabled={areTestsEnabled}
+        tests={form.tests}
+        setTests={(v) => set({ tests: v })}
+        areTestsEnabled={form.areTestsEnabled}
       />
       <div className="f f-ai-center f-jc-end">
         <Button
           text="Run test"
           onClick={handleRunTestClick({
             onStart,
-            configInput: {
-              method,
-              url,
-              headers,
-              body,
-              requests,
-              concurrency,
-              interval,
-              requestTimeout,
-              globalTimeout,
-              areTestsEnabled,
-              tests,
-            },
+            configInput: form,
           })}
           iconEnd={Play}
         />

@@ -1,9 +1,4 @@
-import {
-  Dispatch,
-  SetStateAction,
-  ChangeEventHandler,
-  MouseEventHandler,
-} from 'react'
+import { MouseEventHandler } from 'react'
 
 import { RunConfiguration } from '@/benchttp'
 import { ConfigurationTestCase } from '@/benchttp/configuration'
@@ -12,48 +7,6 @@ import { isTestPredicate } from '@/benchttp/tests'
 import { parseInteger, parseMilliseconds } from '@/tools'
 
 import { IRunConfigurationInput, IProps } from './RunConfigurationPanel.typings'
-
-export const handleEnableTestsSectionChange = ({
-  setareTestsEnabled,
-}: {
-  setareTestsEnabled: Dispatch<SetStateAction<boolean>>
-}): ChangeEventHandler<HTMLInputElement> => {
-  return (e) => {
-    setareTestsEnabled(e.target.checked)
-  }
-}
-
-export const handleTextInputChange = (
-  setter: Dispatch<SetStateAction<string>>
-): ChangeEventHandler<HTMLInputElement> => {
-  return (e) => {
-    setter(e.target.value)
-  }
-}
-
-export const handleSelectInputChange = (
-  setter: Dispatch<SetStateAction<string>>
-): ChangeEventHandler<HTMLSelectElement> => {
-  return (e) => {
-    setter(e.target.value)
-  }
-}
-
-export const handleNumberInputChange = (
-  setter: Dispatch<SetStateAction<number | undefined>>
-): ((value: number | undefined) => void) => {
-  return (value) => {
-    setter(value)
-  }
-}
-
-export const handleMillisecondInputChange = (
-  setter: Dispatch<SetStateAction<`${number}ms` | undefined>>
-): ((value: `${number}ms` | undefined) => void) => {
-  return (value) => {
-    setter(value)
-  }
-}
 
 export const handleRunTestClick = ({
   onStart,
