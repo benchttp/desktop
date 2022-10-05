@@ -10,6 +10,7 @@ import {
   SelectInput,
   MillisecondInput,
   NumberInput,
+  Toggle,
 } from '@/components/Inputs'
 
 import {
@@ -23,10 +24,12 @@ import {
   handleSelectInputChange,
   handleNumberInputChange,
   handleMillisecondInputChange,
+  handleEnableTestsSectionChange,
 } from './core/RunConfigurationPanel.helpers'
 import { IProps } from './core/RunConfigurationPanel.typings'
 
 export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
+  const [isTestsSectionEnabled, setIsTestsSectionEnabled] = useState(false)
   const [url, setUrl] = useState<string>('')
   const [method, setMethod] = useState<string>('GET')
   const [body, setBody] = useState<string>('')
@@ -46,19 +49,6 @@ export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
       target: string
     }[]
   >([{ name: '', field: 'ResponseTimes.Mean', predicate: 'LT', target: '' }])
-
-  console.log({
-    url,
-    method,
-    body,
-    requests,
-    concurrency,
-    interval,
-    requestTimeout,
-    globalTimeout,
-    headers,
-    tests,
-  })
 
   return (
     <div>
@@ -154,10 +144,22 @@ export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
           />
         </div>
       </div>
-      <Typography element="h1" className="mb-4">
-        Tests
-      </Typography>
-      <RunConfigurationPanelTests tests={tests} setTests={setTests} />
+      <div className="f f-ai-center mb-4">
+        <Typography element="h1">Tests</Typography>
+        <Toggle
+          className="ml-3"
+          id="test-section-enabled"
+          value={isTestsSectionEnabled}
+          onChange={handleEnableTestsSectionChange({
+            setIsTestsSectionEnabled,
+          })}
+        />
+      </div>
+      <RunConfigurationPanelTests
+        tests={tests}
+        setTests={setTests}
+        isTestsSectionEnabled={isTestsSectionEnabled}
+      />
       <div className="f f-ai-center f-jc-end">
         <Button
           text="Run test"

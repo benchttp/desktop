@@ -15,10 +15,24 @@ import {
   handleTargetChange,
   handleRemoveTestClick,
   handleAddTestClick,
+  getIconClassNames,
 } from './core/runConfigurationPanelTests.helpers'
 import { IProps } from './core/runConfigurationPanelTests.typings'
 
-export const RunConfigurationPanelTests: FC<IProps> = ({ tests, setTests }) => {
+export const RunConfigurationPanelTests: FC<IProps> = ({
+  tests,
+  setTests,
+  isTestsSectionEnabled,
+}) => {
+  const trashClassNames = getIconClassNames({
+    className: 'mr-3',
+    isTestsSectionEnabled,
+  })
+
+  const plusClassNames = getIconClassNames({
+    isTestsSectionEnabled,
+  })
+
   return (
     <div className="f f-direction-column f-ai-start">
       {tests.map((test, testIndex) => (
@@ -32,6 +46,7 @@ export const RunConfigurationPanelTests: FC<IProps> = ({ tests, setTests }) => {
             value={test.name}
             label="Name"
             onChange={handleNameChange({ testIndex, tests, setTests })}
+            disabled={!isTestsSectionEnabled}
           />
           <SelectInput
             id={`test-field-${testIndex}`}
@@ -40,6 +55,7 @@ export const RunConfigurationPanelTests: FC<IProps> = ({ tests, setTests }) => {
             options={FIELD_OPTIONS}
             label="Field"
             onChange={handleFieldChange({ testIndex, tests, setTests })}
+            disabled={!isTestsSectionEnabled}
           />
           <SelectInput
             id={`test-predicate-${testIndex}`}
@@ -48,6 +64,7 @@ export const RunConfigurationPanelTests: FC<IProps> = ({ tests, setTests }) => {
             options={PREDICATE_OPTIONS}
             label="Predicate"
             onChange={handlePredicateChange({ testIndex, tests, setTests })}
+            disabled={!isTestsSectionEnabled}
           />
           <TextInput
             id={`test-target-${testIndex}`}
@@ -56,13 +73,26 @@ export const RunConfigurationPanelTests: FC<IProps> = ({ tests, setTests }) => {
             label={isNumberMetricField(test.field) ? 'Target' : 'Target (ms)'}
             type="number"
             onChange={handleTargetChange({ testIndex, tests, setTests })}
+            disabled={!isTestsSectionEnabled}
           />
           <Trash
-            className="mr-3"
-            onClick={handleRemoveTestClick({ testIndex, tests, setTests })}
+            className={trashClassNames.join(' ')}
+            onClick={handleRemoveTestClick({
+              testIndex,
+              tests,
+              setTests,
+              isTestsSectionEnabled,
+            })}
           />
           {testIndex === tests.length - 1 && (
-            <PlusSquare onClick={handleAddTestClick({ tests, setTests })} />
+            <PlusSquare
+              className={plusClassNames.join(' ')}
+              onClick={handleAddTestClick({
+                tests,
+                setTests,
+                isTestsSectionEnabled,
+              })}
+            />
           )}
         </div>
       ))}

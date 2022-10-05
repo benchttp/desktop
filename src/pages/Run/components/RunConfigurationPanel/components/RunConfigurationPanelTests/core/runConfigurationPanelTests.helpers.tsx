@@ -3,6 +3,7 @@ import { ChangeEventHandler, MouseEventHandler } from 'react'
 import { ConfigurationTestCase } from '@/benchttp/configuration'
 import { TestPredicate } from '@/benchttp/tests'
 
+import s from './runConfigurationPanelTests.module.scss'
 import { IProps } from './runConfigurationPanelTests.typings'
 
 export const handleNameChange = ({
@@ -69,11 +70,15 @@ export const handleRemoveTestClick = ({
   testIndex,
   tests,
   setTests,
-}: { testIndex: number } & Pick<
-  IProps,
-  'tests' | 'setTests'
->): MouseEventHandler => {
+  isTestsSectionEnabled,
+}: { testIndex: number } & Pick<IProps, 'tests' | 'setTests'> & {
+    isTestsSectionEnabled: boolean
+  }): MouseEventHandler => {
   return () => {
+    if (!isTestsSectionEnabled) {
+      return
+    }
+
     const newTests = [...tests]
 
     if (tests.length === 1) {
@@ -92,9 +97,17 @@ export const handleRemoveTestClick = ({
 export const handleAddTestClick = ({
   tests,
   setTests,
-}: Pick<IProps, 'tests' | 'setTests'>): MouseEventHandler => {
+  isTestsSectionEnabled,
+}: Pick<IProps, 'tests' | 'setTests'> & {
+  isTestsSectionEnabled: boolean
+}): MouseEventHandler => {
   return () => {
+    if (!isTestsSectionEnabled) {
+      return
+    }
+
     const newTests = [...tests]
+
     newTests.push({
       name: '',
       field: 'ResponseTimes.Mean',
@@ -103,4 +116,24 @@ export const handleAddTestClick = ({
     })
     setTests(newTests)
   }
+}
+
+export const getIconClassNames = ({
+  className,
+  isTestsSectionEnabled,
+}: {
+  className?: string
+  isTestsSectionEnabled: boolean
+}): string[] => {
+  const classNames: string[] = []
+
+  if (className) {
+    classNames.push(className)
+  }
+
+  if (!isTestsSectionEnabled) {
+    classNames.push(s['run-configuration-panel-tests__icon--disabled'])
+  }
+
+  return classNames
 }

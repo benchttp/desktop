@@ -13,6 +13,16 @@ import { parseInteger, parseMilliseconds } from '@/tools'
 
 import { IRunConfigurationInput, IProps } from './RunConfigurationPanel.typings'
 
+export const handleEnableTestsSectionChange = ({
+  setIsTestsSectionEnabled,
+}: {
+  setIsTestsSectionEnabled: Dispatch<SetStateAction<boolean>>
+}): ChangeEventHandler<HTMLInputElement> => {
+  return (e) => {
+    setIsTestsSectionEnabled(e.target.checked)
+  }
+}
+
 export const handleTextInputChange = (
   setter: Dispatch<SetStateAction<string>>
 ): ChangeEventHandler<HTMLInputElement> => {
