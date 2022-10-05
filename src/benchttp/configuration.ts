@@ -4,7 +4,7 @@ import { TestPredicate } from './tests'
 
 export interface RunConfiguration {
   request: {
-    method: string
+    method: 'GET'
     url: string
     queryParams?: Record<string, string>
     header?: Record<string, string[]>

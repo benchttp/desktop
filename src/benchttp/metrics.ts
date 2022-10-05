@@ -45,3 +45,6 @@ export const isDurationMetricField = (
   field: string
 ): field is DurationMetric['field'] =>
   field.startsWith('ResponseTimes') || field.startsWith('RequestEventTimes')
+
+export const isMetricField = (field: string): field is Metric['field'] =>
+  isNumberMetricField(field) || isDurationMetricField(field)
