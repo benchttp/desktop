@@ -1,7 +1,7 @@
 import s from './Example.module.scss'
 import { Foo } from './Example.typing'
 
-export const getClassName = (className: string): string => {
+export const getClassName = (className: string | undefined): string => {
   const classNames = [s['example'], 'f']
 
   if (className) {

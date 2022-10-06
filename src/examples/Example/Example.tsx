@@ -4,7 +4,7 @@ import { doSomething, getClassName } from './internal/Example.helper'
 import { Foo } from './internal/Example.typing'
 
 interface IProps {
-  className: string
+  className?: string
   foo: Foo
 }
 
