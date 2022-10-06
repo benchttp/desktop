@@ -1,8 +1,8 @@
 import { FC } from 'react'
-import { Mail, Package, Play } from 'react-feather'
+import { Mail, Package } from 'react-feather'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
-import { Button, Tab, Typography } from '@/components'
+import { Tab, Typography } from '@/components'
 import {
   TextInput,
   SelectInput,
@@ -11,18 +11,20 @@ import {
   Toggle,
   TextAreaInput,
 } from '@/components/Inputs'
-import { useConfigurationForm } from '@/hooks'
+import { IRunConfigurationInput } from '@/hooks/useConfigurationForm'
+import { ExactlyOne } from '@/typing'
 
 import {
   RunConfigurationPanelHeaders,
   RunConfigurationPanelTests,
 } from './components'
-import { handleRunTestClick } from './core/RunConfigurationPanel.helpers'
-import { IProps } from './core/RunConfigurationPanel.typings'
 
-export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
-  const { form, set } = useConfigurationForm()
+interface Props {
+  form: IRunConfigurationInput
+  set: (v: ExactlyOne<IRunConfigurationInput>) => void
+}
 
+export const RunConfigurationPanel: FC<Props> = ({ form, set }) => {
   return (
     <div>
       <Typography element="h1" className="mb-4">
@@ -135,16 +137,6 @@ export const RunConfigurationPanel: FC<IProps> = ({ onStart }) => {
         setTests={(v) => set({ tests: v })}
         areTestsEnabled={form.areTestsEnabled}
       />
-      <div className="f f-ai-center f-jc-end">
-        <Button
-          text="Run test"
-          onClick={handleRunTestClick({
-            onStart,
-            configInput: form,
-          })}
-          iconEnd={Play}
-        />
-      </div>
     </div>
   )
 }

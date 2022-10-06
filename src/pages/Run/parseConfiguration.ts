@@ -1,26 +1,11 @@
-import { MouseEventHandler } from 'react'
-
 import { RunConfiguration } from '@/benchttp'
 import { ConfigurationTestCase } from '@/benchttp/configuration'
 import { isMetricField, isNumberMetricField } from '@/benchttp/metrics'
 import { isTestPredicate } from '@/benchttp/tests'
+import { IRunConfigurationInput } from '@/hooks/useConfigurationForm'
 import { parseInteger, parseMilliseconds } from '@/tools'
 
-import { IRunConfigurationInput, IProps } from './RunConfigurationPanel.typings'
-
-export const handleRunTestClick = ({
-  onStart,
-  configInput,
-}: Pick<IProps, 'onStart'> & {
-  configInput: IRunConfigurationInput
-}): MouseEventHandler => {
-  return () => {
-    const config = getRunConfiguration(configInput)
-    onStart(config)
-  }
-}
-
-export const getRunConfiguration = ({
+export const parseConfiguration = ({
   method,
   url,
   headers,

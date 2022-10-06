@@ -23,6 +23,8 @@ interface State {
   }[]
 }
 
+export type IRunConfigurationInput = State
+
 const initState = (): State => ({
   method: 'GET',
   url: 'http://example.com',

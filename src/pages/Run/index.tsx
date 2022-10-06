@@ -1,15 +1,16 @@
 import { FC } from 'react'
-import { CheckCircle, Settings } from 'react-feather'
+import { CheckCircle, Play, Settings } from 'react-feather'
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 
-import { RunConfiguration } from '@/benchttp'
-import { Tab } from '@/components'
-import { useRunStream } from '@/hooks'
+import { Button, Tab } from '@/components'
+import { useConfigurationForm, useRunStream } from '@/hooks'
 
 import { RunConfigurationPanel, RunResultDisplay } from './components'
+import { parseConfiguration } from './parseConfiguration'
 
 export const Run: FC = () => {
   const { start, stop, progress, report, error } = useRunStream()
+  const { form, set } = useConfigurationForm()
 
   const navigate = useNavigate()
 
@@ -34,12 +35,20 @@ export const Run: FC = () => {
         <Route
           path="configure/*"
           element={
-            <RunConfigurationPanel
-              onStart={(config: RunConfiguration) => {
-                start(config)
-                navigate('tests-results', { replace: true })
-              }}
-            />
+            <>
+              <RunConfigurationPanel form={form} set={set} />
+              <div className="f f-ai-center f-jc-end">
+                <Button
+                  text="Run test"
+                  onClick={() => {
+                    const config = parseConfiguration(form)
+                    start(config)
+                    navigate('tests-results', { replace: true })
+                  }}
+                  iconEnd={Play}
+                />
+              </div>
+            </>
           }
         />
 
