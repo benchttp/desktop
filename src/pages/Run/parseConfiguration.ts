@@ -21,7 +21,7 @@ export const parseConfiguration = ({
   return {
     request: {
       method: method,
-      url: parseUrl(url),
+      url: url,
       header: parseHeaders(headers),
       body: parseBody(body),
     },
@@ -34,16 +34,6 @@ export const parseConfiguration = ({
     },
     tests: areTestsEnabled ? parseTests(tests) : undefined,
   }
-}
-
-const parseUrl = (
-  url: IRunConfigurationInput['url']
-): RunConfiguration['request']['url'] => {
-  if (url === '') {
-    throw new Error('url cannot be an empty string')
-  }
-
-  return url
 }
 
 const parseHeaders = (

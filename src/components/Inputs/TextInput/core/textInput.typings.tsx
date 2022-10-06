@@ -9,4 +9,5 @@ export interface IProps {
   disabled?: boolean
   placeholder?: string
   type?: HTMLInputTypeAttribute
+  invalid?: boolean
 }

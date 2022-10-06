@@ -4,7 +4,6 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 
 import { Tab, Typography } from '@/components'
 import {
-  TextInput,
   MillisecondInput,
   NumberInput,
   Toggle,
@@ -17,6 +16,7 @@ import {
   MethodInput,
   RunConfigurationPanelHeaders,
   RunConfigurationPanelTests,
+  URLInput,
 } from './components'
 
 interface IProps {
@@ -32,11 +32,11 @@ export const RunConfigurationPanel: FC<IProps> = ({ form, set }) => {
       </Typography>
       <div className="mb-5">
         <div className="f f-direction-row f-align-center mb-4">
-          <TextInput
+          <URLInput
             className="mr-3"
             id="url"
             value={form.url}
-            onChange={(e) => set({ url: e.target.value })}
+            onChange={(v) => set({ url: v })}
             label="URL"
           />
           <MethodInput

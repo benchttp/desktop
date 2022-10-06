@@ -14,6 +14,7 @@ export const TextInput: FC<IProps & TestingProps> = ({
   disabled,
   placeholder,
   type,
+  invalid,
   'data-testid': dataTestid,
 }) => {
   const classNames = getClassName({ className })
@@ -29,6 +30,7 @@ export const TextInput: FC<IProps & TestingProps> = ({
         value={value}
         onChange={onChange}
         type={type}
+        aria-invalid={`${invalid || false}`}
       />
     </div>
   )
