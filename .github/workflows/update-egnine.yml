@@ -1,0 +1,50 @@
+name: Update git submodule
+
+on:
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: 'The commit SHA on benchttp/engine to update to.'
+        required: true
+
+jobs:
+  update-submodule:
+    permissions:
+      contents: write
+      pull-requests: write
+
+    env:
+      BRANCH: ci/update-engine@${{ inputs.sha }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
+
+      - name: Update git submodule
+        run: git submodule update --remote --merge
+
+      - name: Commit changes
+        id: commit_changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'ci: update engine submodule [skip ci]'
+          branch: $BRANCH
+          create_branch: true
+          file_pattern: vendor/engine
+
+      - name: Validate changes
+        if: steps.commit_changes.outputs.changes_detected != 'true'
+        run: |
+          echo "No changes detected, is the submodule already up to date? Exiting with error."
+          exit 1
+
+      - name: Create pull request
+        run: gh pr create --base main --head $BRANCH --title $TITLE --body $BODY
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TITLE: 'ci: update engine@${{ inputs.sha }}'
+          BODY: Automated pull request.

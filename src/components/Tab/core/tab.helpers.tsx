@@ -11,7 +11,7 @@ export const getClassName = ({
 }: Pick<IProps, 'className'> &
   Pick<Required<IProps>, 'disabled'>): NavLinkProps['className'] => {
   return ({ isActive }) => {
-    const classNames: string[] = [s['tab'], 'f', 'f-ai-center']
+    const classNames: string[] = [s['tab'], 'f', 'f-ai-center', 'pb-2']
 
     if (className) {
       classNames.push(className)
@@ -22,7 +22,7 @@ export const getClassName = ({
     }
 
     if (disabled) {
-      classNames.push(s['tab--disabled'], s['tab--no-hover'])
+      classNames.push(s['tab--disabled'])
     }
 
     return classNames.join(' ')
