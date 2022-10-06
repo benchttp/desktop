@@ -20,7 +20,7 @@ export const parseConfiguration = ({
 }: IRunConfigurationInput): RunConfiguration => {
   return {
     request: {
-      method: parseMethod(method),
+      method: method,
       url: parseUrl(url),
       header: parseHeaders(headers),
       body: parseBody(body),
@@ -34,16 +34,6 @@ export const parseConfiguration = ({
     },
     tests: areTestsEnabled ? parseTests(tests) : undefined,
   }
-}
-
-const parseMethod = (
-  method: IRunConfigurationInput['method']
-): RunConfiguration['request']['method'] => {
-  if (method !== 'GET') {
-    throw new Error('unsupported method')
-  }
-
-  return method
 }
 
 const parseUrl = (

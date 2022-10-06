@@ -5,7 +5,6 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { Tab, Typography } from '@/components'
 import {
   TextInput,
-  SelectInput,
   MillisecondInput,
   NumberInput,
   Toggle,
@@ -15,6 +14,7 @@ import { IRunConfigurationInput } from '@/hooks/useConfigurationForm'
 import { ExactlyOne } from '@/typing'
 
 import {
+  MethodInput,
   RunConfigurationPanelHeaders,
   RunConfigurationPanelTests,
 } from './components'
@@ -39,17 +39,10 @@ export const RunConfigurationPanel: FC<Props> = ({ form, set }) => {
             onChange={(e) => set({ url: e.target.value })}
             label="URL"
           />
-          <SelectInput
+          <MethodInput
             id="method"
             value={form.method}
-            onChange={(e) => set({ method: e.target.value })}
-            options={[
-              { value: 'GET', display: 'GET' },
-              { value: 'POST', display: 'POST', disabled: true },
-              { value: 'PUT', display: 'PUT', disabled: true },
-              { value: 'PATCH', display: 'PATCH', disabled: true },
-              { value: 'DELETE', display: 'DELETE', disabled: true },
-            ]}
+            onChange={(v) => set({ method: v })}
             label="Method"
           />
         </div>

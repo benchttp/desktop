@@ -5,7 +5,7 @@ import { TestPredicate } from '@/benchttp/tests'
 import { ExactlyOne } from '@/typing'
 
 interface State {
-  method: string
+  method: 'GET'
   url: string
   headers: { key: string; values: string[] }[]
   body: string

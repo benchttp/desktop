@@ -21,18 +21,6 @@ const mockRunConfigurationInput = (
 })
 
 describe.skip('Parse run configuration', () => {
-  describe('Parse method', () => {
-    test('GET is valid', () => {
-      const given = mockRunConfigurationInput({ method: 'GET' })
-      const actual = parseConfiguration(given)
-      expect(actual.request.method).toEqual('GET')
-    })
-    test('any other string is invalid', () => {
-      const given = mockRunConfigurationInput({ method: '' })
-      expect(() => parseConfiguration(given)).toThrow()
-    })
-  })
-
   describe('Parse url', () => {
     test('empty string is invalid', () => {
       const given = mockRunConfigurationInput({ url: '' })
