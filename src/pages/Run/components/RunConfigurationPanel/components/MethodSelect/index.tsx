@@ -11,7 +11,7 @@ interface IProps extends TestingProps {
   label?: string
 }
 
-export const MethodInput: FC<IProps> = ({
+export const MethodSelect: FC<IProps> = ({
   className,
   value,
   onChange,

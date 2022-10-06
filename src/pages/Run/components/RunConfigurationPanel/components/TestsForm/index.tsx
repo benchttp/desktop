@@ -19,11 +19,7 @@ import {
 } from './core/runConfigurationPanelTests.helpers'
 import { IProps } from './core/runConfigurationPanelTests.typings'
 
-export const RunConfigurationPanelTests: FC<IProps> = ({
-  tests,
-  setTests,
-  areTestsEnabled,
-}) => {
+export const TestsForm: FC<IProps> = ({ tests, setTests, areTestsEnabled }) => {
   const trashClassNames = getIconClassNames({
     className: 'mr-3',
     areTestsEnabled,

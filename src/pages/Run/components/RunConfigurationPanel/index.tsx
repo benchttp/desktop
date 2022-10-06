@@ -6,18 +6,14 @@ import { Tab, Typography } from '@/components'
 import {
   MillisecondInput,
   NumberInput,
-  Toggle,
   TextAreaInput,
+  Toggle,
+  URLInput,
 } from '@/components/Inputs'
 import { IRunConfigurationInput } from '@/hooks/useConfigurationForm'
 import { ExactlyOne } from '@/typing'
 
-import {
-  MethodInput,
-  RunConfigurationPanelHeaders,
-  RunConfigurationPanelTests,
-  URLInput,
-} from './components'
+import { HeadersForm, TestsForm, MethodSelect } from './components'
 
 interface IProps {
   form: IRunConfigurationInput
@@ -39,7 +35,7 @@ export const RunConfigurationPanel: FC<IProps> = ({ form, set }) => {
             onChange={(v) => set({ url: v })}
             label="URL"
           />
-          <MethodInput
+          <MethodSelect
             id="method"
             value={form.method}
             onChange={(v) => set({ method: v })}
@@ -60,7 +56,7 @@ export const RunConfigurationPanel: FC<IProps> = ({ form, set }) => {
           <Route
             path="headers"
             element={
-              <RunConfigurationPanelHeaders
+              <HeadersForm
                 headers={form.headers}
                 setHeaders={(v) => set({ headers: v })}
               />
@@ -125,7 +121,7 @@ export const RunConfigurationPanel: FC<IProps> = ({ form, set }) => {
           onChange={(e) => set({ areTestsEnabled: e.target.checked })}
         />
       </div>
-      <RunConfigurationPanelTests
+      <TestsForm
         tests={form.tests}
         setTests={(v) => set({ tests: v })}
         areTestsEnabled={form.areTestsEnabled}
