@@ -1,15 +1,15 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { expect, test } from 'vitest'
 
-import { MillisecondInput } from './index'
+import { NumberInput } from './NumberInput'
 
 const setup = () => {
-  const actual: { value: `${number}ms` } = {
-    value: '10ms',
+  const actual: { value: number } = {
+    value: 10,
   }
 
   const utils = render(
-    <MillisecondInput
+    <NumberInput
       data-testid="t"
       id="t"
       value={actual.value}
@@ -26,26 +26,26 @@ const setup = () => {
   }
 }
 
-test('the value is suffixed with "ms"', () => {
+test('the value is converted to number', () => {
   const { input, actual } = setup()
   fireEvent.change(input, { target: { value: '20' } })
-  expect(actual.value).toBe('20ms')
+  expect(actual.value).toBe(20)
 })
 
-test('empty string returns "0ms"', () => {
+test('empty string returns 0', () => {
   const { input, actual } = setup()
   fireEvent.change(input, { target: { value: '' } })
-  expect(actual.value).toBe('0ms')
+  expect(actual.value).toBe(0)
 })
 
 test('undefined is noop', () => {
   const { input, actual } = setup()
   fireEvent.change(input, { target: { value: undefined } })
-  expect(actual.value).toBe('10ms')
+  expect(actual.value).toBe(10)
 })
 
-test('a value not assignable to number return "0ms"', () => {
+test('a value not assignable to number return 0', () => {
   const { input, actual } = setup()
   fireEvent.change(input, { target: { value: 'A string' } })
-  expect(actual.value).toBe('0ms')
+  expect(actual.value).toBe(0)
 })

@@ -4,6 +4,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 
 import { Tab, Typography } from '@/components'
 import {
+  HTTPMethodSelect,
   MillisecondInput,
   NumberInput,
   TextAreaInput,
@@ -13,7 +14,7 @@ import {
 import { IRunConfigurationInput } from '@/hooks/useConfigurationForm'
 import { ExactlyOne } from '@/typing'
 
-import { HeadersForm, TestsForm, MethodSelect } from './components'
+import { HeadersForm, TestsForm } from './components'
 
 interface IProps {
   form: IRunConfigurationInput
@@ -35,7 +36,7 @@ export const RunConfigurationPanel: FC<IProps> = ({ form, set }) => {
             onChange={(v) => set({ url: v })}
             label="URL"
           />
-          <MethodSelect
+          <HTTPMethodSelect
             id="method"
             value={form.method}
             onChange={(v) => set({ method: v })}

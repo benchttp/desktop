@@ -1,7 +1,9 @@
-import { ChangeEventHandler, FC } from 'react'
+import { FC } from 'react'
 
 import { SelectInput } from '@/components/Inputs'
 import { TestingProps } from '@/testing'
+
+import { handleChangeAsMethod } from './internal/HTTPMethodSelect.helper'
 
 interface IProps extends TestingProps {
   className?: string
@@ -11,7 +13,7 @@ interface IProps extends TestingProps {
   label?: string
 }
 
-export const MethodSelect: FC<IProps> = ({
+export const HTTPMethodSelect: FC<IProps> = ({
   className,
   value,
   onChange,
@@ -32,10 +34,3 @@ export const MethodSelect: FC<IProps> = ({
     label={label}
   />
 )
-
-const handleChangeAsMethod = (
-  onChange: IProps['onChange']
-): ChangeEventHandler<HTMLSelectElement> => {
-  // Simply cast the type. We can be confident in <select> element to restrict the values.
-  return (e) => onChange(e.target.value as 'GET')
-}

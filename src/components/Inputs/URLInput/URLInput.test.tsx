@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { expect, test } from 'vitest'
 
-import { URLInput } from './index'
+import { URLInput } from './URLInput'
 
 const setup = () => {
   const actual: { value: string } = {

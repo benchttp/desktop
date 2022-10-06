@@ -1,3 +1,4 @@
+export { HTTPMethodSelect } from './HTTPMethodSelect'
 export { NumberInput } from './NumberInput'
 export { MillisecondInput } from './MillisecondInput'
 export { SelectInput } from './SelectInput'
