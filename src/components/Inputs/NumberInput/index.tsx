@@ -1,9 +1,10 @@
 import { ChangeEventHandler, FC } from 'react'
 
 import { TextInput } from '@/components/Inputs'
+import { TestingProps } from '@/testing'
 import { parseInteger } from '@/tools'
 
-interface Props {
+interface Props extends TestingProps {
   className?: string
   id: string
   value: number | undefined
@@ -13,24 +14,12 @@ interface Props {
   placeholder?: string
 }
 
-export const NumberInput: FC<Props> = ({
-  className,
-  id,
-  value,
-  onChange,
-  label,
-  disabled,
-  placeholder,
-}) => (
+export const NumberInput: FC<Props> = ({ value, onChange, ...props }) => (
   <TextInput
-    className={className}
-    id={id}
     value={getStringValue(value)}
     onChange={handleChangeAsNumber(onChange)}
-    label={label}
-    disabled={disabled}
-    placeholder={placeholder}
     type="number"
+    {...props}
   />
 )
 
