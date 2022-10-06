@@ -1,11 +1,12 @@
 import { ChangeEventHandler, FC } from 'react'
 
 import { TextInput } from '@/components/Inputs'
+import { TestingProps } from '@/testing'
 import { parseInteger } from '@/tools'
 
 type Millisecond = `${number}ms`
 
-interface Props {
+interface Props extends TestingProps {
   className?: string
   id: string
   value: Millisecond | undefined
@@ -16,23 +17,17 @@ interface Props {
 }
 
 export const MillisecondInput: FC<Props> = ({
-  className,
-  id,
   value,
   onChange,
   label,
-  disabled,
-  placeholder,
+  ...props
 }) => (
   <TextInput
-    className={className}
-    id={id}
     value={getStringValue(value)}
     onChange={handleChangeAsDuration(onChange)}
     label={`${label} (ms)`}
-    disabled={disabled}
-    placeholder={placeholder}
     type="number"
+    {...props}
   />
 )
 
