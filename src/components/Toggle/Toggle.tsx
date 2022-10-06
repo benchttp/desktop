@@ -2,8 +2,8 @@ import { FC } from 'react'
 
 import { Typography } from '@/components'
 
-import { getClassName } from './core/toggle.helpers'
-import { IProps } from './core/toggle.typings'
+import { getClassName } from './internal/Toggle.helpers'
+import { IProps } from './internal/Toggle.typings'
 
 export const Toggle: FC<IProps> = ({ checked, className, text }) => {
   return (
