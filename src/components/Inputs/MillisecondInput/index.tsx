@@ -32,7 +32,7 @@ export const MillisecondInput: FC<IProps> = ({
 )
 
 const handleChangeAsDuration = (
-  onChange: IProps['onChange']
+  onChange: (value: Millisecond) => void
 ): ChangeEventHandler<HTMLInputElement> => {
   return (e) => onChange(getDurationValue(e.target.value))
 }
