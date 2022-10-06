@@ -5,7 +5,7 @@ import { describe, expect, test } from 'vitest'
 import { Run } from './index'
 
 describe('Run', () => {
-  test('renders the Run view', () => {
+  test.skip('renders the Run view', () => {
     render(
       <MemoryRouter initialEntries={[initialRouteLocation]}>
         <Run />

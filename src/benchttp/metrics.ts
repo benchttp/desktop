@@ -35,3 +35,16 @@ type DurationMetricOf<Field extends string> = SingleMetric<GoDuration, Field>
 type NumberMetricOf<Field extends string> = SingleMetric<number, Field>
 
 type StatisticsOf<T extends string> = `${T}.${Capitalize<keyof Statistics>}`
+
+export const isNumberMetricField = (
+  field: string
+): field is NumberMetric['field'] =>
+  field.endsWith('Count') || field.startsWith('StatusCodesDistribution')
+
+export const isDurationMetricField = (
+  field: string
+): field is DurationMetric['field'] =>
+  field.startsWith('ResponseTimes') || field.startsWith('RequestEventTimes')
+
+export const isMetricField = (field: string): field is Metric['field'] =>
+  isNumberMetricField(field) || isDurationMetricField(field)
