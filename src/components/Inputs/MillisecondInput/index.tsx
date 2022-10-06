@@ -9,8 +9,8 @@ type Millisecond = `${number}ms`
 interface Props extends TestingProps {
   className?: string
   id: string
-  value: Millisecond | undefined
-  onChange: (value: Millisecond | undefined) => void
+  value: Millisecond
+  onChange: (value: Millisecond) => void
   label?: string
   disabled?: boolean
   placeholder?: string

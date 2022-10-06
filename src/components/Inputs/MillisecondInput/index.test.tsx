@@ -4,7 +4,7 @@ import { expect, test } from 'vitest'
 import { MillisecondInput } from './index'
 
 const setup = () => {
-  const actual: { value: `${number}ms` | undefined } = {
+  const actual: { value: `${number}ms` } = {
     value: '10ms',
   }
 
@@ -33,6 +33,12 @@ test('the value is suffixed with "ms"', () => {
 })
 
 test('empty string returns "0ms"', () => {
+  const { input, actual } = setup()
+  fireEvent.change(input, { target: { value: '' } })
+  expect(actual.value).toBe('0ms')
+})
+
+test('undefined returns "0ms"', () => {
   const { input, actual } = setup()
   fireEvent.change(input, { target: { value: '' } })
   expect(actual.value).toBe('0ms')

@@ -7,8 +7,8 @@ import { parseInteger } from '@/tools'
 interface Props extends TestingProps {
   className?: string
   id: string
-  value: number | undefined
-  onChange: (value: number | undefined) => void
+  value: number
+  onChange: (value: number) => void
   label?: string
   disabled?: boolean
   placeholder?: string

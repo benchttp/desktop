@@ -4,7 +4,7 @@ import { expect, test } from 'vitest'
 import { NumberInput } from './index'
 
 const setup = () => {
-  const actual: { value: number | undefined } = {
+  const actual: { value: number } = {
     value: 10,
   }
 
@@ -33,6 +33,12 @@ test('the value is converted to number', () => {
 })
 
 test('empty string returns 0', () => {
+  const { input, actual } = setup()
+  fireEvent.change(input, { target: { value: '' } })
+  expect(actual.value).toBe(0)
+})
+
+test('undefined returns 0', () => {
   const { input, actual } = setup()
   fireEvent.change(input, { target: { value: '' } })
   expect(actual.value).toBe(0)

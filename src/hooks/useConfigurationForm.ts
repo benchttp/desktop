@@ -9,11 +9,11 @@ interface State {
   url: string
   headers: { key: string; values: string[] }[]
   body: string
-  requests: number | undefined
-  concurrency: number | undefined
-  interval: `${number}ms` | undefined
-  requestTimeout: `${number}ms` | undefined
-  globalTimeout: `${number}ms` | undefined
+  requests: number
+  concurrency: number
+  interval: `${number}ms`
+  requestTimeout: `${number}ms`
+  globalTimeout: `${number}ms`
   areTestsEnabled: boolean
   tests: {
     name: string
