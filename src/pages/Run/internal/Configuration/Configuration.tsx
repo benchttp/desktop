@@ -14,14 +14,15 @@ import {
 import { IRunConfigurationInput } from '@/hooks/useConfigurationForm'
 import { ExactlyOne } from '@/typing'
 
-import { HeadersForm, TestsForm } from './components'
+import { HeadersConfiguration } from './HeadersConfiguration'
+import { TestsConfiguration } from './TestsConfiguration'
 
 interface IProps {
   form: IRunConfigurationInput
   set: (v: ExactlyOne<IRunConfigurationInput>) => void
 }
 
-export const RunConfigurationPanel: FC<IProps> = ({ form, set }) => {
+export const Configuration: FC<IProps> = ({ form, set }) => {
   return (
     <div>
       <Typography element="h1" className="mb-4">
@@ -57,9 +58,9 @@ export const RunConfigurationPanel: FC<IProps> = ({ form, set }) => {
           <Route
             path="headers"
             element={
-              <HeadersForm
+              <HeadersConfiguration
                 headers={form.headers}
-                setHeaders={(v) => set({ headers: v })}
+                onChange={(v) => set({ headers: v })}
               />
             }
           />
@@ -122,7 +123,7 @@ export const RunConfigurationPanel: FC<IProps> = ({ form, set }) => {
           onChange={(e) => set({ areTestsEnabled: e.target.checked })}
         />
       </div>
-      <TestsForm
+      <TestsConfiguration
         tests={form.tests}
         setTests={(v) => set({ tests: v })}
         areTestsEnabled={form.areTestsEnabled}

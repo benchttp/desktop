@@ -7,7 +7,7 @@ import { SelectInput, TextInput } from '@/components/Inputs'
 import {
   FIELD_OPTIONS,
   PREDICATE_OPTIONS,
-} from './core/runConfigurationPanelTests.constants'
+} from './internal/TestsConfiguration.constants'
 import {
   handleFieldChange,
   handleNameChange,
@@ -16,10 +16,14 @@ import {
   handleRemoveTestClick,
   handleAddTestClick,
   getIconClassNames,
-} from './core/runConfigurationPanelTests.helpers'
-import { IProps } from './core/runConfigurationPanelTests.typings'
+} from './internal/TestsConfiguration.helper'
+import { IProps } from './internal/TestsConfiguration.typing'
 
-export const TestsForm: FC<IProps> = ({ tests, setTests, areTestsEnabled }) => {
+export const TestsConfiguration: FC<IProps> = ({
+  tests,
+  setTests,
+  areTestsEnabled,
+}) => {
   const trashClassNames = getIconClassNames({
     className: 'mr-3',
     areTestsEnabled,

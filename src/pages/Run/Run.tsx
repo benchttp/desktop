@@ -5,8 +5,8 @@ import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import { Button, Tab } from '@/components'
 import { useConfigurationForm, useRunStream } from '@/hooks'
 
-import { RunConfigurationPanel, RunResultDisplay } from './components'
-import { parseConfiguration } from './parseConfiguration'
+import { Configuration, ResultDisplay } from './internal/components'
+import { parseConfiguration } from './internal/parseConfiguration'
 
 export const Run: FC = () => {
   const { start, stop, progress, report, error } = useRunStream()
@@ -36,7 +36,7 @@ export const Run: FC = () => {
           path="configure/*"
           element={
             <>
-              <RunConfigurationPanel form={form} set={set} />
+              <Configuration form={form} set={set} />
               <div className="f f-ai-center f-jc-end">
                 <Button
                   text="Run test"
@@ -55,7 +55,7 @@ export const Run: FC = () => {
         <Route
           path="tests-results"
           element={
-            <RunResultDisplay
+            <ResultDisplay
               progress={progress}
               report={report}
               error={error}

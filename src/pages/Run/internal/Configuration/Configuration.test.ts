@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest'
 
 import { IRunConfigurationInput } from '@/hooks/useConfigurationForm'
-import { parseConfiguration } from '@/pages/Run/parseConfiguration'
+import { parseConfiguration } from '@/pages/Run/internal/parseConfiguration'
 
 const mockRunConfigurationInput = (
   v: Partial<IRunConfigurationInput>

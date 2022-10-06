@@ -10,7 +10,7 @@ interface IProps {
   stop: () => false | void
 }
 
-export const RunResultDisplay: React.FC<IProps> = ({
+export const ResultDisplay: React.FC<IProps> = ({
   progress,
   report,
   error,

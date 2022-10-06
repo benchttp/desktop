@@ -3,8 +3,8 @@ import { ChangeEventHandler, MouseEventHandler } from 'react'
 import { ConfigurationTestCase } from '@/benchttp/configuration'
 import { TestPredicate } from '@/benchttp/tests'
 
-import s from './runConfigurationPanelTests.module.scss'
-import { IProps } from './runConfigurationPanelTests.typings'
+import s from './TestsConfiguration.module.scss'
+import { IProps } from './TestsConfiguration.typing'
 
 export const handleNameChange = ({
   testIndex,
