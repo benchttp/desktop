@@ -38,10 +38,10 @@ test('empty string returns "0ms"', () => {
   expect(actual.value).toBe('0ms')
 })
 
-test('undefined returns "0ms"', () => {
+test('undefined is noop', () => {
   const { input, actual } = setup()
-  fireEvent.change(input, { target: { value: '' } })
-  expect(actual.value).toBe('0ms')
+  fireEvent.change(input, { target: { value: undefined } })
+  expect(actual.value).toBe('10ms')
 })
 
 test('a value not assignable to number return "0ms"', () => {
