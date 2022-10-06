@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { CheckCircle, PieChart, PlusSquare, Settings } from 'react-feather'
 
 import { Button, Tab, Tag, ProgressBar, Typography, Toggle } from '@/components'
@@ -6,6 +6,12 @@ import { Button, Tab, Tag, ProgressBar, Typography, Toggle } from '@/components'
 export const UI: FC = () => {
   const handleButtonClick = () => {
     console.log('button clicked')
+  }
+
+  const [toggle, setToggle] = useState(false)
+
+  const handleToggle = () => {
+    setToggle(!toggle)
   }
 
   return (
@@ -352,8 +358,13 @@ export const UI: FC = () => {
           Toggle
         </Typography>
         <div className="f f-direction-row f-ai-end mb-3">
-          <Toggle checked={false} text="Not checked" className="mr-3" />
-          <Toggle checked={true} text="Checked" />
+          <Toggle
+            id="1"
+            onChange={handleToggle}
+            checked={toggle}
+            label="Check me"
+            className="mr-3"
+          />
         </div>
       </div>
     </div>

@@ -1,8 +1,8 @@
 @use 'sass:map';
-@use '../../../style/variables/colors.scss';
-@use '../../../style/variables/spaces.scss';
+@use '../../../../style/variables/colors.scss';
+@use '../../../../style/variables/spaces.scss';
 
-.toggle input {
+input {
   position: relative;
   appearance: none;
   outline: none;

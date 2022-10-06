@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
-import { getClassNames } from './core/toggle.helpers'
-import { IProps } from './core/toggle.typings'
+import { getClassNames } from './internal/Toggle.helpers'
+import { IProps } from './internal/Toggle.typings'
 
 export const Toggle: FC<IProps> = ({
   className,
@@ -9,20 +9,13 @@ export const Toggle: FC<IProps> = ({
   checked,
   onChange,
   label,
-  disabled,
 }) => {
   const classNames = getClassNames({ className })
 
   return (
     <div className={classNames.join(' ')}>
       {label && <label htmlFor={id}>{label}</label>}
-      <input
-        disabled={disabled}
-        id={id}
-        checked={checked}
-        onChange={onChange}
-        type="checkbox"
-      ></input>
+      <input id={id} checked={checked} onChange={onChange} type="checkbox" />
     </div>
   )
 }

@@ -6,5 +6,4 @@ export interface IProps {
   checked: boolean
   onChange: ChangeEventHandler<HTMLInputElement>
   label?: string
-  disabled?: boolean
 }
