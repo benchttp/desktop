@@ -26,11 +26,11 @@ export const parseConfiguration = ({
       body: parseBody(body),
     },
     runner: {
-      requests: parseRequests(requests),
-      concurrency: parseConcurrency(concurrency),
-      interval: parseInterval(interval),
-      requestTimeout: parseRequestTimeout(requestTimeout),
-      globalTimeout: parseGlobalTimeout(globalTimeout),
+      requests: requests,
+      concurrency: concurrency,
+      interval: interval,
+      requestTimeout: requestTimeout,
+      globalTimeout: globalTimeout,
     },
     tests: areTestsEnabled ? parseTests(tests) : undefined,
   }
@@ -83,55 +83,6 @@ const parseBody = (
   }
 
   return { type: 'raw', content: body }
-}
-
-const parseRequests = (
-  requests: IRunConfigurationInput['requests']
-): RunConfiguration['runner']['requests'] => {
-  if (requests === undefined) {
-    throw new Error('requests cannot be undefined')
-  }
-
-  return requests
-}
-const parseConcurrency = (
-  concurrency: IRunConfigurationInput['concurrency']
-): RunConfiguration['runner']['concurrency'] => {
-  if (concurrency === undefined) {
-    throw new Error('concurrency cannot be undefined')
-  }
-
-  return concurrency
-}
-
-const parseInterval = (
-  interval: IRunConfigurationInput['interval']
-): RunConfiguration['runner']['interval'] => {
-  if (interval === undefined) {
-    throw new Error('interval cannot be undefined')
-  }
-
-  return interval
-}
-
-const parseRequestTimeout = (
-  requestTimeout: IRunConfigurationInput['requestTimeout']
-): RunConfiguration['runner']['requestTimeout'] => {
-  if (requestTimeout === undefined) {
-    throw new Error('requestTimeout cannot be undefined')
-  }
-
-  return requestTimeout
-}
-
-const parseGlobalTimeout = (
-  globalTimeout: IRunConfigurationInput['globalTimeout']
-): RunConfiguration['runner']['globalTimeout'] => {
-  if (globalTimeout === undefined) {
-    throw new Error('globalTimeout cannot be undefined')
-  }
-
-  return globalTimeout
 }
 
 const parseTests = (
