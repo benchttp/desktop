@@ -3,14 +3,14 @@ import { StopCircle } from 'react-feather'
 import { RunProgress, RunReport } from '@/benchttp'
 import { Button, ProgressBar, Typography } from '@/components'
 
-interface Props {
+interface IProps {
   progress: RunProgress | null
   report: RunReport | null
   error: string
   stop: () => false | void
 }
 
-export const RunResultDisplay: React.FC<Props> = ({
+export const RunResultDisplay: React.FC<IProps> = ({
   progress,
   report,
   error,

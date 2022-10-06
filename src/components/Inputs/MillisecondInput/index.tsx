@@ -6,7 +6,7 @@ import { parseInteger } from '@/tools'
 
 type Millisecond = `${number}ms`
 
-interface Props extends TestingProps {
+interface IProps extends TestingProps {
   className?: string
   id: string
   value: Millisecond
@@ -16,7 +16,7 @@ interface Props extends TestingProps {
   placeholder?: string
 }
 
-export const MillisecondInput: FC<Props> = ({
+export const MillisecondInput: FC<IProps> = ({
   value,
   onChange,
   label,
@@ -32,7 +32,7 @@ export const MillisecondInput: FC<Props> = ({
 )
 
 const handleChangeAsDuration = (
-  onChange: Props['onChange']
+  onChange: IProps['onChange']
 ): ChangeEventHandler<HTMLInputElement> => {
   return (e) => onChange(getDurationValue(e.target.value))
 }

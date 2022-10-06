@@ -4,7 +4,7 @@ import { TextInput } from '@/components/Inputs'
 import { TestingProps } from '@/testing'
 import { parseInteger } from '@/tools'
 
-interface Props extends TestingProps {
+interface IProps extends TestingProps {
   className?: string
   id: string
   value: number
@@ -14,7 +14,7 @@ interface Props extends TestingProps {
   placeholder?: string
 }
 
-export const NumberInput: FC<Props> = ({ value, onChange, ...props }) => (
+export const NumberInput: FC<IProps> = ({ value, onChange, ...props }) => (
   <TextInput
     value={getStringValue(value)}
     onChange={handleChangeAsNumber(onChange)}
@@ -24,7 +24,7 @@ export const NumberInput: FC<Props> = ({ value, onChange, ...props }) => (
 )
 
 const handleChangeAsNumber = (
-  onChange: Props['onChange']
+  onChange: IProps['onChange']
 ): ChangeEventHandler<HTMLInputElement> => {
   return (e) => onChange(getNumberValue(e.target.value))
 }

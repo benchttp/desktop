@@ -3,7 +3,7 @@ import { ChangeEventHandler, FC } from 'react'
 import { SelectInput } from '@/components/Inputs'
 import { TestingProps } from '@/testing'
 
-interface Props extends TestingProps {
+interface IProps extends TestingProps {
   className?: string
   id: string
   value: string
@@ -11,7 +11,7 @@ interface Props extends TestingProps {
   label?: string
 }
 
-export const MethodInput: FC<Props> = ({
+export const MethodInput: FC<IProps> = ({
   className,
   value,
   onChange,
@@ -34,7 +34,7 @@ export const MethodInput: FC<Props> = ({
 )
 
 const handleChangeAsMethod = (
-  onChange: Props['onChange']
+  onChange: IProps['onChange']
 ): ChangeEventHandler<HTMLSelectElement> => {
   // Simply cast the type. We can be confident in <select> element to restrict the values.
   return (e) => onChange(e.target.value as 'GET')

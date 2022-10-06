@@ -19,12 +19,12 @@ import {
   RunConfigurationPanelTests,
 } from './components'
 
-interface Props {
+interface IProps {
   form: IRunConfigurationInput
   set: (v: ExactlyOne<IRunConfigurationInput>) => void
 }
 
-export const RunConfigurationPanel: FC<Props> = ({ form, set }) => {
+export const RunConfigurationPanel: FC<IProps> = ({ form, set }) => {
   return (
     <div>
       <Typography element="h1" className="mb-4">
