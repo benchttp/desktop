@@ -2,8 +2,8 @@ import { FC } from 'react'
 
 import { Typography } from '@/components'
 
-import { createIcon, getClassNames } from './core/tooltip.helpers'
-import { IProps } from './core/tooltip.typings'
+import { createIcon, getClassNames } from './internal/Tooltip.helpers'
+import { IProps } from './internal/Tooltip.typings'
 
 export const Tooltip: FC<IProps> = ({ icon, text, className }) => {
   const classNames = getClassNames({ className })
