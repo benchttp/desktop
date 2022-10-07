@@ -1,5 +1,7 @@
-import s from './Example.module.scss'
-import { Foo } from './Example.typing'
+import s from './example-component.module.scss'
+import { Foo } from './ExampleComponent.types'
+
+export const REUSED_CONSTANT = 'reused accross ExampleComponent module'
 
 export const getClassName = (className: string | undefined): string => {
   const classNames = [s['example'], 'f']
@@ -11,7 +13,7 @@ export const getClassName = (className: string | undefined): string => {
   return classNames.join(' ')
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function doSomething(foo: Foo): void {
-  //
+  foo
+  REUSED_CONSTANT
 }

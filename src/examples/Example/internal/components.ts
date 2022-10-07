@@ -1,0 +1,1 @@
+export { NestedComponent } from './NestedComponent'
