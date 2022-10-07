@@ -1,4 +1,4 @@
-import s from './Toggle.module.scss'
+import s from './toggle.module.scss'
 import { IProps } from './Toggle.typings'
 
 export const getClassNames = ({
