@@ -340,6 +340,37 @@ export const UI: FC = () => {
       </div>
       <div className="mb-4">
         <Typography className="mb-4" element="h1">
+          Accordion
+        </Typography>
+        <Accordion
+          title={<Typography>Accordion title</Typography>}
+          content={<Typography>Accordion content</Typography>}
+        />
+      </div>
+      <div className="mb-4">
+        <Typography className="mb-4" element="h1">
+          Test Result
+        </Typography>
+        <TestResult
+          pass={true}
+          name="test result passed"
+          field="mean response time"
+          predicate="LT"
+          target="100ms"
+          value="95ms"
+          className="mb-2"
+        />
+        <TestResult
+          pass={false}
+          name="test result failed"
+          field="mean response time"
+          predicate="LT"
+          target="100ms"
+          value="125ms"
+        />
+      </div>
+      <div className="mb-4">
+        <Typography className="mb-4" element="h1">
           Tabs
         </Typography>
         <div className="f f-direction-row f-ai-end mb-3">
