@@ -1,129 +1,121 @@
 import { ChangeEventHandler, MouseEventHandler } from 'react'
 
 import { ConfigurationTestCase } from '@/benchttp/configuration'
-import { TestPredicate } from '@/benchttp/tests'
+import { isMetricField, isNumberMetricField } from '@/benchttp/metrics'
 
 import s from './TestsConfiguration.module.scss'
-import { IProps } from './TestsConfiguration.typing'
 
-export const handleNameChange = ({
-  testIndex,
-  tests,
-  setTests,
-}: { testIndex: number } & Pick<
-  IProps,
-  'tests' | 'setTests'
->): ChangeEventHandler<HTMLInputElement> => {
+export const handleNameChange = (
+  tests: ConfigurationTestCase[],
+  index: number,
+  onChange: (tests: ConfigurationTestCase[]) => void
+): ChangeEventHandler<HTMLInputElement> => {
   return (e) => {
     const newTests = [...tests]
-    newTests[testIndex].name = e.target.value
-    setTests(newTests)
+    newTests[index].name = e.target.value
+    onChange(newTests)
   }
 }
 
-export const handleFieldChange = ({
-  testIndex,
-  tests,
-  setTests,
-}: { testIndex: number } & Pick<
-  IProps,
-  'tests' | 'setTests'
->): ChangeEventHandler<HTMLSelectElement> => {
+export const handleFieldChange = (
+  tests: ConfigurationTestCase[],
+  index: number,
+  onChange: (tests: ConfigurationTestCase[]) => void
+): ChangeEventHandler<HTMLInputElement> => {
   return (e) => {
     const newTests = [...tests]
-    newTests[testIndex].field = e.target.value as ConfigurationTestCase['field']
-    setTests(newTests)
+    // @ts-expect-error e.target.value is expected to be any string,
+    // a invalid value will set the input state to invalid.
+    newTests[index].field = e.target.value
+    onChange(newTests)
   }
 }
 
-export const handlePredicateChange = ({
-  testIndex,
-  tests,
-  setTests,
-}: { testIndex: number } & Pick<
-  IProps,
-  'tests' | 'setTests'
->): ChangeEventHandler<HTMLSelectElement> => {
+export const isValidTestField = (field: string) => isMetricField(field)
+
+export const handlePredicateChange = (
+  tests: ConfigurationTestCase[],
+  index: number,
+  onChange: (tests: ConfigurationTestCase[]) => void
+): ChangeEventHandler<HTMLSelectElement> => {
   return (e) => {
     const newTests = [...tests]
-    newTests[testIndex].predicate = e.target.value as TestPredicate
-    setTests(newTests)
+    // TODO: fix this type assertion, it's not safe at runtime.
+    // @ts-expect-error e.target.value is a TestPredicate because
+    // the select options are limited to TestPredicate values.
+    newTests[index].predicate = e.target.value
+    onChange(newTests)
   }
 }
 
-export const handleTargetChange = ({
-  testIndex,
-  tests,
-  setTests,
-}: { testIndex: number } & Pick<
-  IProps,
-  'tests' | 'setTests'
->): ChangeEventHandler<HTMLInputElement> => {
-  return (e) => {
+export const handleDurationTargetChange = (
+  tests: ConfigurationTestCase[],
+  index: number,
+  onChange: (tests: ConfigurationTestCase[]) => void
+): ((value: `${number}ms`) => void) => {
+  return (value) => {
     const newTests = [...tests]
-    newTests[testIndex].target = e.target.value
-    setTests(newTests)
+    newTests[index].target = value
+    onChange(newTests)
   }
 }
 
-export const handleRemoveTestClick = ({
-  testIndex,
-  tests,
-  setTests,
-  areTestsEnabled,
-}: { testIndex: number } & Pick<IProps, 'tests' | 'setTests'> & {
-    areTestsEnabled: boolean
-  }): MouseEventHandler => {
+export const handleNumberTargetChange = (
+  tests: ConfigurationTestCase[],
+  index: number,
+  onChange: (tests: ConfigurationTestCase[]) => void
+): ((value: number) => void) => {
+  return (value) => {
+    const newTests = [...tests]
+    newTests[index].target = value
+    onChange(newTests)
+  }
+}
+
+const placeholderTest = (): ConfigurationTestCase => ({
+  name: '',
+  field: 'ResponseTimes.Max',
+  predicate: 'LT',
+  target: '200ms',
+})
+
+const t = placeholderTest()
+if (isNumberMetricField(t.field)) {
+  t.target = 200
+} else {
+  t.target = '200ms'
+}
+
+export const handleAddTest = (
+  tests: ConfigurationTestCase[],
+  enabled: boolean,
+  onChange: (tests: ConfigurationTestCase[]) => void
+): MouseEventHandler => {
   return () => {
-    if (!areTestsEnabled) {
-      return
-    }
-
-    const newTests = [...tests]
-
-    if (tests.length === 1) {
-      newTests[testIndex].name = ''
-      newTests[testIndex].field = 'ResponseTimes.Mean'
-      newTests[testIndex].predicate = 'LT'
-      newTests[testIndex].target = ''
-      setTests(newTests)
-      return
-    }
-
-    setTests(newTests.filter((_, index) => index !== testIndex))
+    if (!enabled) return
+    tests.push(placeholderTest())
+    onChange(tests)
   }
 }
 
-export const handleAddTestClick = ({
-  tests,
-  setTests,
-  areTestsEnabled,
-}: Pick<IProps, 'tests' | 'setTests'> & {
-  areTestsEnabled: boolean
-}): MouseEventHandler => {
+export const handleRemoveTest = (
+  tests: ConfigurationTestCase[],
+  index: number,
+  enabled: boolean,
+  onChange: (tests: ConfigurationTestCase[]) => void
+): MouseEventHandler => {
   return () => {
-    if (!areTestsEnabled) {
-      return
-    }
-
-    const newTests = [...tests]
-
-    newTests.push({
-      name: '',
-      field: 'ResponseTimes.Mean',
-      predicate: 'LT',
-      target: '',
-    })
-    setTests(newTests)
+    if (!enabled) return
+    onChange(tests.filter((_, i) => i !== index))
   }
 }
 
 export const getIconClassNames = ({
   className,
-  areTestsEnabled,
+  enabled,
 }: {
   className?: string
-  areTestsEnabled: boolean
+  enabled: boolean
 }): string[] => {
   const classNames: string[] = []
 
@@ -131,7 +123,7 @@ export const getIconClassNames = ({
     classNames.push(className)
   }
 
-  if (!areTestsEnabled) {
+  if (!enabled) {
     classNames.push(s['run-configuration-panel-tests__icon--disabled'])
   }
 

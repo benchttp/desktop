@@ -1,7 +1,6 @@
 import { useReducer } from 'react'
 
 import { ConfigurationTestCase } from '@/benchttp/configuration'
-import { TestPredicate } from '@/benchttp/tests'
 import { ExactlyOne } from '@/typing'
 
 interface State {
@@ -15,12 +14,7 @@ interface State {
   requestTimeout: `${number}ms`
   globalTimeout: `${number}ms`
   areTestsEnabled: boolean
-  tests: {
-    name: string
-    field: ConfigurationTestCase['field']
-    predicate: TestPredicate
-    target: string
-  }[]
+  tests: ConfigurationTestCase[]
 }
 
 export type IRunConfigurationInput = State

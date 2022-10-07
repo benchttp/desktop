@@ -1,99 +1,143 @@
 import { FC } from 'react'
 import { PlusSquare, Trash } from 'react-feather'
 
-import { isNumberMetricField } from '@/benchttp/metrics'
-import { SelectInput, TextInput } from '@/components/Inputs'
-
 import {
-  FIELD_OPTIONS,
-  PREDICATE_OPTIONS,
-} from './internal/TestsConfiguration.constants'
+  ConfigurationTestCase,
+  isTestingNumberMetricField,
+} from '@/benchttp/configuration'
+import {
+  MillisecondInput,
+  NumberInput,
+  SelectInput,
+  TextInput,
+} from '@/components/Inputs'
+
 import {
   handleFieldChange,
   handleNameChange,
   handlePredicateChange,
-  handleTargetChange,
-  handleRemoveTestClick,
-  handleAddTestClick,
+  handleDurationTargetChange,
+  handleNumberTargetChange,
+  handleRemoveTest,
+  handleAddTest,
   getIconClassNames,
+  isValidTestField,
 } from './internal/TestsConfiguration.helper'
-import { IProps } from './internal/TestsConfiguration.typing'
+
+interface IProps {
+  tests: ConfigurationTestCase[]
+  onChange: (tests: ConfigurationTestCase[]) => void
+  enabled: boolean
+}
 
 export const TestsConfiguration: FC<IProps> = ({
   tests,
-  setTests,
-  areTestsEnabled,
+  onChange,
+  enabled,
 }) => {
   const trashClassNames = getIconClassNames({
     className: 'mr-3',
-    areTestsEnabled,
+    enabled,
   })
 
   const plusClassNames = getIconClassNames({
-    areTestsEnabled,
+    enabled,
   })
 
   return (
     <div className="f f-direction-column f-ai-start">
-      {tests.map((test, testIndex) => (
-        <div
-          key={`test-${testIndex}`}
-          className="f f-direction-row f-ai-center"
-        >
-          <TextInput
-            id={`test-name-${testIndex}`}
-            className="mr-3"
-            value={test.name}
-            label="Name"
-            onChange={handleNameChange({ testIndex, tests, setTests })}
-            disabled={!areTestsEnabled}
-          />
-          <SelectInput
-            id={`test-field-${testIndex}`}
-            className="mr-3"
-            value={test.field}
-            options={FIELD_OPTIONS}
-            label="Field"
-            onChange={handleFieldChange({ testIndex, tests, setTests })}
-            disabled={!areTestsEnabled}
-          />
-          <SelectInput
-            id={`test-predicate-${testIndex}`}
-            className="mr-3"
-            value={test.predicate}
-            options={PREDICATE_OPTIONS}
-            label="Predicate"
-            onChange={handlePredicateChange({ testIndex, tests, setTests })}
-            disabled={!areTestsEnabled}
-          />
-          <TextInput
-            id={`test-target-${testIndex}`}
-            className="mr-3"
-            value={test.target}
-            label={isNumberMetricField(test.field) ? 'Target' : 'Target (ms)'}
-            type="number"
-            onChange={handleTargetChange({ testIndex, tests, setTests })}
-            disabled={!areTestsEnabled}
+      {tests.map((test, index) => (
+        <div key={`test-${index}`} className="f f-direction-row f-ai-center">
+          <SingleTest
+            test={test}
+            index={index}
+            onChange={onChange}
+            tests={tests}
+            enabled={enabled}
           />
           <Trash
             className={trashClassNames.join(' ')}
-            onClick={handleRemoveTestClick({
-              testIndex,
-              tests,
-              setTests,
-              areTestsEnabled,
-            })}
+            onClick={handleRemoveTest(tests, index, enabled, onChange)}
           />
         </div>
       ))}
       <PlusSquare
         className={plusClassNames.join(' ')}
-        onClick={handleAddTestClick({
-          tests,
-          setTests,
-          areTestsEnabled,
-        })}
+        onClick={handleAddTest(tests, enabled, onChange)}
       />
     </div>
+  )
+}
+
+interface IPropsSingleTest {
+  test: ConfigurationTestCase
+  enabled: boolean
+  tests: ConfigurationTestCase[]
+  index: number
+  onChange: (tests: ConfigurationTestCase[]) => void
+}
+
+const SingleTest: FC<IPropsSingleTest> = ({
+  test,
+  index,
+  onChange,
+  tests,
+  enabled,
+}) => {
+  return (
+    <>
+      <TextInput
+        id={`test-name-${index}`}
+        className="mr-3"
+        value={test.name}
+        label="Name"
+        onChange={handleNameChange(tests, index, onChange)}
+        disabled={!enabled}
+      />
+      <TextInput
+        id={`test-field-${index}`}
+        className="mr-3"
+        value={test.field}
+        label="Field"
+        onChange={handleFieldChange(tests, index, onChange)}
+        disabled={!enabled}
+        invalid={!isValidTestField(test.field)}
+      />
+      <SelectInput
+        id={`test-predicate-${index}`}
+        className="mr-3"
+        value={test.predicate}
+        options={[
+          { value: 'EQ', display: 'Equals' },
+          { value: 'NEQ', display: 'Non equals' },
+          { value: 'GT', display: 'Greater than' },
+          { value: 'GTE', display: 'Greater than or equals' },
+          { value: 'LT', display: 'Lower than' },
+          { value: 'LTE', display: 'Lower than or equals' },
+        ]}
+        label="Predicate"
+        onChange={handlePredicateChange(tests, index, onChange)}
+        disabled={!enabled}
+      />
+      {isTestingNumberMetricField(test) ? (
+        <NumberInput
+          id={`test-target-${index}`}
+          className="mr-3"
+          value={test.target}
+          label={'Target'}
+          onChange={handleNumberTargetChange(tests, index, onChange)}
+          disabled={!enabled}
+        />
+      ) : (
+        <MillisecondInput
+          id={`test-target-${index}`}
+          className="mr-3"
+          value={test.target as `${number}ms`}
+          label={'Target'}
+          onChange={handleDurationTargetChange(tests, index, onChange)}
+          disabled={!enabled}
+        />
+      )}
+    </>
   )
 }

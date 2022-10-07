@@ -125,8 +125,8 @@ export const Configuration: FC<IProps> = ({ form, set }) => {
       </div>
       <TestsConfiguration
         tests={form.tests}
-        setTests={(v) => set({ tests: v })}
-        areTestsEnabled={form.areTestsEnabled}
+        onChange={(v) => set({ tests: v })}
+        enabled={form.areTestsEnabled}
       />
     </div>
   )

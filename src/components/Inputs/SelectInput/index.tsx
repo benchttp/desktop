@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { getClassName } from './core/selectInput.helpers'
 import { IProps } from './core/selectInput.typings'
 
-export type { IProps as ISelectInputProps } from './core/selectInput.typings'
+export type { IProps as IPropsSelectInput } from './core/selectInput.typings'
 
 export const SelectInput: FC<IProps> = ({
   value,
