@@ -7,7 +7,7 @@ import { ExactlyOne } from '@/typing'
 interface State {
   method: 'GET'
   url: string
-  headers: { key: string; values: string[] }[]
+  headers: Record<string, string[]>
   body: string
   requests: number
   concurrency: number
@@ -28,7 +28,7 @@ export type IRunConfigurationInput = State
 const initState = (): State => ({
   method: 'GET',
   url: 'http://example.com',
-  headers: [],
+  headers: {},
   body: '',
   requests: 1000,
   concurrency: 10,

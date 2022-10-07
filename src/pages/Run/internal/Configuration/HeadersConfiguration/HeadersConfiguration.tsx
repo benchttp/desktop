@@ -5,35 +5,50 @@ import { Button } from '@/components'
 import { TextInput } from '@/components/Inputs'
 
 import {
+  arrayifyHeaders,
   handleAddHeader,
-  handleAddHeaderValue,
-  handleHeaderChange,
-  handleHeaderKeyChange,
-  handleHeaderValueChange,
-  handleRemoveHeaderValue,
+  handleChangeHeader,
+  handleChangeHeaderKey,
+  handleChangeHeaderValue,
+  handleRemoveHeader,
+  isValidHeader,
 } from './internal/HeadersConfiguration.helper'
-import { Header } from './internal/HeadersConfiguration.typing'
+import { Header, Headers } from './internal/HeadersConfiguration.typing'
 
 interface IProps {
-  headers: Header[]
-  onChange: (headers: Header[]) => void
+  headers: Headers
+  onChange: (headers: Headers) => void
 }
 
 export const HeadersConfiguration: FC<IProps> = ({ headers, onChange }) => {
+  const arrayHeaders = arrayifyHeaders(headers)
+
   return (
     <div className="f f-direction-column f-ai-start">
-      {headers.map((header, headerIndex) => (
-        <SingleHeader
-          header={header}
-          onChange={handleHeaderChange(headers, headerIndex, onChange)}
-          key={headerIndex}
-        />
+      {arrayHeaders.map((header, index) => (
+        <div
+          className="f f-direction-row f-ai-center mb-3"
+          key={`header-value-${index}`}
+        >
+          <SingleHeader
+            header={header}
+            onChange={handleChangeHeader(arrayHeaders, index, onChange)}
+            index={index}
+            key={index}
+          />
+          <Trash
+            data-testid={`remove-header-${index}`}
+            onClick={handleRemoveHeader(arrayHeaders, index, onChange)}
+            className="mr-3"
+          />
+        </div>
       ))}
       <Button
+        data-testid="add-header"
         text="Add a new header"
         small
         iconEnd={PlusSquare}
-        onClick={handleAddHeader(headers, onChange)}
+        onClick={handleAddHeader(arrayHeaders, onChange)}
         style="outlined"
       />
     </div>
@@ -41,43 +56,32 @@ export const HeadersConfiguration: FC<IProps> = ({ headers, onChange }) => {
 }
 
 interface IPropsSingleHeader {
-  className?: string
   header: Header
+  index: number
   onChange: (value: Header) => void
-  key: number
 }
 
-const SingleHeader: FC<IPropsSingleHeader> = ({ header, key, onChange }) => {
+const SingleHeader: FC<IPropsSingleHeader> = ({ header, index, onChange }) => {
   return (
-    <div key={`header-${key}`} className="f f-direction-row f-ai-center">
+    <div key={`header-${index}`} className="f f-direction-row f-ai-center">
       <TextInput
+        data-testid={`change-key-header-${index}`}
         className="mr-3"
-        id={`header-key-${key}`}
+        id={`header-${index}-key`}
         value={header.key}
-        onChange={handleHeaderKeyChange(header, onChange)}
+        onChange={handleChangeHeaderKey(header, onChange)}
         label="Key"
+        invalid={!isValidHeader(header)}
       />
-      {header.values.map((value, valueIndex) => (
-        <div
-          className="f f-direction-row f-ai-center mb-3"
-          key={`header-value-${valueIndex}`}
-        >
-          <TextInput
-            className="mr-3"
-            id={`header-value-${valueIndex}`}
-            value={value}
-            onChange={handleHeaderValueChange(header, valueIndex, onChange)}
-            label="Value"
-          />
-          <Trash
-            onClick={handleRemoveHeaderValue(header, valueIndex, onChange)}
-            className="mr-3"
-          />
-          {valueIndex === header.values.length - 1 && (
-            <PlusSquare onClick={handleAddHeaderValue(header, onChange)} />
-          )}
-        </div>
-      ))}
+      <TextInput
+        data-testid={`change-value-header-${index}`}
+        className="mr-3"
+        id={`header-${index}-values`}
+        value={header.value}
+        onChange={handleChangeHeaderValue(header, onChange)}
+        label="Values (accept many if comma separated)"
+        invalid={!isValidHeader(header)}
+      />
     </div>
   )
 }
