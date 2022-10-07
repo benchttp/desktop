@@ -22,7 +22,7 @@ export const parseConfiguration = ({
     request: {
       method: method,
       url: url,
-      header: parseHeaders(headers),
+      header: headers,
       body: parseBody(body),
     },
     runner: {
@@ -34,25 +34,6 @@ export const parseConfiguration = ({
     },
     tests: areTestsEnabled ? parseTests(tests) : undefined,
   }
-}
-
-const parseHeaders = (
-  headers: IRunConfigurationInput['headers']
-): RunConfiguration['request']['header'] => {
-  const isNonEmptyString = (v: string) => v !== ''
-
-  const isNonEmptyValues = (v: string[]) => v.length && v.some(isNonEmptyString)
-
-  const isNonEmpty = headers.some(
-    (h) => h.key !== '' && isNonEmptyValues(h.values)
-  )
-
-  if (!isNonEmpty) return undefined
-
-  return headers.reduce<Record<string, string[]>>((acc, prev) => {
-    acc[prev.key] = prev.values.filter(isNonEmptyString)
-    return acc
-  }, {})
 }
 
 const parseBody = (
