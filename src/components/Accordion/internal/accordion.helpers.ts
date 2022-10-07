@@ -6,18 +6,27 @@ import {
 } from 'react'
 
 import s from './accordion.module.scss'
-import { IProps } from './accordion.typings'
 
-export const getClassNames = ({
-  className,
-}: Pick<IProps, 'className'>): string[] => {
-  const classNames = [s['accordion'], 'f', 'f-direction-column']
+export const getAccordionClassName = (
+  className: string | undefined
+): string => {
+  const classNames = []
 
   if (className) {
     classNames.push(className)
   }
 
-  return classNames
+  return classNames.join(' ')
+}
+
+export const getContentClassNames = (expanded: boolean): string => {
+  const classNames = [s['accordion__content'], 'pt-2', 'pr-3', 'pl-3', 'pb-3']
+
+  if (expanded) {
+    classNames.push(s['accordion__content--expanded'])
+  }
+
+  return classNames.join(' ')
 }
 
 export const getStyle = (
