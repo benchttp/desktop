@@ -1,10 +1,11 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { expect, test } from 'vitest'
 
+import { Millisecond } from './internal/Millisecond.typing'
 import { MillisecondInput } from './MillisecondInput'
 
 const setup = () => {
-  const actual: { value: `${number}ms` } = {
+  const actual: { value: Millisecond } = {
     value: '10ms',
   }
 
