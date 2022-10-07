@@ -3,8 +3,9 @@ import { PlusSquare, Trash } from 'react-feather'
 
 import {
   ConfigurationTestCase,
-  isTestingNumberMetricField,
+  isTestingDurationMetricField,
 } from '@/benchttp/configuration'
+import { Button } from '@/components'
 import {
   MillisecondInput,
   NumberInput,
@@ -22,6 +23,7 @@ import {
   handleAddTest,
   getIconClassNames,
   isValidTestField,
+  isValidTestTarget,
 } from './internal/TestsConfiguration.helper'
 
 interface IProps {
@@ -40,14 +42,13 @@ export const TestsConfiguration: FC<IProps> = ({
     enabled,
   })
 
-  const plusClassNames = getIconClassNames({
-    enabled,
-  })
-
   return (
     <div className="f f-direction-column f-ai-start">
       {tests.map((test, index) => (
-        <div key={`test-${index}`} className="f f-direction-row f-ai-center">
+        <div
+          key={`test-${index}`}
+          className="f f-direction-row f-ai-center mb-3"
+        >
           <SingleTest
             test={test}
             index={index}
@@ -56,14 +57,20 @@ export const TestsConfiguration: FC<IProps> = ({
             enabled={enabled}
           />
           <Trash
+            data-testid={`remove-test-${index}`}
             className={trashClassNames.join(' ')}
             onClick={handleRemoveTest(tests, index, enabled, onChange)}
           />
         </div>
       ))}
-      <PlusSquare
-        className={plusClassNames.join(' ')}
+
+      <Button
+        data-testid="add-test"
+        text="Add a new test"
+        small
+        iconEnd={PlusSquare}
         onClick={handleAddTest(tests, enabled, onChange)}
+        style="outlined"
       />
     </div>
   )
@@ -87,14 +94,17 @@ const SingleTest: FC<IPropsSingleTest> = ({
   return (
     <>
       <TextInput
+        data-testid={`change-name-test-${index}`}
         id={`test-name-${index}`}
         className="mr-3"
         value={test.name}
         label="Name"
         onChange={handleNameChange(tests, index, onChange)}
         disabled={!enabled}
+        invalid={test.name === ''}
       />
       <TextInput
+        data-testid={`change-field-test-${index}`}
         id={`test-field-${index}`}
         className="mr-3"
         value={test.field}
@@ -104,6 +114,7 @@ const SingleTest: FC<IPropsSingleTest> = ({
         invalid={!isValidTestField(test.field)}
       />
       <SelectInput
+        data-testid={`change-predicate-test-${index}`}
         id={`test-predicate-${index}`}
         className="mr-3"
         value={test.predicate}
@@ -119,23 +130,27 @@ const SingleTest: FC<IPropsSingleTest> = ({
         onChange={handlePredicateChange(tests, index, onChange)}
         disabled={!enabled}
       />
-      {isTestingNumberMetricField(test) ? (
-        <NumberInput
-          id={`test-target-${index}`}
-          className="mr-3"
-          value={test.target}
-          label={'Target'}
-          onChange={handleNumberTargetChange(tests, index, onChange)}
-          disabled={!enabled}
-        />
-      ) : (
+      {isTestingDurationMetricField(test) ? (
         <MillisecondInput
+          data-testid={`change-target-test-${index}`}
           id={`test-target-${index}`}
           className="mr-3"
           value={test.target as `${number}ms`}
           label={'Target'}
           onChange={handleDurationTargetChange(tests, index, onChange)}
           disabled={!enabled}
+          invalid={!isValidTestTarget(test.target, test.field)}
+        />
+      ) : (
+        <NumberInput
+          data-testid={`change-target-test-${index}`}
+          id={`test-target-${index}`}
+          className="mr-3"
+          value={test.target}
+          label={'Target'}
+          onChange={handleNumberTargetChange(tests, index, onChange)}
+          disabled={!enabled}
+          invalid={!isValidTestTarget(test.target, test.field)}
         />
       )}
     </>

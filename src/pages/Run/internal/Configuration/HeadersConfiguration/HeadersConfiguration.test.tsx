@@ -43,7 +43,7 @@ const setup = () => {
   }
 }
 
-test('when adding a header the key and value pair is saved', () => {
+test('add a header (happy path)', () => {
   const { actual, button, input, rerender } = setup()
   fireEvent.click(button.addHeader)
   rerender()
@@ -54,25 +54,7 @@ test('when adding a header the key and value pair is saved', () => {
   expect(actual.value).toEqual({ 'Custom-Header': ['foo'] })
 })
 
-test('adding a header without key is invalid', () => {
-  const { button, input, rerender } = setup()
-  fireEvent.click(button.addHeader)
-  rerender()
-  fireEvent.change(input.changeKey(0), { target: { value: '' } })
-  rerender()
-  expect(input.changeKey(0).getAttribute('aria-invalid')).toBe('true')
-})
-
-test('adding a header without value is invalid', () => {
-  const { button, input, rerender } = setup()
-  fireEvent.click(button.addHeader)
-  rerender()
-  fireEvent.change(input.changeValue(0), { target: { value: '' } })
-  rerender()
-  expect(input.changeValue(0).getAttribute('aria-invalid')).toBe('true')
-})
-
-test('when removing a header the data is discarded', () => {
+test('remove a header', () => {
   const { actual, button, rerender } = setup()
   fireEvent.click(button.addHeader)
   rerender()
@@ -81,7 +63,25 @@ test('when removing a header the data is discarded', () => {
   expect(actual.value).toEqual({})
 })
 
-test('support multiple values for the same key by separating values with ","', () => {
+test('key is required', () => {
+  const { button, input, rerender } = setup()
+  fireEvent.click(button.addHeader)
+  rerender()
+  fireEvent.change(input.changeKey(0), { target: { value: '' } })
+  rerender()
+  expect(input.changeKey(0).getAttribute('aria-invalid')).toBe('true')
+})
+
+test('value is required', () => {
+  const { button, input, rerender } = setup()
+  fireEvent.click(button.addHeader)
+  rerender()
+  fireEvent.change(input.changeValue(0), { target: { value: '' } })
+  rerender()
+  expect(input.changeValue(0).getAttribute('aria-invalid')).toBe('true')
+})
+
+test('value supports multiple values when separated by commas', () => {
   const { actual, button, input, rerender } = setup()
   fireEvent.click(button.addHeader)
   rerender()

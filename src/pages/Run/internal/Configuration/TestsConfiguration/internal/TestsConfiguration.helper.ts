@@ -1,7 +1,13 @@
 import { ChangeEventHandler, MouseEventHandler } from 'react'
 
+import { GoDuration } from '@/benchttp/common'
 import { ConfigurationTestCase } from '@/benchttp/configuration'
-import { isMetricField, isNumberMetricField } from '@/benchttp/metrics'
+import {
+  isDurationMetricField,
+  isMetricField,
+  isNumberMetricField,
+} from '@/benchttp/metrics'
+import { parseInteger } from '@/tools'
 
 import s from './TestsConfiguration.module.scss'
 
@@ -45,6 +51,28 @@ export const handlePredicateChange = (
     // the select options are limited to TestPredicate values.
     newTests[index].predicate = e.target.value
     onChange(newTests)
+  }
+}
+
+export const isValidTestTarget = (
+  target: number | GoDuration,
+  field: string
+): boolean => {
+  switch (true) {
+    case isDurationMetricField(field):
+      try {
+        return (
+          typeof target === 'string' &&
+          target.endsWith('ms') &&
+          Number.isInteger(parseInteger(target))
+        )
+      } catch {
+        return false
+      }
+    case isNumberMetricField(field):
+      return Number.isInteger(target)
+    default:
+      return false
   }
 }
 

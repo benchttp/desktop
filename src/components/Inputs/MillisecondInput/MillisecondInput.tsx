@@ -17,6 +17,7 @@ interface IProps extends TestingProps {
   label?: string
   disabled?: boolean
   placeholder?: string
+  invalid?: boolean
 }
 
 export const MillisecondInput: FC<IProps> = ({

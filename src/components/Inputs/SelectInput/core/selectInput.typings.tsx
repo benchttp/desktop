@@ -1,6 +1,8 @@
 import { ChangeEventHandler } from 'react'
 
-export interface IProps {
+import { TestingProps } from '@/testing'
+
+export interface IProps extends TestingProps {
   className?: string
   id: string
   value: string

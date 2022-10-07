@@ -16,6 +16,7 @@ interface IProps extends TestingProps {
   label?: string
   disabled?: boolean
   placeholder?: string
+  invalid?: boolean
 }
 
 export const NumberInput: FC<IProps> = ({ value, onChange, ...props }) => (
