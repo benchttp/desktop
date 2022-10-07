@@ -1,9 +1,10 @@
-import { IProps } from './toggle.typings'
+import s from './toggle.module.scss'
+import { IProps } from './Toggle.types'
 
 export const getClassNames = ({
   className,
 }: Pick<IProps, 'className'>): string[] => {
-  const classNames: string[] = ['f', 'f-direction-column']
+  const classNames: string[] = [s['toggle'], 'f', 'f-direction-column']
 
   if (className) {
     classNames.push(className)
