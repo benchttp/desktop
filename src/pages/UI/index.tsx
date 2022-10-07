@@ -1,7 +1,8 @@
 import { FC, useState } from 'react'
 import { CheckCircle, PieChart, PlusSquare, Settings } from 'react-feather'
 
-import { Button, Tab, Tag, ProgressBar, Typography, Toggle } from '@/components'
+import { Button, Tab, Tag, ProgressBar, Typography } from '@/components'
+import { Toggle } from '@/components/Inputs'
 
 export const UI: FC = () => {
   const handleButtonClick = () => {

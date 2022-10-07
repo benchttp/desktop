@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { getClassNames } from './internal/Toggle.helpers'
-import { IProps } from './internal/Toggle.typings'
+import { IProps } from './internal/Toggle.types'
 
 export const Toggle: FC<IProps> = ({
   className,
