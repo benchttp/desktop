@@ -1,7 +1,7 @@
 import { createElement, FC } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import { Laucher, UI, Run } from '@/pages'
+import { Laucher, UI, Run } from '@/views'
 
 import s from './internal/router.module.scss'
 import { IAppRoute } from './internal/router.types'
