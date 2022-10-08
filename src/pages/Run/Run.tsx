@@ -3,14 +3,14 @@ import { CheckCircle, Play, Settings } from 'react-feather'
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 
 import { Button, Tab } from '@/components'
-import { useConfigurationForm, useRunStream } from '@/hooks'
+import { useRunStream } from '@/hooks'
 
 import { Configuration, ResultDisplay } from './internal/components'
-import { parseConfiguration } from './internal/parseConfiguration'
+import { useConfiguration } from './internal/Configuration'
 
 export const Run: FC = () => {
   const { start, stop, progress, report, error } = useRunStream()
-  const { form, set } = useConfigurationForm()
+  const { state, setState, getRunConfiguration } = useConfiguration()
 
   const navigate = useNavigate()
 
@@ -36,13 +36,12 @@ export const Run: FC = () => {
           path="configure/*"
           element={
             <>
-              <Configuration form={form} set={set} />
+              <Configuration state={state} setState={setState} />
               <div className="f f-ai-center f-jc-end">
                 <Button
                   text="Run test"
                   onClick={() => {
-                    const config = parseConfiguration(form)
-                    start(config)
+                    start(getRunConfiguration())
                     navigate('tests-results', { replace: true })
                   }}
                   iconEnd={Play}

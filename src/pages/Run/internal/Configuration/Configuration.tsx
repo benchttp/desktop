@@ -11,18 +11,17 @@ import {
   Toggle,
   URLInput,
 } from '@/components/Inputs'
-import { IRunConfigurationInput } from '@/hooks/useConfigurationForm'
-import { ExactlyOne } from '@/typing'
 
+import { ConfigurationState, ConfigurationField } from './Configuration.helpers'
 import { HeadersConfiguration } from './HeadersConfiguration'
 import { TestsConfiguration } from './TestsConfiguration'
 
 interface IProps {
-  form: IRunConfigurationInput
-  set: (v: ExactlyOne<IRunConfigurationInput>) => void
+  state: ConfigurationState
+  setState: (v: ConfigurationField) => void
 }
 
-export const Configuration: FC<IProps> = ({ form, set }) => {
+export const Configuration: FC<IProps> = ({ state, setState }) => {
   return (
     <div>
       <Typography element="h1" className="mb-4">
@@ -33,14 +32,14 @@ export const Configuration: FC<IProps> = ({ form, set }) => {
           <URLInput
             className="mr-3"
             id="url"
-            value={form.url}
-            onChange={(v) => set({ url: v })}
+            value={state.url}
+            onChange={(v) => setState({ url: v })}
             label="URL"
           />
           <HTTPMethodSelect
             id="method"
-            value={form.method}
-            onChange={(v) => set({ method: v })}
+            value={state.method}
+            onChange={(v) => setState({ method: v })}
             label="Method"
           />
         </div>
@@ -59,8 +58,8 @@ export const Configuration: FC<IProps> = ({ form, set }) => {
             path="headers"
             element={
               <HeadersConfiguration
-                headers={form.headers}
-                onChange={(v) => set({ headers: v })}
+                headers={state.headers}
+                onChange={(v) => setState({ headers: v })}
               />
             }
           />
@@ -69,8 +68,8 @@ export const Configuration: FC<IProps> = ({ form, set }) => {
             element={
               <TextAreaInput
                 id="body"
-                value={form.body}
-                onChange={(e) => set({ body: e.target.value })}
+                value={state.body}
+                onChange={(e) => setState({ body: e.target.value })}
               />
             }
           />
@@ -79,21 +78,21 @@ export const Configuration: FC<IProps> = ({ form, set }) => {
           <NumberInput
             className="mr-3"
             id="requests"
-            value={form.requests}
-            onChange={(v) => set({ requests: v })}
+            value={state.requests}
+            onChange={(v) => setState({ requests: v })}
             label="Number of requests"
           />
           <NumberInput
             className="mr-3"
             id="concurrency"
-            value={form.concurrency}
-            onChange={(v) => set({ concurrency: v })}
+            value={state.concurrency}
+            onChange={(v) => setState({ concurrency: v })}
             label="Concurrent requests"
           />
           <MillisecondInput
             id="interval"
-            value={form.interval}
-            onChange={(v) => set({ interval: v })}
+            value={state.interval}
+            onChange={(v) => setState({ interval: v })}
             label="Interval"
           />
         </div>
@@ -101,15 +100,15 @@ export const Configuration: FC<IProps> = ({ form, set }) => {
           <MillisecondInput
             className="mr-3"
             id="global-timeout"
-            value={form.globalTimeout}
-            onChange={(v) => set({ globalTimeout: v })}
+            value={state.globalTimeout}
+            onChange={(v) => setState({ globalTimeout: v })}
             label="Global timeout"
           />
           <MillisecondInput
             className="mr-3"
             id="request-timeout"
-            value={form.requestTimeout}
-            onChange={(v) => set({ requestTimeout: v })}
+            value={state.requestTimeout}
+            onChange={(v) => setState({ requestTimeout: v })}
             label="Request timeout"
           />
         </div>
@@ -119,14 +118,14 @@ export const Configuration: FC<IProps> = ({ form, set }) => {
         <Toggle
           className="ml-3"
           id="test-section-enabled"
-          checked={form.areTestsEnabled}
-          onChange={(e) => set({ areTestsEnabled: e.target.checked })}
+          checked={state.testsEnabled}
+          onChange={(e) => setState({ testsEnabled: e.target.checked })}
         />
       </div>
       <TestsConfiguration
-        tests={form.tests}
-        onChange={(v) => set({ tests: v })}
-        enabled={form.areTestsEnabled}
+        tests={state.tests}
+        onChange={(v) => setState({ tests: v })}
+        enabled={state.testsEnabled}
       />
     </div>
   )

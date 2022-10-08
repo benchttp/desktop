@@ -13,8 +13,8 @@ interface State {
   interval: `${number}ms`
   requestTimeout: `${number}ms`
   globalTimeout: `${number}ms`
-  areTestsEnabled: boolean
   tests: ConfigurationTestCase[]
+  testsEnabled: boolean
 }
 
 export type IRunConfigurationInput = State
@@ -29,8 +29,8 @@ const initState = (): State => ({
   interval: '0ms',
   requestTimeout: '1000ms',
   globalTimeout: '30000ms',
-  areTestsEnabled: true,
   tests: [],
+  testsEnabled: false,
 })
 
 type Field = ExactlyOne<State>
