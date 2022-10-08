@@ -1,0 +1,1 @@
+export { TestsConfiguration } from './TestsConfiguration'

@@ -1,5 +1,11 @@
 import { GoDuration } from './common'
-import { DurationMetric, Metric, NumberMetric } from './metrics'
+import {
+  DurationMetric,
+  Metric,
+  NumberMetric,
+  isDurationMetricField,
+  isNumberMetricField,
+} from './metrics'
 import { TestPredicate } from './tests'
 
 export interface RunConfiguration {
@@ -32,4 +38,16 @@ interface SingleTestCase<T extends Metric> {
   field: T['field']
   predicate: TestPredicate
   target: T['value']
+}
+
+export const isTestingNumberMetricField = (
+  test: ConfigurationTestCase
+): test is SingleTestCase<NumberMetric> => {
+  return isNumberMetricField(test.field)
+}
+
+export const isTestingDurationMetricField = (
+  test: ConfigurationTestCase
+): test is SingleTestCase<DurationMetric> => {
+  return isDurationMetricField(test.field)
 }

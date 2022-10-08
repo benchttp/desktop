@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { getClassName } from './core/selectInput.helpers'
 import { IProps } from './core/selectInput.typings'
 
-export type { IProps as ISelectInputProps } from './core/selectInput.typings'
+export type { IProps as IPropsSelectInput } from './core/selectInput.typings'
 
 export const SelectInput: FC<IProps> = ({
   value,
@@ -13,13 +13,19 @@ export const SelectInput: FC<IProps> = ({
   options,
   className,
   disabled,
+  'data-testid': dataTestid,
 }) => {
   const classNames = getClassName({ className })
 
   return (
     <div className={classNames.join(' ')}>
       {label && <label htmlFor={id}>{label}</label>}
-      <select disabled={disabled} value={value} onChange={onChange}>
+      <select
+        disabled={disabled}
+        value={value}
+        onChange={onChange}
+        data-testid={dataTestid}
+      >
         {options.map((option) => (
           <option
             key={option.value}
