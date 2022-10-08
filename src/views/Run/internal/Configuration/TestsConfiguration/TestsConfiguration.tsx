@@ -102,6 +102,7 @@ const SingleTest: FC<IPropsSingleTest> = ({
         onChange={handleNameChange(tests, index, onChange)}
         disabled={!enabled}
         invalid={test.name === ''}
+        required
       />
       <TextInput
         data-testid={`change-field-test-${index}`}
@@ -112,6 +113,7 @@ const SingleTest: FC<IPropsSingleTest> = ({
         onChange={handleFieldChange(tests, index, onChange)}
         disabled={!enabled}
         invalid={!isValidTestField(test.field)}
+        required
       />
       <SelectInput
         data-testid={`change-predicate-test-${index}`}

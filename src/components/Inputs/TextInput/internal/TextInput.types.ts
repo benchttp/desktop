@@ -10,4 +10,5 @@ export interface IProps {
   placeholder?: string
   type?: HTMLInputTypeAttribute
   invalid?: boolean
+  required?: boolean
 }

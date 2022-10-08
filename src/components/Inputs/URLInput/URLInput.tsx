@@ -12,6 +12,7 @@ interface IProps extends TestingProps {
   onChange: (value: string) => void
   label?: string
   disabled?: boolean
+  required?: boolean
   placeholder?: string
 }
 
