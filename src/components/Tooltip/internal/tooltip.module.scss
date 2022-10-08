@@ -22,7 +22,7 @@
     border-radius: map.get(spaces.$spaces, '2');
     margin: map.get(spaces.$spaces, '2');
     padding: map.get(spaces.$spaces, '2');
-    margin-left: -1px;
+    margin-left: 4px;
     &:after {
       content: '';
       position: absolute;
