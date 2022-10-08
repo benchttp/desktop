@@ -6,7 +6,7 @@ import { TestingProps } from '@/testing'
 import {
   getStringValue,
   handleChangeAsNumber,
-} from './internal/NumberInput.helper'
+} from './internal/NumberInput.helpers'
 
 interface IProps extends TestingProps {
   className?: string

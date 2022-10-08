@@ -24,7 +24,7 @@ import {
   getIconClassNames,
   isValidTestField,
   isValidTestTarget,
-} from './internal/TestsConfiguration.helper'
+} from './internal/TestsConfiguration.helpers'
 
 interface IProps {
   tests: ConfigurationTestCase[]

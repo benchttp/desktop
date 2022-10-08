@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { expect, test } from 'vitest'
 
 import { HeadersConfiguration } from './HeadersConfiguration'
-import { Headers } from './internal/HeadersConfiguration.typing'
+import { Headers } from './internal/HeadersConfiguration.types'
 
 const setup = () => {
   const actual: { value: Headers } = {

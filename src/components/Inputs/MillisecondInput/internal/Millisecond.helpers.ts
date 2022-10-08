@@ -2,7 +2,7 @@ import { ChangeEventHandler } from 'react'
 
 import { parseInteger } from '@/tools'
 
-import { Millisecond } from './Millisecond.typing'
+import { Millisecond } from './Millisecond.types'
 
 export const handleChangeAsDuration = (
   onChange: (value: Millisecond) => void

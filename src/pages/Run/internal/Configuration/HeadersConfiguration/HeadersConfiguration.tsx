@@ -12,8 +12,8 @@ import {
   handleChangeHeaderValue,
   handleRemoveHeader,
   isValidHeader,
-} from './internal/HeadersConfiguration.helper'
-import { Header, Headers } from './internal/HeadersConfiguration.typing'
+} from './internal/HeadersConfiguration.helpers'
+import { Header, Headers } from './internal/HeadersConfiguration.types'
 
 interface IProps {
   headers: Headers

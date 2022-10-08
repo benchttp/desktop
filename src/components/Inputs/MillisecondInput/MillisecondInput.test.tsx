@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { expect, test } from 'vitest'
 
-import { Millisecond } from './internal/Millisecond.typing'
+import { Millisecond } from './internal/Millisecond.types'
 import { MillisecondInput } from './MillisecondInput'
 
 const setup = () => {

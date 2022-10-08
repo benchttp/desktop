@@ -6,8 +6,8 @@ import { TestingProps } from '@/testing'
 import {
   getStringValue,
   handleChangeAsDuration,
-} from './internal/Millisecond.helper'
-import { Millisecond } from './internal/Millisecond.typing'
+} from './internal/Millisecond.helpers'
+import { Millisecond } from './internal/Millisecond.types'
 
 interface IProps extends TestingProps {
   className?: string

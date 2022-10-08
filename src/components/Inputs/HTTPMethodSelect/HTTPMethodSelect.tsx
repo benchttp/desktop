@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { SelectInput } from '@/components/Inputs'
 import { TestingProps } from '@/testing'
 
-import { handleChangeAsMethod } from './internal/HTTPMethodSelect.helper'
+import { handleChangeAsMethod } from './internal/HTTPMethodSelect.helpers'
 
 interface IProps extends TestingProps {
   className?: string

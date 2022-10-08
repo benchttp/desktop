@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { TextInput } from '@/components/Inputs/TextInput'
 import { TestingProps } from '@/testing'
 
-import { isValidURL } from './internal/URLInput.helper'
+import { isValidURL } from './internal/URLInput.helpers'
 
 interface IProps extends TestingProps {
   className?: string

@@ -1,6 +1,6 @@
 import { ChangeEventHandler, MouseEventHandler } from 'react'
 
-import { Header, Headers } from './HeadersConfiguration.typing'
+import { Header, Headers } from './HeadersConfiguration.types'
 
 export const arrayifyHeaders = (headers: Headers): Header[] => {
   return Object.entries(headers).map(([key, value]) => ({
