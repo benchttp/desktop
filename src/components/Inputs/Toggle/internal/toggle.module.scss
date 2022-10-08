@@ -2,7 +2,7 @@
 @use '../../../../style/variables/colors.scss';
 @use '../../../../style/variables/spaces.scss';
 
-input {
+.toggle input {
   position: relative;
   appearance: none;
   outline: none;
