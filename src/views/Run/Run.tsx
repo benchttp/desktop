@@ -1,8 +1,8 @@
 import { FC } from 'react'
-import { CheckCircle, Play, Settings } from 'react-feather'
+import { CheckCircle, Settings } from 'react-feather'
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 
-import { Button, Tab } from '@/components'
+import { Tab } from '@/components'
 
 import { Configuration, ResultDisplay } from './internal/components'
 import { useRunStream, useConfiguration } from './internal/Run.helpers'
@@ -35,22 +35,14 @@ export const Run: FC = () => {
         <Route
           path="configure/*"
           element={
-            <>
-              <Configuration
-                state={configuration}
-                setState={setConfiguration}
-              />
-              <div className="f f-ai-center f-jc-end">
-                <Button
-                  text="Run test"
-                  onClick={() => {
-                    start(getRunConfiguration())
-                    navigate('tests-results', { replace: true })
-                  }}
-                  iconEnd={Play}
-                />
-              </div>
-            </>
+            <Configuration
+              state={configuration}
+              setState={setConfiguration}
+              onSubmit={() => {
+                start(getRunConfiguration())
+                navigate('tests-results', { replace: true })
+              }}
+            />
           }
         />
 

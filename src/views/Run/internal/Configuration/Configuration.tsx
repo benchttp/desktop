@@ -1,8 +1,8 @@
 import { FC } from 'react'
-import { Mail, Package } from 'react-feather'
+import { Mail, Package, Play } from 'react-feather'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
-import { Tab, Typography } from '@/components'
+import { Button, Tab, Typography } from '@/components'
 import {
   HTTPMethodSelect,
   MillisecondInput,
@@ -19,9 +19,10 @@ import { TestsConfiguration } from './TestsConfiguration'
 interface IProps {
   state: ConfigurationState
   setState: (v: ConfigurationField) => void
+  onSubmit: () => void
 }
 
-export const Configuration: FC<IProps> = ({ state, setState }) => {
+export const Configuration: FC<IProps> = ({ state, setState, onSubmit }) => {
   return (
     <div>
       <Typography element="h1" className="mb-4">
@@ -127,6 +128,16 @@ export const Configuration: FC<IProps> = ({ state, setState }) => {
         onChange={(v) => setState({ tests: v })}
         enabled={state.testsEnabled}
       />
+
+      <div className="f f-ai-center f-jc-end">
+        <Button
+          text="Run test"
+          onClick={() => {
+            onSubmit()
+          }}
+          iconEnd={Play}
+        />
+      </div>
     </div>
   )
 }
