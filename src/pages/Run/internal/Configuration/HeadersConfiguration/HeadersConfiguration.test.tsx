@@ -52,6 +52,8 @@ test('add a header (happy path)', () => {
   fireEvent.change(input.changeValue(0), { target: { value: 'foo' } })
   rerender()
   expect(actual.value).toEqual({ 'Custom-Header': ['foo'] })
+  expect(input.changeKey(0).getAttribute('aria-invalid')).not.toBe('true')
+  expect(input.changeValue(0).getAttribute('aria-invalid')).not.toBe('true')
 })
 
 test('remove a header', () => {
