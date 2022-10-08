@@ -4,13 +4,16 @@ import { RunConfiguration, RunProgress, RunReport } from '@/benchttp'
 import { address } from '@/engine/spawn'
 import { RunStreamer, RunStream } from '@/engine/stream'
 
-interface State {
+// Re-expose the internal hook.
+export { useConfiguration } from './Configuration'
+
+interface RunState {
   progress: RunProgress | null
   report: RunReport | null
   error: string
 }
 
-const initState = (): State => ({
+const initState = (): RunState => ({
   progress: null,
   report: null,
   error: '',
@@ -18,7 +21,7 @@ const initState = (): State => ({
 
 type Msg = ['STREAM', RunStream] | ['ERROR', string] | ['RESET']
 
-function reducer(state: State, [type, data]: Msg) {
+function reducer(state: RunState, [type, data]: Msg) {
   switch (type) {
     case 'STREAM':
       switch (data.kind) {
@@ -68,5 +71,5 @@ export function useRunStream() {
   }
 }
 
-const isNonNull = (state: State): boolean =>
+const isNonNull = (state: RunState): boolean =>
   state.progress !== null || state.report !== null || state.error !== ''

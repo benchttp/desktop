@@ -56,17 +56,17 @@ export function useConfiguration() {
   const [state, dispatch] = useReducer(reducer, initState())
 
   return {
-    state,
+    configuration: state,
     /**
      * Sets the value of a field.
      */
-    setState: (field: ConfigurationField) => {
+    setConfiguration: (field: ConfigurationField) => {
       dispatch(['SET', field])
     },
     /**
      * Resets the configuration to its initial state.
      */
-    resetState: () => {
+    resetConfiguration: () => {
       dispatch(['RESET'])
     },
     /**
