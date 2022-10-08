@@ -1,8 +1,8 @@
 import { createElement, ReactNode } from 'react'
 import { Icon } from 'react-feather'
 
-import s from './Tooltip.module.scss'
-import { IProps } from './Tooltip.typings'
+import s from './tooltip.module.scss'
+import { IProps } from './Tooltip.types'
 
 export const getClassNames = ({ className }: Pick<IProps, 'className'>) => {
   const classNames: string[] = [
