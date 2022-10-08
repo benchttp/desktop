@@ -5,13 +5,13 @@ import { describe, expect, test } from 'vitest'
 import { Run } from './Run'
 
 describe('Run', () => {
-  test.skip('renders the Run view', () => {
+  test('starts at the Configuration view', () => {
     render(
       <MemoryRouter initialEntries={[initialRouteLocation]}>
         <Run />
       </MemoryRouter>
     )
-    expect(screen.getByText(/Benchttp/i)).toBeDefined()
+    expect(screen.getByText(/Configuration/i)).toBeDefined()
   })
 })
 
