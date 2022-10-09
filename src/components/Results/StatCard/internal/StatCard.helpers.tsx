@@ -21,7 +21,7 @@ export const getClassNames = ({
   ]
 
   if (isError) {
-    classNames.push(s[`statCard-isError`])
+    classNames.push(s['statCard-isError'])
   }
 
   if (className) {
