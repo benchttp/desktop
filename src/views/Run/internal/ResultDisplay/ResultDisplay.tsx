@@ -60,7 +60,9 @@ const ProgressSection: React.FC<RunProgress & { stop: () => false | void }> = ({
 
 const ReportSection: React.FC<RunReport> = ({ metrics }) => (
   <section>
-    <Typography element="h3">Report</Typography>
+    <Typography element="h4" className="mt-3">
+      Report
+    </Typography>
     <div></div>
     <div>Min: {formatDuration(metrics.responseTimes.min)}</div>
     <div>Max: {formatDuration(metrics.responseTimes.max)}</div>
@@ -70,7 +72,9 @@ const ReportSection: React.FC<RunReport> = ({ metrics }) => (
 
 const ResultsSection: React.FC<RunReport> = ({ metrics }) => (
   <section>
-    <Typography element="h3">Results</Typography>
+    <Typography element="h4" className="mt-3">
+      Results
+    </Typography>
     <div></div>
     <div className="f f-direction-row f-ai-end mb-3">
       <StatCard
