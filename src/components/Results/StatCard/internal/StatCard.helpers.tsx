@@ -13,6 +13,7 @@ export const getClassNames = ({
   Pick<Required<IProps>, 'isError'>) => {
   const classNames: string[] = [
     s['statCard'],
+    s[`statCard-${iconColor}`],
     'f',
     'f-direction-row',
     'f-ai-center',
