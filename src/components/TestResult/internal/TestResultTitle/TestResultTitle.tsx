@@ -1,13 +1,11 @@
 import { FC } from 'react'
 
 import { Typography } from '@/components'
-import { ITestResultProps } from '@/components/TestResult'
 
-import { getClassNames } from './internal/testResultTitle.helpers'
+import { ITestResultProps } from '../../TestResult'
+import { getClassNames } from './internal/TestResultTitle.helpers'
 
-export type { IProps as ITestResultTitleProps }
-
-type IProps = Pick<ITestResultProps, 'pass' | 'name'>
+export type IProps = Pick<ITestResultProps, 'pass' | 'name'>
 
 export const TestResultTitle: FC<IProps> = ({ pass, name }) => {
   const classNames = getClassNames({ pass })
