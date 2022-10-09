@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { TestPredicate } from '@/benchttp/tests'
 
-import { Accordion } from '../Accordion'
+import { Accordion } from '../../../../../components/Accordion'
 import { TestResultContent, TestResultTitle } from './internal/components'
 
 export type { IProps as ITestResultProps }
