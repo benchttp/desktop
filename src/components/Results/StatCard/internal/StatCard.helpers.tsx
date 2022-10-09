@@ -20,6 +20,10 @@ export const getClassNames = ({
     'p-3',
   ]
 
+  if (isError) {
+    classNames.push(s[`statCard-isError`])
+  }
+
   if (className) {
     classNames.push(className)
   }
