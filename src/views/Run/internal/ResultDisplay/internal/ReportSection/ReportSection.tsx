@@ -6,8 +6,8 @@ import { Tag, Typography } from '@/components'
 import { convertNsToMs } from '@/tools/converters'
 import { parseMilliseconds } from '@/tools/parsers'
 
-import { TestResult } from './components'
-import { getFailedTestCount } from './ReportSection.helpers'
+import { TestResult } from './internal/components'
+import { getFailedTestCount } from './internal/ReportSection.helpers'
 
 export interface IProps {
   report: RunReport

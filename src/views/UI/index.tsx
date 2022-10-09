@@ -24,7 +24,7 @@ import {
 import { Toggle } from '@/components/Inputs'
 import { StatCard } from '@/views/Run/internal/ResultDisplay/internal/StatCard'
 
-import { TestResult } from '../Run/internal/ResultDisplay/ReportSection/components'
+import { TestResult } from '../Run/internal/ResultDisplay/internal/ReportSection/internal/components'
 
 export const UI: FC = () => {
   const handleButtonClick = () => {
@@ -360,7 +360,7 @@ export const UI: FC = () => {
           field="mean response time"
           predicate="LT"
           target="100ms"
-          value="95ms"
+          got="95ms"
           className="mb-2"
         />
         <TestResult
@@ -369,7 +369,7 @@ export const UI: FC = () => {
           field="mean response time"
           predicate="LT"
           target="100ms"
-          value="125ms"
+          got="125ms"
         />
       </div>
       <div className="mb-4">

@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Typography } from '@/components'
 
 import { ITestResultProps } from '../TestResult'
-import { getClassNames } from './TestResultTitle.helpers'
+import { getClassNames } from './internal/TestResultTitle.helpers'
 
 export type IProps = Pick<ITestResultProps, 'pass' | 'name'>
 

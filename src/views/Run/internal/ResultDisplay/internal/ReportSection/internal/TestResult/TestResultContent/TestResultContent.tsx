@@ -3,8 +3,8 @@ import { FC } from 'react'
 import { TestPredicate } from '@/benchttp/tests'
 import { Typography } from '@/components'
 
-import s from './test-result-content.module.scss'
-import { getPredicateSymbol } from './TestResultContent.helpers'
+import s from './internal/test-result-content.module.scss'
+import { getPredicateSymbol } from './internal/TestResultContent.helpers'
 
 export interface IProps {
   field: string
