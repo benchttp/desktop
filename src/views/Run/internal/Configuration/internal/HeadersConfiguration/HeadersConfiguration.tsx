@@ -72,6 +72,7 @@ const SingleHeader: FC<IPropsSingleHeader> = ({ header, index, onChange }) => {
         onChange={handleChangeHeaderKey(header, onChange)}
         label="Key"
         invalid={!isValidHeader(header)}
+        required
       />
       <TextInput
         data-testid={`change-value-header-${index}`}
@@ -81,6 +82,7 @@ const SingleHeader: FC<IPropsSingleHeader> = ({ header, index, onChange }) => {
         onChange={handleChangeHeaderValue(header, onChange)}
         label="Values (accept many if comma separated)"
         invalid={!isValidHeader(header)}
+        required
       />
     </div>
   )

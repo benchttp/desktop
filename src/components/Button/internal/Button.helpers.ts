@@ -2,7 +2,7 @@ import { createElement, ReactNode } from 'react'
 import { Icon } from 'react-feather'
 
 import s from './button.module.scss'
-import { IProps } from './button.typings'
+import { IProps } from './Button.types'
 
 export const getClassNames = ({
   color,

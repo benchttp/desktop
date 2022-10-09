@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, FormEvent } from 'react'
 import { Mail, Package, Play } from 'react-feather'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
@@ -12,9 +12,11 @@ import {
   URLInput,
 } from '@/components/Inputs'
 
-import { ConfigurationState, ConfigurationField } from './Configuration.helpers'
-import { HeadersConfiguration } from './HeadersConfiguration'
-import { TestsConfiguration } from './TestsConfiguration'
+import { HeadersConfiguration, TestsConfiguration } from './internal/components'
+import {
+  ConfigurationState,
+  ConfigurationField,
+} from './internal/Configuration.helpers'
 
 interface IProps {
   state: ConfigurationState
@@ -23,8 +25,13 @@ interface IProps {
 }
 
 export const Configuration: FC<IProps> = ({ state, setState, onSubmit }) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    onSubmit()
+  }
+
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <Typography element="h1" className="mb-4">
         Configuration
       </Typography>
@@ -36,6 +43,7 @@ export const Configuration: FC<IProps> = ({ state, setState, onSubmit }) => {
             value={state.url}
             onChange={(v) => setState({ url: v })}
             label="URL"
+            required
           />
           <HTTPMethodSelect
             id="method"
@@ -132,14 +140,8 @@ export const Configuration: FC<IProps> = ({ state, setState, onSubmit }) => {
       />
 
       <div className="f f-ai-center f-jc-end">
-        <Button
-          text="Run test"
-          onClick={() => {
-            onSubmit()
-          }}
-          iconEnd={Play}
-        />
+        <Button text="Run test" type="submit" iconEnd={Play} />
       </div>
-    </div>
+    </form>
   )
 }
