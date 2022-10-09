@@ -2,8 +2,8 @@ import { FC } from 'react'
 
 import { TestingProps } from '@/testing'
 
-import { getClassNames } from './TextInput.helpers'
-import { IProps } from './internals/TextInput.types'
+import { getClassNames } from './internal/TextInput.helpers'
+import { IProps } from './internal/TextInput.types'
 
 export const TextInput: FC<IProps & TestingProps> = ({
   value,
