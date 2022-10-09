@@ -110,7 +110,13 @@ const ResultsSection: React.FC<RunReport> = ({ metrics }) => (
           label="90% of requests are faster"
         />
       ) : (
-        <div></div>
+        <StatCard
+          icon={Clock}
+          iconColor="primary"
+          className="mr-3"
+          stat="Deciles"
+          label="Not enough data"
+        />
       )}
       <StatCard
         icon={Target}
