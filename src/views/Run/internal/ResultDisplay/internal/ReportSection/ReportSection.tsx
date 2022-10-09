@@ -23,7 +23,8 @@ export const ReportSection: FC<IProps> = ({ report }) => {
         <Tag text={`Test ${report.tests.pass ? 'passed' : 'failed'}`} />
       </div>
       <Typography element="p" size="h4" className="mb-4">
-        {failedTestCount}/{report.tests.results.length} tests{' '}
+        {report.tests.pass ? report.tests.results.length : failedTestCount}/
+        {report.tests.results.length} tests{' '}
         {report.tests.pass ? 'passed' : 'failed'}
       </Typography>
       {report.tests.results.map((result, index) => (
