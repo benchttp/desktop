@@ -2,10 +2,10 @@ import { FC } from 'react'
 
 import { TestingProps } from '@/testing'
 
-import { createIcon, getClassNames } from './core/button.helpers'
-import { IPropsButton, IPropsSubmit } from './core/button.typings'
+import { createIcon, getClassNames } from './internal/Button.helpers'
+import { IProps } from './internal/Button.types'
 
-export const Button: FC<(IPropsButton | IPropsSubmit) & TestingProps> = ({
+export const Button: FC<IProps & TestingProps> = ({
   text,
   onClick,
   color = 'primary',

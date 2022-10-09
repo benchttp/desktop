@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes, MouseEventHandler } from 'react'
 import { Icon } from 'react-feather'
 
-export interface IProps {
+interface IPropsBase {
   className?: string
   text: string
   onClick?: MouseEventHandler | never
@@ -13,12 +13,14 @@ export interface IProps {
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type']
 }
 
-export interface IPropsSubmit extends IProps {
+export interface IPropsSubmit extends IPropsBase {
   type: 'submit'
   onClick?: never
 }
 
-export interface IPropsButton extends IProps {
+export interface IPropsButton extends IPropsBase {
   type?: 'button' | 'reset'
   onClick: MouseEventHandler
 }
+
+export type IProps = IPropsButton | IPropsSubmit
