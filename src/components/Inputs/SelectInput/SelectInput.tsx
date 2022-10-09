@@ -1,9 +1,10 @@
 import { FC } from 'react'
 
-import { getClassName } from './core/selectInput.helpers'
-import { IProps } from './core/selectInput.typings'
+import s from './internal/select-input.module.scss'
+import { getClassName } from './internal/SelectInput.helpers'
+import { IProps } from './internal/SelectInput.types'
 
-export type { IProps as IPropsSelectInput } from './core/selectInput.typings'
+export type { IProps as IPropsSelectInput } from './internal/SelectInput.types'
 
 export const SelectInput: FC<IProps> = ({
   value,
@@ -25,6 +26,7 @@ export const SelectInput: FC<IProps> = ({
         value={value}
         onChange={onChange}
         data-testid={dataTestid}
+        className={s['select']}
       >
         {options.map((option) => (
           <option

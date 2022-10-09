@@ -1,0 +1,18 @@
+@use 'sass:map';
+@use '../variables/spaces.scss';
+@use '../variables/colors.scss';
+
+@mixin input-style-border {
+  background: transparent;
+  outline: none;
+  padding: map.get(spaces.$spaces, '1') 0px;
+  color: map.get(colors.$colors, 'base-white');
+  border: none;
+  transition: border 200ms ease-in-out;
+  border-bottom: 1px solid map.get(colors.$colors, 'grey-light');
+  
+  &:hover,
+  &:focus {
+      border-bottom: 1px solid map.get(colors.$colors, 'primary');
+  }
+}

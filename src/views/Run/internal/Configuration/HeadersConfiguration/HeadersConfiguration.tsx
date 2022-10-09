@@ -24,7 +24,7 @@ export const HeadersConfiguration: FC<IProps> = ({ headers, onChange }) => {
   const arrayHeaders = arrayifyHeaders(headers)
 
   return (
-    <div className="f f-direction-column f-ai-start">
+    <div className="f f-direction-column f-ai-start mt-3 mb-3">
       {arrayHeaders.map((header, index) => (
         <div
           className="f f-direction-row f-ai-center mb-3"

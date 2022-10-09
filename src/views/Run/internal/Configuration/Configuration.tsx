@@ -69,7 +69,9 @@ export const Configuration: FC<IProps> = ({ state, setState, onSubmit }) => {
             element={
               <TextAreaInput
                 id="body"
+                className="mt-3 mb-3"
                 value={state.body}
+                rows={5}
                 onChange={(e) => setState({ body: e.target.value })}
               />
             }

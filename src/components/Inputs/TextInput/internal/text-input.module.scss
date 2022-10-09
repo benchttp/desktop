@@ -1,0 +1,18 @@
+@use 'sass:map';
+@use '../../../../style/mixins/border-bottom.scss';
+@use '../../../../style/variables/colors.scss';
+
+.input-field {
+    @include border-bottom.input-style-border;
+
+    &--disabled {
+        border-bottom: 1px solid map.get(colors.$colors, 'grey-light');
+        color: map.get(colors.$colors, 'grey-light');
+        pointer-events: none;
+    }
+
+}
+
+input[aria-invalid='true'] {
+    border-bottom: 1px solid map.get(colors.$colors, 'http-delete');
+}

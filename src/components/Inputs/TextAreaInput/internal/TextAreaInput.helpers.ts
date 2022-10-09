@@ -1,4 +1,4 @@
-import { IProps } from './textAreaInput.typings'
+import { IProps } from './TextAreaInput.types'
 
 export const getClassNames = ({
   className,

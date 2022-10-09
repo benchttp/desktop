@@ -1,7 +1,8 @@
 import { FC } from 'react'
 
-import { getClassNames } from './core/textAreaInput.helpers'
-import { IProps } from './core/textAreaInput.typings'
+import s from './internal/text-area-input.module.scss'
+import { getClassNames } from './internal/TextAreaInput.helpers'
+import { IProps } from './internal/TextAreaInput.types'
 
 export const TextAreaInput: FC<IProps> = ({
   className,
@@ -9,6 +10,7 @@ export const TextAreaInput: FC<IProps> = ({
   value,
   onChange,
   label,
+  rows,
   disabled,
   placeholder,
 }) => {
@@ -18,7 +20,9 @@ export const TextAreaInput: FC<IProps> = ({
     <div className={classNames.join(' ')}>
       {label && <label htmlFor={id}>{label}</label>}
       <textarea
+        className={s['textarea']}
         disabled={disabled}
+        rows={rows}
         placeholder={placeholder}
         id={id}
         onChange={onChange}

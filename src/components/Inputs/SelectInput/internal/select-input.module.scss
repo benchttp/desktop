@@ -1,0 +1,6 @@
+@use '../../../../style/mixins/border-bottom.scss';
+
+.select {
+    @include border-bottom.input-style-border;
+    height: 35px;
+}
