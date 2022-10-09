@@ -399,7 +399,7 @@ export const UI: FC = () => {
         <Typography className="mb-4" element="h1">
           Results
         </Typography>
-        <div className="f f-direction-row f-ai-end mb-3">
+        <div className="g f-direction-row mb-3">
           <StatCard
             icon={ChevronsUp}
             iconColor="blue"
@@ -422,7 +422,7 @@ export const UI: FC = () => {
             label="average response time"
           />
         </div>
-        <div className="f f-direction-row f-ai-end mb-3">
+        <div className="g f-direction-row f-ai-end mb-3">
           <StatCard
             icon={Clock}
             iconColor="primary"
