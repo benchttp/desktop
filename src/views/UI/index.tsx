@@ -1,10 +1,15 @@
 import { FC, useState } from 'react'
 import {
   CheckCircle,
-  PieChart,
   PlusSquare,
-  Settings,
   AlertCircle,
+  BarChart2,
+  ChevronsUp,
+  ChevronsDown,
+  Target,
+  Clock,
+  Settings,
+  PieChart,
 } from 'react-feather'
 
 import {
@@ -16,6 +21,7 @@ import {
   Typography,
 } from '@/components'
 import { Toggle } from '@/components/Inputs'
+import { StatCard } from '@/views/Run/internal/ResultDisplay/StatCard'
 
 export const UI: FC = () => {
   const handleButtonClick = () => {
@@ -387,6 +393,57 @@ export const UI: FC = () => {
         </Typography>
         <div className="f f-direction-row f-ai-end mb-3">
           <Tooltip icon={AlertCircle} className="mr-3" text="Tooltip text" />
+        </div>
+      </div>
+      <div className="mb-4">
+        <Typography className="mb-4" element="h1">
+          Results
+        </Typography>
+        <div className="g f-direction-row mb-3">
+          <StatCard
+            icon={ChevronsUp}
+            iconColor="blue"
+            className="mr-3"
+            stat="100ms"
+            label="fastest response"
+          />
+          <StatCard
+            icon={ChevronsDown}
+            iconColor="orange"
+            className="mr-3"
+            stat="250ms"
+            label="slowest response"
+          />
+          <StatCard
+            icon={BarChart2}
+            iconColor="base-white"
+            className="mr-3"
+            stat="135ms"
+            label="average response time"
+          />
+        </div>
+        <div className="g f-direction-row f-ai-end mb-3">
+          <StatCard
+            icon={Clock}
+            iconColor="primary"
+            className="mr-3"
+            stat="150ms"
+            label="90% of requests are faster"
+          />
+          <StatCard
+            icon={Target}
+            iconColor="purple"
+            className="mr-3"
+            stat="50ms"
+            label="standard deviation"
+          />
+          <StatCard
+            icon={CheckCircle}
+            iconColor="get"
+            className="mr-3"
+            stat="92%"
+            label="of requests were successful"
+          />
         </div>
       </div>
     </div>
