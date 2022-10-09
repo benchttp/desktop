@@ -1,27 +1,33 @@
 import { useRef, useReducer } from 'react'
 
-import { RunConfiguration, RunProgress, RunReport } from '@/benchttp'
+import { RunConfiguration, RunProgress, RunReport, RunError } from '@/benchttp'
 import { address } from '@/engine/spawn'
 import { RunStreamer, RunStream } from '@/engine/stream'
 
 // Re-expose the internal hook.
 export { useConfiguration } from './Configuration'
 
-interface RunState {
+export interface RunState {
   progress: RunProgress | null
   report: RunReport | null
-  error: string
+  error: RunError | null
+  /**
+   * Produced when the application encounters an internal error
+   * while streaming. This is not a server error as opposed to `RunState.error`.
+   */
+  appError: Error | null
 }
 
 const initState = (): RunState => ({
   progress: null,
   report: null,
-  error: '',
+  error: null,
+  appError: null,
 })
 
-type Msg = ['STREAM', RunStream] | ['ERROR', string] | ['RESET']
+type Mutation = ['STREAM', RunStream] | ['ERROR', Error] | ['RESET']
 
-function reducer(state: RunState, [type, data]: Msg) {
+function reducer(state: RunState, [type, data]: Mutation) {
   switch (type) {
     case 'STREAM':
       switch (data.kind) {
@@ -35,7 +41,7 @@ function reducer(state: RunState, [type, data]: Msg) {
       //@ts-expect-error unless non exhaustive switch
       throw new Error(`Unknown action type: ${type}.${data.kind}`)
     case 'ERROR':
-      return { ...state, error: data }
+      return { ...state, appError: data }
     case 'RESET':
       return initState()
   }
@@ -48,7 +54,7 @@ export function useRunStream() {
 
   const stream = useRef(
     new RunStreamer(address, {
-      onError: (err) => dispatch(['ERROR', err.message]),
+      onError: (err) => dispatch(['ERROR', err]),
       onStream: (stream) => dispatch(['STREAM', stream]),
     })
   )
@@ -61,15 +67,16 @@ export function useRunStream() {
      * call to start, they will be reset and the run will start over.
      */
     start: (config: RunConfiguration) => {
-      if (isNonNull(state)) {
+      if (!isPristine(state)) {
         stream.current.cancel()
         dispatch(['RESET'])
       }
       stream.current.start(config)
     },
-    stop: () => stream.current.cancel() && dispatch(['ERROR', 'Run canceled']),
+    stop: () =>
+      stream.current.cancel() && dispatch(['ERROR', new Error('Run canceled')]),
   }
 }
 
-const isNonNull = (state: RunState): boolean =>
-  state.progress !== null || state.report !== null || state.error !== ''
+const isPristine = (state: RunState): boolean =>
+  state.progress === null || state.report === null || state.error === null
