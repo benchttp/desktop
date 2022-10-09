@@ -13,6 +13,8 @@ import { AppError, Button, ProgressBar, Typography } from '@/components'
 
 import { RunErrorDisplay, StatCard } from './internal/components'
 
+import { ReportSection } from './components'
+
 interface IProps {
   progress: RunProgress | null
   report: RunReport | null
@@ -32,7 +34,12 @@ export const ResultDisplay: React.FC<IProps> = ({
     {progress && !progress.done && (
       <ProgressSection {...progress} stop={stop} />
     )}
-    {report && <ResultsSection {...report} />}
+    {report && (
+      <>
+        <ReportSection report={report} />
+        <ResultsSection {...report} />
+      </>
+    )}
     {appError && <AppError error={appError.message} />}
     {error && <RunErrorDisplay errors={error.errors} />}
   </div>

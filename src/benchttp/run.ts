@@ -28,9 +28,9 @@ export interface RunReport {
   tests: {
     pass: boolean
     results: {
-      input: RunTestCase
       pass: boolean
-      summary: string
+      got: number
+      input: RunTestCase
     }[]
   }
   metadata: {

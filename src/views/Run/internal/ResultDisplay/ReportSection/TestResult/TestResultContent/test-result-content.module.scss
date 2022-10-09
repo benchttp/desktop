@@ -1,8 +1,8 @@
 @use 'sass:map';
 @use 'sass:math';
-@use '../../../../../../../../style/variables/spaces.scss';
-@use '../../../../../../../../style/variables/colors.scss';
-@use '../../../../../../../../style/variables/fonts.scss';
+@use '../../../../../../../style/variables/spaces.scss';
+@use '../../../../../../../style/variables/colors.scss';
+@use '../../../../../../../style/variables/fonts.scss';
 
 .test-result-content {
   &__predicate {

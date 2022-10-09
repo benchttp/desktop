@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { TestPredicate } from '@/benchttp/tests'
 import { Accordion } from '@/components'
 
-import { TestResultContent, TestResultTitle } from './internal/components'
+import { TestResultContent, TestResultTitle } from './components'
 
 export type { IProps as ITestResultProps }
 
@@ -14,7 +14,7 @@ export interface IProps {
   field: string
   predicate: TestPredicate
   target: string
-  value: string
+  got: string
 }
 
 export const TestResult: FC<IProps> = ({
@@ -23,7 +23,7 @@ export const TestResult: FC<IProps> = ({
   field,
   predicate,
   target,
-  value,
+  got,
   className,
 }) => {
   return (
@@ -35,7 +35,7 @@ export const TestResult: FC<IProps> = ({
           field={field}
           predicate={predicate}
           target={target}
-          value={value}
+          value={got}
         />
       }
     />

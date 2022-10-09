@@ -1,6 +1,6 @@
 import { ChangeEventHandler } from 'react'
 
-import { parseInteger } from '@/tools'
+import { parseInteger } from '@/tools/parsers'
 
 import { Millisecond } from './Millisecond.types'
 

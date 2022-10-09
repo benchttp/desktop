@@ -7,7 +7,7 @@ import {
   isMetricField,
   isNumberMetricField,
 } from '@/benchttp/metrics'
-import { parseInteger } from '@/tools'
+import { parseInteger } from '@/tools/parsers'
 
 import s from './TestsConfiguration.module.scss'
 
