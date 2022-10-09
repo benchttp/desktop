@@ -8,15 +8,17 @@ import {
   Target,
 } from 'react-feather'
 
-import { RunProgress, RunReport } from '@/benchttp'
-import { Button, ProgressBar, Typography } from '@/components'
+import { RunError, RunProgress, RunReport } from '@/benchttp'
+import { AppError, Button, ProgressBar, Typography } from '@/components'
 
+import { RunErrorDisplay } from './internal/components'
 import { StatCard } from './StatCard'
 
 interface IProps {
   progress: RunProgress | null
   report: RunReport | null
-  error: string
+  error: RunError | null
+  appError: Error | null
   stop: () => false | void
 }
 
@@ -24,6 +26,7 @@ export const ResultDisplay: React.FC<IProps> = ({
   progress,
   report,
   error,
+  appError,
   stop,
 }) => (
   <div>
@@ -31,7 +34,8 @@ export const ResultDisplay: React.FC<IProps> = ({
       <ProgressSection {...progress} stop={stop} />
     )}
     {report && <ResultsSection {...report} />}
-    {error && <ErrorSection error={error} />}
+    {appError && <AppError error={appError.message} />}
+    {error && <RunErrorDisplay errors={error.errors} />}
   </div>
 )
 
@@ -125,13 +129,6 @@ const ResultsSection: React.FC<RunReport> = ({ metrics }) => (
         label="of requests were successful"
       />
     </div>
-  </section>
-)
-
-const ErrorSection: React.FC<{ error: string }> = ({ error }) => (
-  <section>
-    <Typography element="h3">Error</Typography>
-    <p>{error}</p>
   </section>
 )
 
