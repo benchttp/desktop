@@ -6,7 +6,7 @@ import { Typography } from '@/components'
 import s from './internal/test-result-content.module.scss'
 import { getPredicateSymbol } from './internal/TestResultContent.helpers'
 
-export interface IProps {
+interface IProps {
   field: string
   predicate: TestPredicate
   target: string

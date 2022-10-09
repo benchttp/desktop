@@ -39,7 +39,7 @@ export interface RunReport {
   }
 }
 
-interface RunTestCase {
+export interface RunTestCase {
   name: string
   field: Metric['field']
   predicate: TestPredicate

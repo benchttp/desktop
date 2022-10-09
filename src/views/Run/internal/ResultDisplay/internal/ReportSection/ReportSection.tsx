@@ -1,13 +1,14 @@
 import { FC } from 'react'
 
 import { RunReport } from '@/benchttp'
-import { isDurationMetricField } from '@/benchttp/metrics'
 import { Tag, Typography } from '@/components'
-import { convertNsToMs } from '@/tools/converters'
-import { parseMilliseconds } from '@/tools/parsers'
 
 import { TestResult } from './internal/components'
-import { getFailedTestCount } from './internal/ReportSection.helpers'
+import {
+  getFailedTestCount,
+  getGot,
+  getTarget,
+} from './internal/ReportSection.helpers'
 
 export interface IProps {
   report: RunReport
@@ -36,16 +37,8 @@ export const ReportSection: FC<IProps> = ({ report }) => {
           name={result.input.name}
           field={result.input.field}
           predicate={result.input.predicate}
-          target={
-            isDurationMetricField(result.input.field)
-              ? parseMilliseconds(`${convertNsToMs(result.input.target)}`)
-              : `${result.input.target}`
-          }
-          got={
-            isDurationMetricField(result.input.field)
-              ? parseMilliseconds(`${convertNsToMs(result.got)}`)
-              : `${result.got}`
-          }
+          target={getTarget(result.input)}
+          got={getGot(result)}
           className={index !== report.tests.results.length - 1 ? 'mb-3' : ''}
         />
       ))}

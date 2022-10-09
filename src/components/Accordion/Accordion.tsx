@@ -8,7 +8,7 @@ import {
 } from './internal/Accordion.helpers'
 import s from './internal/accordion.module.scss'
 
-export interface IProps {
+interface IProps {
   className?: string
   title: ReactNode
   content: ReactNode

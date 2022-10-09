@@ -1,3 +1,3 @@
-export const convertNsToMs = (ns: number): number => {
+export const nanosecondsToMilliseconds = (ns: number): number => {
   return ns / 1000000
 }
