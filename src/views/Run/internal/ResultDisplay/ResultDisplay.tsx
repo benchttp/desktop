@@ -26,11 +26,9 @@ export const ResultDisplay: React.FC<IProps> = ({
   stop,
 }) => (
   <div>
-    <Typography element="h3">Run results</Typography>
     {progress && !progress.done && (
       <ProgressSection {...progress} stop={stop} />
     )}
-    {report && <ReportSection {...report} />}
     {report && <ResultsSection {...report} />}
     {error && <ErrorSection error={error} />}
   </div>
@@ -43,7 +41,9 @@ const ProgressSection: React.FC<RunProgress & { stop: () => false | void }> = ({
   timeout,
 }) => (
   <section>
-    <Typography element="h3">Recording Progress</Typography>
+    <Typography element="h2" className="mt-3 mb-2">
+      Recording Progress
+    </Typography>
     <Button
       text="Stop run"
       onClick={() => stop()}
@@ -58,21 +58,9 @@ const ProgressSection: React.FC<RunProgress & { stop: () => false | void }> = ({
   </section>
 )
 
-const ReportSection: React.FC<RunReport> = ({ metrics }) => (
-  <section>
-    <Typography element="h4" className="mt-3">
-      Report
-    </Typography>
-    <div></div>
-    <div>Min: {formatDuration(metrics.responseTimes.min)}</div>
-    <div>Max: {formatDuration(metrics.responseTimes.max)}</div>
-    <div>Avg: {formatDuration(metrics.responseTimes.mean)}</div>
-  </section>
-)
-
 const ResultsSection: React.FC<RunReport> = ({ metrics }) => (
   <section>
-    <Typography element="h4" className="mt-3">
+    <Typography element="h2" className="mt-3 mb-2">
       Results
     </Typography>
     <div></div>
@@ -129,7 +117,7 @@ const ResultsSection: React.FC<RunReport> = ({ metrics }) => (
         icon={CheckCircle}
         iconColor="get"
         className="mr-3"
-        stat={formatSuccesfulRequestsNumber(
+        stat={formatSuccesfulRequestsPercentage(
           metrics.records.length,
           metrics.requestFailures.length
         )}
@@ -158,7 +146,7 @@ function calculateSuccesfulRequestsPercentage(
   return ((recordsNb - failuresNb) * 100) / recordsNb
 }
 
-function formatSuccesfulRequestsNumber(
+function formatSuccesfulRequestsPercentage(
   recordsNb: number,
   failuresNb: number
 ): string {
