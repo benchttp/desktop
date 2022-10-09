@@ -10,4 +10,9 @@
         color: map.get(colors.$colors, 'grey-light');
         pointer-events: none;
     }
+
+}
+
+input[aria-invalid='true'] {
+    border-bottom: 1px solid map.get(colors.$colors, 'http-delete');
 }

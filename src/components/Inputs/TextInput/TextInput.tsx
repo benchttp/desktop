@@ -3,7 +3,6 @@ import { FC } from 'react'
 import { TestingProps } from '@/testing'
 
 import { getClassNames } from './internal/TextInput.helpers'
-import s from './internal/TextInput.module.scss'
 import { IProps } from './internal/TextInput.types'
 
 export const TextInput: FC<IProps & TestingProps> = ({
@@ -23,7 +22,7 @@ export const TextInput: FC<IProps & TestingProps> = ({
   return (
     <div>
       {label && <label htmlFor={id}>{label}</label>}
-      <div className={s['input-container']}>
+      <div>
         <input
           className={classNames}
           data-testid={dataTestid}
