@@ -1,10 +1,10 @@
 import { FC } from 'react'
 
-import { getClassName } from './core/selectInput.helpers'
-import s from './core/selectInput.module.scss'
-import { IProps } from './core/selectInput.typings'
+import { getClassName } from './internal/selectInput.helpers'
+import s from './internal/selectInput.module.scss'
+import { IProps } from './internal/selectInput.typings'
 
-export type { IProps as IPropsSelectInput } from './core/selectInput.typings'
+export type { IProps as IPropsSelectInput } from './internal/selectInput.typings'
 
 export const SelectInput: FC<IProps> = ({
   value,

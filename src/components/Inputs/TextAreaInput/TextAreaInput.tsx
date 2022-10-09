@@ -1,8 +1,8 @@
 import { FC } from 'react'
 
-import { getClassNames } from './core/textAreaInput.helpers'
-import s from './core/textAreaInput.module.scss'
-import { IProps } from './core/textAreaInput.typings'
+import { getClassNames } from './internal/textAreaInput.helpers'
+import s from './internal/textAreaInput.module.scss'
+import { IProps } from './internal/textAreaInput.typings'
 
 export const TextAreaInput: FC<IProps> = ({
   className,
