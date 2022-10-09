@@ -1,6 +1,6 @@
 import { ChangeEventHandler } from 'react'
 
-import { parseInteger } from '@/tools'
+import { parseInteger } from '@/tools/parsers'
 
 export const handleChangeAsNumber = (
   onChange: (value: number) => void

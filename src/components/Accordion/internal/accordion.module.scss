@@ -1,0 +1,39 @@
+@use 'sass:map';
+@use '../../../style/variables/colors.scss';
+@use '../../../style/variables/spaces.scss';
+
+.accordion {
+  &__wrapper {
+    overflow: hidden;
+    border-radius: map.get(spaces.$spaces, '1');
+    margin-bottom: -#{map.get(spaces.$spaces, '1')};
+  }
+
+  &__title {
+    cursor: pointer;
+    background: map.get(colors.$colors, 'grey');
+    border-radius: map.get(spaces.$spaces, '1');
+  }
+
+  &__content {
+    z-index: -1;
+    transform: translateY(-100%);
+    padding-top: map.get(spaces.$spaces, '2') + map.get(spaces.$spaces, '1');
+    background: map.get(colors.$colors, 'grey');
+    border-radius: 0 0 map.get(spaces.$spaces, '1') map.get(spaces.$spaces, '1');
+    transition: transform 0.3s ease-out;
+
+    & > * {
+      transition: opacity 0.15s 0.3s ease-out;
+      opacity: 0;
+    }
+
+    &--expanded {
+      transform: translateY(-#{map.get(spaces.$spaces, '1')});
+
+      & > * {
+        opacity: 1;
+      }
+    }
+  }
+}

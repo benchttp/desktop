@@ -19,9 +19,12 @@ import {
   ProgressBar,
   Tooltip,
   Typography,
+  Accordion,
 } from '@/components'
 import { Toggle } from '@/components/Inputs'
 import { StatCard } from '@/views/Run/internal/ResultDisplay/internal/StatCard'
+
+import { TestResult } from '../Run/internal/ResultDisplay/internal/ReportSection/internal/components'
 
 export const UI: FC = () => {
   const handleButtonClick = () => {
@@ -337,6 +340,37 @@ export const UI: FC = () => {
           ProgressBar
         </Typography>
         <ProgressBar value={50} max={200} />
+      </div>
+      <div className="mb-4">
+        <Typography className="mb-4" element="h1">
+          Accordion
+        </Typography>
+        <Accordion
+          title={<Typography>Accordion title</Typography>}
+          content={<Typography>Accordion content</Typography>}
+        />
+      </div>
+      <div className="mb-4">
+        <Typography className="mb-4" element="h1">
+          Test Result
+        </Typography>
+        <TestResult
+          pass={true}
+          name="test result passed"
+          field="mean response time"
+          predicate="LT"
+          target="100ms"
+          got="95ms"
+          className="mb-2"
+        />
+        <TestResult
+          pass={false}
+          name="test result failed"
+          field="mean response time"
+          predicate="LT"
+          target="100ms"
+          got="125ms"
+        />
       </div>
       <div className="mb-4">
         <Typography className="mb-4" element="h1">

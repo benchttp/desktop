@@ -1,0 +1,15 @@
+@use 'sass:map';
+@use '../../../../../../../../../../../style/variables/colors.scss';
+
+.test-result-title {
+  &__status {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    background: map.get(colors.$colors, 'base-green');
+
+    &--failed {
+      background: map.get(colors.$colors, 'base-red');
+    }
+  }
+}

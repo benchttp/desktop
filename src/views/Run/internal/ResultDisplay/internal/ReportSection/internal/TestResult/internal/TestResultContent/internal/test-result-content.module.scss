@@ -1,0 +1,16 @@
+@use 'sass:map';
+@use 'sass:math';
+@use '../../../../../../../../../../../style/variables/spaces.scss';
+@use '../../../../../../../../../../../style/variables/colors.scss';
+@use '../../../../../../../../../../../style/variables/fonts.scss';
+
+.test-result-content {
+  &__predicate {
+    display: inline-block;
+    border-radius: 2px;
+    padding: math.div(map.get(spaces.$spaces, '1'), 4)
+      math.div(map.get(spaces.$spaces, '1'), 2);
+    line-height: map.get(fonts.$font-sizes, 'base');
+    background: map.get(colors.$colors, 'grey-light');
+  }
+}
