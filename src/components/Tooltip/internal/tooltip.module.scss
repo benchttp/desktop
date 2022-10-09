@@ -1,0 +1,38 @@
+@use 'sass:map';
+@use '../../../style/variables/colors.scss';
+@use '../../../style/variables/spaces.scss';
+@use '../../../style/mixins/font-config.scss';
+
+.tooltip {
+  color: map.get(colors.$colors, 'base-white');
+  position: relative;
+  &:hover span {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 150ms ease, opacity 150ms ease;
+  }
+  span {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 150ms ease, opacity 150ms ease;
+    background-color: map.get(colors.$colors, 'base-white');
+    color: map.get(colors.$colors, 'grey-dark');
+    position: absolute;
+    bottom: 100%;
+    border-radius: map.get(spaces.$spaces, '2');
+    margin: map.get(spaces.$spaces, '2');
+    padding: map.get(spaces.$spaces, '2');
+    margin-left: 4px;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: map.get(colors.$colors, 'base-white') transparent
+        transparent transparent;
+    }
+  }
+}

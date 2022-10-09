@@ -1,7 +1,20 @@
 import { FC, useState } from 'react'
-import { CheckCircle, PieChart, PlusSquare, Settings } from 'react-feather'
+import {
+  CheckCircle,
+  PieChart,
+  PlusSquare,
+  Settings,
+  AlertCircle,
+} from 'react-feather'
 
-import { Button, Tab, Tag, ProgressBar, Typography } from '@/components'
+import {
+  Button,
+  Tab,
+  Tag,
+  ProgressBar,
+  Tooltip,
+  Typography,
+} from '@/components'
 import { Toggle } from '@/components/Inputs'
 
 export const UI: FC = () => {
@@ -366,6 +379,14 @@ export const UI: FC = () => {
             label="Check me"
             className="mr-3"
           />
+        </div>
+      </div>
+      <div className="mb-4">
+        <Typography className="mb-4" element="h1">
+          Tooltip
+        </Typography>
+        <div className="f f-direction-row f-ai-end mb-3">
+          <Tooltip icon={AlertCircle} className="mr-3" text="Tooltip text" />
         </div>
       </div>
     </div>
