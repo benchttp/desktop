@@ -7,10 +7,7 @@ import { IProps } from './StatCard.types'
 export const getClassNames = ({
   className,
   iconColor,
-  isError,
-}: Pick<IProps, 'className'> &
-  Pick<Required<IProps>, 'iconColor'> &
-  Pick<Required<IProps>, 'isError'>) => {
+}: Pick<IProps, 'className'> & Pick<Required<IProps>, 'iconColor'>) => {
   const classNames: string[] = [
     s['statCard'],
     s[`statCard-${iconColor}`],
@@ -19,10 +16,6 @@ export const getClassNames = ({
     'f-ai-center',
     'p-3',
   ]
-
-  if (isError) {
-    classNames.push(s['statCard-isError'])
-  }
 
   if (className) {
     classNames.push(className)

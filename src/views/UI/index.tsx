@@ -1,15 +1,15 @@
 import { FC, useState } from 'react'
 import {
   CheckCircle,
-  PieChart,
   PlusSquare,
-  Settings,
   AlertCircle,
   BarChart2,
   ChevronsUp,
   ChevronsDown,
   Target,
   Clock,
+  Settings,
+  PieChart,
 } from 'react-feather'
 
 import {
@@ -406,7 +406,6 @@ export const UI: FC = () => {
             className="mr-3"
             stat="100ms"
             label="fastest response"
-            isError={false}
           />
           <StatCard
             icon={ChevronsDown}
@@ -414,7 +413,6 @@ export const UI: FC = () => {
             className="mr-3"
             stat="250ms"
             label="slowest response"
-            isError={false}
           />
           <StatCard
             icon={BarChart2}
@@ -422,7 +420,6 @@ export const UI: FC = () => {
             className="mr-3"
             stat="135ms"
             label="average response time"
-            isError={true}
           />
         </div>
         <div className="f f-direction-row f-ai-end mb-3">
@@ -432,7 +429,6 @@ export const UI: FC = () => {
             className="mr-3"
             stat="150ms"
             label="90% of requests are faster"
-            isError={false}
           />
           <StatCard
             icon={Target}
@@ -440,7 +436,6 @@ export const UI: FC = () => {
             className="mr-3"
             stat="50ms"
             label="standard deviation"
-            isError={false}
           />
           <StatCard
             icon={CheckCircle}
@@ -448,7 +443,6 @@ export const UI: FC = () => {
             className="mr-3"
             stat="92%"
             label="of requests were successful"
-            isError={false}
           />
         </div>
       </div>

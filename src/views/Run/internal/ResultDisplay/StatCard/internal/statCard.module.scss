@@ -111,11 +111,4 @@
       }
     }
   }
-
-  &-isError {
-    border-color: map.get(colors.$colors, 'base-red');
-    border-width: 2px;
-    border-style: solid;
-    border-radius: map.get(spaces.$spaces, '1');
-  }
 }

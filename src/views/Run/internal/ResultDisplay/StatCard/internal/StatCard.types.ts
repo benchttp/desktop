@@ -6,5 +6,4 @@ export interface IProps {
   iconColor: 'blue' | 'primary' | 'get' | 'base-white' | 'purple' | 'orange'
   stat: string
   label: string
-  isError: boolean
 }

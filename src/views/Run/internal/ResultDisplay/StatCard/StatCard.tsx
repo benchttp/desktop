@@ -11,9 +11,8 @@ export const StatCard: FC<IProps> = ({
   stat,
   label,
   className,
-  isError,
 }) => {
-  const classNames = getClassNames({ className, iconColor, isError })
+  const classNames = getClassNames({ className, iconColor })
   return (
     <div className={classNames.join(' ')}>
       <div>
