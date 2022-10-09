@@ -1,5 +1,5 @@
-import s from './textInput.module.scss'
-import { IProps } from './textInput.typings'
+import s from './TextInput.module.scss'
+import { IProps } from './TextInput.types'
 
 export const getClassNames = ({
   disabled,
