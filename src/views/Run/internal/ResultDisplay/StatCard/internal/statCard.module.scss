@@ -1,7 +1,7 @@
 @use 'sass:map';
-@use '../../../../style/variables/colors.scss';
-@use '../../../../style/variables/spaces.scss';
-@use '../../../../style/mixins/font-config.scss';
+@use '../../../../../../style/variables/colors.scss';
+@use '../../../../../../style/variables/spaces.scss';
+@use '../../../../../../style/mixins/font-config.scss';
 
 .statCard {
   background: map.get(colors.$colors, 'grey');
