@@ -1,7 +1,7 @@
 import { createElement, ReactNode } from 'react'
 import { Icon } from 'react-feather'
 
-import s from './statCard.module.scss'
+import s from './stat-card.module.scss'
 import { IProps } from './StatCard.types'
 
 export const getClassNames = ({
