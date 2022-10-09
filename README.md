@@ -6,7 +6,7 @@ The Benchttp desktop app is a GUI for [benchttp/engine](https://github.com/bench
 
 ## Installation
 
-Download from release (when it is ready).
+Download from the [releases page](https://github.com/benchttp/desktop/releases).
 
 Or build from source (see below).
 
