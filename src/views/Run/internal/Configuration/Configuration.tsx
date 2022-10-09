@@ -25,13 +25,13 @@ interface IProps {
 }
 
 export const Configuration: FC<IProps> = ({ state, setState, onSubmit }) => {
-  const handleOnSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     onSubmit()
   }
 
   return (
-    <form onSubmit={handleOnSubmit}>
+    <form onSubmit={handleSubmit}>
       <Typography element="h1" className="mb-4">
         Configuration
       </Typography>
