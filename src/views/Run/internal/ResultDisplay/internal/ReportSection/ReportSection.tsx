@@ -21,7 +21,7 @@ export const ReportSection: FC<IProps> = ({ report }) => {
     <div>
       <div className="f f-ai-center mb-4">
         <Typography className="mr-1" element="h1">
-          Status :
+          Status: 
         </Typography>
         <Tag text={`Test ${report.tests.pass ? 'passed' : 'failed'}`} />
       </div>
