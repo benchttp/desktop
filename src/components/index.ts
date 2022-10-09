@@ -1,3 +1,4 @@
+export { AppError } from './AppError'
 export { Typography } from './Typography'
 export { Sidebar } from './Sidebar'
 export { ProgressBar } from './ProgressBar'

@@ -8,7 +8,7 @@ import { Configuration, ResultDisplay } from './internal/components'
 import { useRunStream, useConfiguration } from './internal/Run.helpers'
 
 export const Run: FC = () => {
-  const { start, stop, progress, report, error } = useRunStream()
+  const { start, stop, progress, report, error, appError } = useRunStream()
   const { configuration, setConfiguration, getRunConfiguration } =
     useConfiguration()
 
@@ -53,6 +53,7 @@ export const Run: FC = () => {
               progress={progress}
               report={report}
               error={error}
+              appError={appError}
               stop={stop}
             />
           }

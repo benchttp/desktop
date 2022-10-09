@@ -21,7 +21,7 @@ import {
   Typography,
 } from '@/components'
 import { Toggle } from '@/components/Inputs'
-import { StatCard } from '@/views/Run/internal/ResultDisplay/StatCard'
+import { StatCard } from '@/views/Run/internal/ResultDisplay/internal/StatCard'
 
 export const UI: FC = () => {
   const handleButtonClick = () => {

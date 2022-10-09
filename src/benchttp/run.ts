@@ -5,7 +5,8 @@ import { Metric } from './metrics'
 import { TestPredicate } from './tests'
 
 export interface RunError {
-  error: string
+  type: 'client' | 'server'
+  errors: string[]
 }
 
 export interface RunProgress {
