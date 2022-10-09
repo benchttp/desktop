@@ -1,4 +1,4 @@
-import s from './TextInput.module.scss'
+import s from './text-input.module.scss'
 import { IProps } from './TextInput.types'
 
 export const getClassNames = ({

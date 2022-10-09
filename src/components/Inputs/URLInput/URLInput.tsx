@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { TextInput } from '@/components/Inputs/TextInput/TextInput'
+import { TextInput } from '@/components/Inputs'
 import { TestingProps } from '@/testing'
 
 import { isValidURL } from './internal/URLInput.helpers'

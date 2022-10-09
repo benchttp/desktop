@@ -25,8 +25,6 @@ export const getClassName = ({
       classNames.push(s['tab--disabled'])
     }
 
-    console.log
-
     return classNames.join(' ')
   }
 }

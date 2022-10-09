@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
+import s from './internal/select-input.module.scss'
 import { getClassName } from './internal/SelectInput.helpers'
-import s from './internal/SelectInput.module.scss'
 import { IProps } from './internal/SelectInput.types'
 
 export type { IProps as IPropsSelectInput } from './internal/SelectInput.types'

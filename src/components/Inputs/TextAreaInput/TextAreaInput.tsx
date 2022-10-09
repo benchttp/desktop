@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
+import s from './internal/text-area-input.module.scss'
 import { getClassNames } from './internal/TextAreaInput.helpers'
-import s from './internal/TextAreaInput.module.scss'
 import { IProps } from './internal/TextAreaInput.types'
 
 export const TextAreaInput: FC<IProps> = ({

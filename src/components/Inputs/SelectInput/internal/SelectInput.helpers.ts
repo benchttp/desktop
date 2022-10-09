@@ -1,4 +1,4 @@
-import s from './SelectInput.module.scss'
+import s from './select-input.module.scss'
 import { IProps } from './SelectInput.types'
 
 export const getClassName = ({
