@@ -11,8 +11,7 @@ import {
 import { RunError, RunProgress, RunReport } from '@/benchttp'
 import { AppError, Button, ProgressBar, Typography } from '@/components'
 
-import { RunErrorDisplay } from './internal/components'
-import { StatCard } from './StatCard'
+import { RunErrorDisplay, StatCard } from './internal/components'
 
 interface IProps {
   progress: RunProgress | null
