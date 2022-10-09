@@ -35,7 +35,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'ci: update engine submodule [skip ci]'
-          branch: $BRANCH
+          branch: ${{ env.BRANCH }}
           create_branch: true
           file_pattern: vendor/engine
 
@@ -46,8 +46,8 @@ jobs:
           exit 1
 
       - name: Create pull request
-        run: gh pr create --base main --head $BRANCH --title $TITLE --body $BODY
+        run: gh pr create --base main --head "$BRANCH" --title "$TITLE" --body "$BODY"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TITLE: 'ci: update engine@${{ inputs.sha }}'
-          BODY: Automated pull request.
+          BODY: 'Automated pull request.'
