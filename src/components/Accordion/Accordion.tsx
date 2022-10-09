@@ -3,7 +3,7 @@ import { ChevronDown } from 'react-feather'
 
 import {
   getAccordionClassName,
-  getContentClassNames,
+  getContentClassName,
   handleExpandClick,
 } from './internal/Accordion.helpers'
 import s from './internal/accordion.module.scss'
@@ -44,7 +44,7 @@ export const Accordion: FC<IProps> = ({ className, title, content }) => {
           {title}
           <ChevronDown />
         </div>
-        <div className={getContentClassNames(expanded)}>{content}</div>
+        <div className={getContentClassName(expanded)}>{content}</div>
       </div>
     </div>
   )

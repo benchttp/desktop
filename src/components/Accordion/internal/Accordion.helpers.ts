@@ -14,7 +14,7 @@ export const getAccordionClassName = (
   return classNames.join(' ')
 }
 
-export const getContentClassNames = (expanded: boolean): string => {
+export const getContentClassName = (expanded: boolean): string => {
   const classNames = [s['accordion__content'], 'pt-2', 'pr-3', 'pl-3', 'pb-3']
 
   if (expanded) {
