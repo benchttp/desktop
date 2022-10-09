@@ -1,2 +1,2 @@
 export { Configuration } from './Configuration'
-export { useConfiguration } from './Configuration.helpers'
+export { useConfiguration } from './internal/Configuration.helpers'

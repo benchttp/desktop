@@ -12,9 +12,11 @@ import {
   URLInput,
 } from '@/components/Inputs'
 
-import { ConfigurationState, ConfigurationField } from './Configuration.helpers'
-import { HeadersConfiguration } from './HeadersConfiguration'
-import { TestsConfiguration } from './TestsConfiguration'
+import { HeadersConfiguration, TestsConfiguration } from './internal/components'
+import {
+  ConfigurationState,
+  ConfigurationField,
+} from './internal/Configuration.helpers'
 
 interface IProps {
   state: ConfigurationState
