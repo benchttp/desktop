@@ -4,8 +4,8 @@ import { ChevronDown } from 'react-feather'
 import {
   getAccordionClassName,
   getContentClassNames,
-  handleExpandeClick,
-} from './internal/accordion.helpers'
+  handleExpandClick,
+} from './internal/Accordion.helpers'
 import s from './internal/accordion.module.scss'
 
 export interface IProps {
@@ -38,7 +38,7 @@ export const Accordion: FC<IProps> = ({ className, title, content }) => {
       <div className={`${s['accordion__wrapper']} f f-direction-column`}>
         <div
           ref={titleRef}
-          onClick={handleExpandeClick(setExpanded)}
+          onClick={handleExpandClick(setExpanded)}
           className={`${s['accordion__title']} f f-ai-center f-jc-space-b p-3`}
         >
           {title}

@@ -1,9 +1,4 @@
-import {
-  CSSProperties,
-  Dispatch,
-  MouseEventHandler,
-  SetStateAction,
-} from 'react'
+import { Dispatch, MouseEventHandler, SetStateAction } from 'react'
 
 import s from './accordion.module.scss'
 
@@ -29,38 +24,7 @@ export const getContentClassNames = (expanded: boolean): string => {
   return classNames.join(' ')
 }
 
-export const getStyle = (
-  expanded: boolean,
-  collapsedScale: number | undefined,
-  target: 'accordion' | 'wrapper'
-): CSSProperties | undefined => {
-  if (!collapsedScale || expanded) {
-    return
-  }
-
-  return {
-    transform:
-      target === 'accordion'
-        ? `scaleY(${collapsedScale})`
-        : `scaleY(${1 / collapsedScale})`,
-  }
-}
-
-export const calculateCollapsedScale = (
-  accordion: HTMLDivElement | null,
-  accordionTitle: HTMLDivElement | null
-): number | undefined => {
-  if (!accordion || !accordionTitle) {
-    return
-  }
-
-  const expanded = accordion.getBoundingClientRect()
-  const collapsed = accordionTitle.getBoundingClientRect()
-
-  return collapsed.height / expanded.height
-}
-
-export const handleExpandeClick = (
+export const handleExpandClick = (
   setExpanded: Dispatch<SetStateAction<boolean>>
 ): MouseEventHandler => {
   return () => setExpanded((prevState) => !prevState)
