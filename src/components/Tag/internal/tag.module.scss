@@ -9,28 +9,36 @@
 
   padding: map.get(spaces.$spaces, '1') map.get(spaces.$spaces, '2');
 
-  &-white {
+  &--base-white {
     color: map.get(colors.$colors, 'grey-dark');
     background: map.get(colors.$colors, 'base-white');
   }
 
-  &-post {
+  &--base-red {
+    background: map.get(colors.$colors, 'base-red');
+  }
+
+  &--base-green {
+    background: map.get(colors.$colors, 'base-green');
+  }
+
+  &--http-post {
     background: map.get(colors.$colors, 'http-post');
   }
 
-  &-get {
+  &--http-get {
     background: map.get(colors.$colors, 'http-get');
   }
 
-  &-put {
+  &--http-put {
     background: map.get(colors.$colors, 'http-put');
   }
 
-  &-patch {
+  &--http-patch {
     background: map.get(colors.$colors, 'http-patch');
   }
 
-  &-delete {
+  &--http-delete {
     background: map.get(colors.$colors, 'http-delete');
   }
 }

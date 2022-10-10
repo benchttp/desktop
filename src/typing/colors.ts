@@ -9,4 +9,10 @@ export enum IColors {
   greyDark = 'grey-dark',
   primary = 'primary',
   baseWhite = 'base-white',
+  baseBlue = 'base-blue',
+  baseOrange = 'base-orange',
+  basePurple = 'base-purple',
+  baseYellow = 'base-yellow',
+  baseGreen = 'base-green',
+  baseRed = 'base-red',
 }

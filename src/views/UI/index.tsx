@@ -22,6 +22,7 @@ import {
   Accordion,
 } from '@/components'
 import { Toggle } from '@/components/Inputs'
+import { IColors } from '@/typing/colors'
 import { StatCard } from '@/views/Run/internal/ResultDisplay/internal/StatCard'
 
 import { TestResult } from '../Run/internal/ResultDisplay/internal/ReportSection/internal/components'
@@ -396,15 +397,15 @@ export const UI: FC = () => {
         <Typography className="mb-4" element="h1">
           Tags
         </Typography>
-        <div className="f f-direction-row f-ai-end mb-3">
-          <Tag className="mr-3" color="white" text="Tag" />
-          <Tag className="mr-3" color="post" text="Tag" />
-          <Tag className="mr-3" color="get" text="Tag" />
-        </div>
-        <div className="f f-direction-row f-ai-end mb-3">
-          <Tag className="mr-3" color="put" text="Tag" />
-          <Tag className="mr-3" color="patch" text="Tag" />
-          <Tag className="mr-3" color="delete" text="Tag" />
+        <div className="f f-direction-row f-ai-center">
+          <Tag className="mr-3" color={IColors.baseWhite} text="Tag" />
+          <Tag className="mr-3" color={IColors.baseRed} text="Tag" />
+          <Tag className="mr-3" color={IColors.baseGreen} text="Tag" />
+          <Tag className="mr-3" color={IColors.httpPost} text="Tag" />
+          <Tag className="mr-3" color={IColors.httpGet} text="Tag" />
+          <Tag className="mr-3" color={IColors.httpPut} text="Tag" />
+          <Tag className="mr-3" color={IColors.httpPatch} text="Tag" />
+          <Tag className="mr-3" color={IColors.httpDelete} text="Tag" />
         </div>
       </div>
       <div className="mb-4">
