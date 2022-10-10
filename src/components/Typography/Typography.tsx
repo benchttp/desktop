@@ -1,7 +1,24 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
-import { getClassNames } from './core/typography.helpers'
-import { IProps } from './core/typography.typings'
+import { IColors } from '@/typing/colors'
+
+import { getClassName } from './internal/Typography.helpers'
+import {
+  ITypographyElement,
+  ITypographyFont,
+  ITypographySize,
+  ITypographyWeight,
+} from './internal/Typography.types'
+
+interface IProps {
+  children: ReactNode
+  className?: string
+  font?: ITypographyFont
+  element?: ITypographyElement
+  size?: ITypographySize
+  weight?: ITypographyWeight
+  color?: IColors
+}
 
 export const Typography: FC<IProps> = ({
   children,
@@ -12,10 +29,8 @@ export const Typography: FC<IProps> = ({
   weight,
   color,
 }) => {
-  const classNames = getClassNames({ font, weight, size, color, className })
-
   const props = {
-    className: classNames.join(' '),
+    className: getClassName(font, weight, size, color, className),
     children,
   }
 

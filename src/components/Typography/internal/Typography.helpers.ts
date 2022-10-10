@@ -1,16 +1,19 @@
-import s from './typography.module.scss'
-import { IProps } from './typography.typings'
+import { IColors } from '@/typing/colors'
 
-export const getClassNames = ({
-  font,
-  weight,
-  size,
-  color,
-  className,
-}: Pick<
-  IProps,
-  'font' | 'weight' | 'size' | 'color' | 'className'
->): string[] => {
+import s from './typography.module.scss'
+import {
+  ITypographyFont,
+  ITypographySize,
+  ITypographyWeight,
+} from './Typography.types'
+
+export const getClassName = (
+  font: ITypographyFont | undefined,
+  weight: ITypographyWeight | undefined,
+  size: ITypographySize | undefined,
+  color: IColors | undefined,
+  className: string | undefined
+): string => {
   const classNames = []
 
   if (font) {
@@ -29,5 +32,5 @@ export const getClassNames = ({
     classNames.push(className)
   }
 
-  return classNames
+  return classNames.join(' ')
 }
