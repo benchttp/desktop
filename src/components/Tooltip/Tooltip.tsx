@@ -1,14 +1,19 @@
 import { FC } from 'react'
+import { Icon } from 'react-feather'
 
 import { Typography } from '@/components'
 
-import { createIcon, getClassNames } from './internal/Tooltip.helpers'
-import { IProps } from './internal/Tooltip.types'
+import { createIcon, getClassName } from './internal/Tooltip.helpers'
+
+export interface IProps {
+  icon: Icon
+  className?: string
+  text: string
+}
 
 export const Tooltip: FC<IProps> = ({ icon, text, className }) => {
-  const classNames = getClassNames({ className })
   return (
-    <div className={classNames.join(' ')}>
+    <div className={getClassName(className)}>
       <span>
         <Typography font="poppins">{text}</Typography>
       </span>

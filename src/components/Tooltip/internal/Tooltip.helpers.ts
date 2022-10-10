@@ -2,9 +2,8 @@ import { createElement, ReactNode } from 'react'
 import { Icon } from 'react-feather'
 
 import s from './tooltip.module.scss'
-import { IProps } from './Tooltip.types'
 
-export const getClassNames = ({ className }: Pick<IProps, 'className'>) => {
+export const getClassName = (className: string | undefined): string => {
   const classNames: string[] = [
     s['tooltip'],
     'f',
@@ -17,7 +16,7 @@ export const getClassNames = ({ className }: Pick<IProps, 'className'>) => {
     classNames.push(className)
   }
 
-  return classNames
+  return classNames.join(' ')
 }
 
 export const createIcon = ({ icon }: { icon: Icon }): ReactNode => {
