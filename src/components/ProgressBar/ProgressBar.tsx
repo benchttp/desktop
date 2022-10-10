@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Typography } from '../Typography'
 import s from './internal/progress-bar.module.scss'
 
-export interface IProps {
+interface IProps {
   value: number
   max: number
 }
