@@ -22,7 +22,6 @@ import {
   Accordion,
 } from '@/components'
 import { Toggle } from '@/components/Inputs'
-import { IColors } from '@/typing/colors'
 import { StatCard } from '@/views/Run/internal/ResultDisplay/internal/StatCard'
 
 import { TestResult } from '../Run/internal/ResultDisplay/internal/ReportSection/internal/components'
@@ -206,7 +205,7 @@ export const UI: FC = () => {
           />
           <Button
             className="mr-3"
-            color="white"
+            color="base-white"
             style="full"
             small={false}
             text="button"
@@ -221,41 +220,8 @@ export const UI: FC = () => {
             onClick={handleButtonClick}
           />
           <Button
-            color="white"
+            color="base-white"
             style="full"
-            small={true}
-            text="button"
-            onClick={handleButtonClick}
-          />
-        </div>
-        <div className="f f-direction-row f-ai-end mb-3">
-          <Button
-            className="mr-3"
-            color="primary"
-            style="outlined"
-            small={false}
-            text="button"
-            onClick={handleButtonClick}
-          />
-          <Button
-            className="mr-3"
-            color="white"
-            style="outlined"
-            small={false}
-            text="button"
-            onClick={handleButtonClick}
-          />
-          <Button
-            className="mr-3"
-            color="primary"
-            style="outlined"
-            small={true}
-            text="button"
-            onClick={handleButtonClick}
-          />
-          <Button
-            color="white"
-            style="outlined"
             small={true}
             text="button"
             onClick={handleButtonClick}
@@ -265,6 +231,39 @@ export const UI: FC = () => {
           <Button
             className="mr-3"
             color="primary"
+            style="outlined"
+            small={false}
+            text="button"
+            onClick={handleButtonClick}
+          />
+          <Button
+            className="mr-3"
+            color="base-white"
+            style="outlined"
+            small={false}
+            text="button"
+            onClick={handleButtonClick}
+          />
+          <Button
+            className="mr-3"
+            color="primary"
+            style="outlined"
+            small={true}
+            text="button"
+            onClick={handleButtonClick}
+          />
+          <Button
+            color="base-white"
+            style="outlined"
+            small={true}
+            text="button"
+            onClick={handleButtonClick}
+          />
+        </div>
+        <div className="f f-direction-row f-ai-end mb-3">
+          <Button
+            className="mr-3"
+            color="primary"
             style="full"
             small={false}
             text="button"
@@ -273,7 +272,7 @@ export const UI: FC = () => {
           />
           <Button
             className="mr-3"
-            color="white"
+            color="base-white"
             style="full"
             small={false}
             text="button"
@@ -290,7 +289,7 @@ export const UI: FC = () => {
             iconEnd={PlusSquare}
           />
           <Button
-            color="white"
+            color="base-white"
             style="full"
             small={true}
             text="button"
@@ -310,7 +309,7 @@ export const UI: FC = () => {
           />
           <Button
             className="mr-3"
-            color="white"
+            color="base-white"
             style="outlined"
             small={false}
             text="button"
@@ -327,7 +326,7 @@ export const UI: FC = () => {
             iconStart={PlusSquare}
           />
           <Button
-            color="white"
+            color="base-white"
             style="outlined"
             small={true}
             text="button"
@@ -398,14 +397,14 @@ export const UI: FC = () => {
           Tags
         </Typography>
         <div className="f f-direction-row f-ai-center">
-          <Tag className="mr-3" color={IColors.baseWhite} text="Tag" />
-          <Tag className="mr-3" color={IColors.baseRed} text="Tag" />
-          <Tag className="mr-3" color={IColors.baseGreen} text="Tag" />
-          <Tag className="mr-3" color={IColors.httpPost} text="Tag" />
-          <Tag className="mr-3" color={IColors.httpGet} text="Tag" />
-          <Tag className="mr-3" color={IColors.httpPut} text="Tag" />
-          <Tag className="mr-3" color={IColors.httpPatch} text="Tag" />
-          <Tag className="mr-3" color={IColors.httpDelete} text="Tag" />
+          <Tag className="mr-3" color="base-white" text="Tag" />
+          <Tag className="mr-3" color="base-red" text="Tag" />
+          <Tag className="mr-3" color="base-green" text="Tag" />
+          <Tag className="mr-3" color="http-post" text="Tag" />
+          <Tag className="mr-3" color="http-get" text="Tag" />
+          <Tag className="mr-3" color="http-put" text="Tag" />
+          <Tag className="mr-3" color="http-patch" text="Tag" />
+          <Tag className="mr-3" color="http-delete" text="Tag" />
         </div>
       </div>
       <div className="mb-4">
