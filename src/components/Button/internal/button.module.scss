@@ -24,7 +24,7 @@
       box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'primary');
     }
   }
-  &--full-white {
+  &--full-base-white {
     background: map.get(colors.$colors, 'base-white');
     color: map.get(colors.$colors, 'grey');
     box-shadow: 0 0 0 1.5px map.get(colors.$colors, 'base-white');
@@ -43,7 +43,7 @@
       box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'primary');
     }
   }
-  &--outlined-white {
+  &--outlined-base-white {
     background: transparent;
     color: map.get(colors.$colors, 'base-white');
     box-shadow: 0 0 0 1.5px map.get(colors.$colors, 'base-white');

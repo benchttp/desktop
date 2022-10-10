@@ -2,15 +2,14 @@ import { createElement, ReactNode } from 'react'
 import { Icon } from 'react-feather'
 
 import s from './button.module.scss'
-import { IProps } from './Button.types'
+import { IButtonColor, IButtonStyle } from './Button.types'
 
-export const getClassNames = ({
-  color,
-  style,
-  small,
-  className,
-}: Pick<IProps, 'className'> &
-  Pick<Required<IProps>, 'color' | 'style' | 'small'>) => {
+export const getClassNames = (
+  color: IButtonColor,
+  style: IButtonStyle,
+  small: boolean,
+  className: string | undefined
+): string => {
   const classNames: string[] = [
     s['button'],
     s[`button--${style}-${color}`],
@@ -30,17 +29,14 @@ export const getClassNames = ({
     classNames.push(className)
   }
 
-  return classNames
+  return classNames.join(' ')
 }
 
-export const createIcon = ({
-  icon,
-  small,
-  position,
-}: { icon: Icon; position: 'start' | 'end' } & Pick<
-  Required<IProps>,
-  'small'
->): ReactNode => {
+export const createIcon = (
+  icon: Icon,
+  small: boolean,
+  position: 'start' | 'end'
+): ReactNode => {
   return createElement(icon, {
     className:
       position === 'start'
