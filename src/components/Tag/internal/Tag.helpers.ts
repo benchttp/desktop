@@ -1,10 +1,13 @@
 import s from './tag.module.scss'
 import { ITagColor } from './Tag.types'
 
-export const getClassNames = (
-  color: ITagColor,
+export const getClassName = ({
+  color,
+  className,
+}: {
+  color: ITagColor
   className: string | undefined
-) => {
+}): string => {
   const classNames: string[] = [
     s['tag'],
     s[`tag--${color}`],
@@ -18,5 +21,5 @@ export const getClassNames = (
     classNames.push(className)
   }
 
-  return classNames
+  return classNames.join(' ')
 }
