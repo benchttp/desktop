@@ -9,4 +9,10 @@
   padding: map.get(spaces.$spaces, '2');
   outline: none;
   color: map.get(colors.$colors, 'base-white');
+  transition: border-color 0.2s ease-out;
+
+  &:hover,
+  &:focus {
+    border-color: map.get(colors.$colors, 'base-white');
+  }
 }
