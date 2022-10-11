@@ -16,6 +16,7 @@ interface IPropsBase {
   iconStart?: Icon
   iconEnd?: Icon
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type']
+  disabled?: boolean
 }
 
 interface IPropsSubmit extends IPropsBase {
@@ -41,6 +42,7 @@ export const Button: FC<IProps & TestingProps> = ({
   className,
   'data-testid': dataTestid,
   type = 'button',
+  disabled,
 }) => {
   return (
     <button
@@ -48,10 +50,11 @@ export const Button: FC<IProps & TestingProps> = ({
       className={getClassNames(color, style, small, className)}
       data-testid={dataTestid}
       type={type}
+      disabled={disabled}
     >
-      {iconStart && createIcon(iconStart, small, 'start')}
+      {iconStart && createIcon({ icon: iconStart, small, position: 'start' })}
       {text}
-      {iconEnd && createIcon(iconEnd, small, 'end')}
+      {iconEnd && createIcon({ icon: iconEnd, small, position: 'end' })}
     </button>
   )
 }

@@ -32,20 +32,43 @@ export const getClassNames = (
   return classNames.join(' ')
 }
 
-export const createIcon = (
-  icon: Icon,
-  small: boolean,
+const getIconClassName = ({
+  small,
+  position,
+}: {
+  small: boolean
   position: 'start' | 'end'
-): ReactNode => {
+}): string => {
+  const classNames: string[] = [s['button__icon']]
+
+  if (position === 'start') {
+    if (small) {
+      classNames.push('mr-1')
+    } else {
+      classNames.push('mr-2')
+    }
+  } else {
+    if (small) {
+      classNames.push('ml-1')
+    } else {
+      classNames.push('ml-2')
+    }
+  }
+
+  return classNames.join(' ')
+}
+
+export const createIcon = ({
+  icon,
+  small,
+  position,
+}: {
+  icon: Icon
+  small: boolean
+  position: 'start' | 'end'
+}): ReactNode => {
   return createElement(icon, {
-    className:
-      position === 'start'
-        ? small
-          ? 'mr-1'
-          : 'mr-2'
-        : small
-        ? 'ml-1'
-        : 'ml-2',
+    className: getIconClassName({ small, position }),
     size: small ? 18 : 24,
   })
 }
