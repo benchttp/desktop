@@ -2,41 +2,21 @@
 @use '../../../style/variables/colors.scss';
 
 .tab {
-  position: relative;
   text-decoration: none;
-  transition: color 200ms ease-out, font-weight 200ms ease-out;
   color: map.get(colors.$colors, 'base-white');
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left:0;
-    width: 100%;
-    height: 2px;
-    box-shadow: 0 1px 0 0 map.get(colors.$colors, 'base-white');
-    transition: box-shadow 200ms ease-out;
-  }
+  box-shadow: 0 1px 0 0 map.get(colors.$colors, 'base-white');
+  transition: box-shadow 0.2s ease-out, color 0.2s ease-out,
+    transform 0.2s ease-out;
 
   &:hover,
   &--selected {
     color: map.get(colors.$colors, 'primary');
-
-    span {
-      font-weight: 600;
-    }
-
-    &::after {
-      box-shadow: 0 2px 0 0 map.get(colors.$colors, 'primary');
-      bottom: 1px;
-    }
+    box-shadow: 0 2px 0 0 map.get(colors.$colors, 'primary');
+    transform: translateY(-1px);
   }
 
   &--disabled {
-    &::after {
-      box-shadow: 0 1px 0 0 map.get(colors.$colors, 'grey-light');
-    }
-
+    box-shadow: 0 1px 0 0 map.get(colors.$colors, 'grey-light');
     color: map.get(colors.$colors, 'grey-light');
     pointer-events: none;
   }
