@@ -6,10 +6,10 @@ import (
 	"log"
 	"os"
 
-	"github.com/joho/godotenv"
-
 	"github.com/benchttp/desktop/runner/httpclient"
 )
+
+const defaultPort = "8080"
 
 var (
 	// stdout is used to send messages to the parent process.
@@ -46,15 +46,14 @@ func resolvePort(autoPort bool) (string, error) {
 	if autoPort {
 		return httpclient.FindFreePort()
 	}
-	return devPort()
+	return devPort(), nil
 }
 
-func devPort() (string, error) {
-	err := godotenv.Load("./.env.development")
-	if err != nil {
-		return "", fmt.Errorf("could not load .env file: %w", err)
+func devPort() string {
+	if envPort := os.Getenv("SERVER_PORT"); envPort != "" {
+		return envPort
 	}
-	return os.Getenv("SERVER_PORT"), nil
+	return defaultPort
 }
 
 const readySignal = "READY"
