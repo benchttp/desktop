@@ -1,13 +1,12 @@
 @use 'sass:map';
 @use '../../../../style/variables/colors.scss';
 @use '../../../../style/variables/spaces.scss';
-@use '../../../../style/mixins/border-bottom.scss';
 
 .textarea {
-    background: transparent;
-    border: 1px solid map.get(colors.$colors, 'grey-light');
-    border-radius: map.get(spaces.$spaces, '1');
-    padding: map.get(spaces.$spaces, '2');
-    outline: none;
-    color: map.get(colors.$colors, 'base-white');
+  background: transparent;
+  border: 1px solid map.get(colors.$colors, 'grey-light');
+  border-radius: map.get(spaces.$spaces, '1');
+  padding: map.get(spaces.$spaces, '2');
+  outline: none;
+  color: map.get(colors.$colors, 'base-white');
 }
