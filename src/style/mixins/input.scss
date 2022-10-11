@@ -1,0 +1,37 @@
+@use 'sass:map';
+@use '../variables/spaces.scss';
+@use '../variables/colors.scss';
+
+@mixin input {
+  appearance: none;
+  background: transparent;
+  width: 100%;
+  color: map.get(colors.$colors, 'base-white');
+  outline: none;
+  border: none;
+  box-shadow: 0 1px 0 0 map.get(colors.$colors, 'grey-light');
+  transition: box-shadow 0.2s ease-out;
+
+  &:focus,
+  &:hover {
+    &:not(:disabled) {
+      box-shadow: 0 1px 0 0 map.get(colors.$colors, 'base-white');
+    }
+  }
+
+  &[aria-invalid='true'] {
+    &:not(:disabled) {
+      box-shadow: 0 1px 0 0 map.get(colors.$colors, 'base-red');
+    }
+  }
+
+  &:disabled {
+    color: map.get(colors.$colors, 'grey-light');
+  }
+}
+
+@mixin label {
+  &--disabled {
+    color: map.get(colors.$colors, 'grey-light');
+  }
+}

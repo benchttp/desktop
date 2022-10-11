@@ -1,6 +1,36 @@
-@use '../../../../style/mixins/border-bottom.scss';
+@use 'sass:map';
+@use '../../../../style/mixins/input.scss';
+@use '../../../../style/variables/colors.scss';
 
-.select {
-    @include border-bottom.input-style-border;
-    height: 35px;
+.select-input {
+  &__label {
+    @include input.label;
+  }
+
+  &__wrapper {
+    position: relative;
+  }
+
+  &__select {
+    @include input.input;
+    cursor: pointer;
+    border-radius: 0;
+
+    &--placeholder {
+      color: map.get(colors.$colors, 'grey-light');
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    pointer-events: none;
+
+    &--disabled {
+      color: map.get(colors.$colors, 'grey-light');
+    }
+  }
 }
