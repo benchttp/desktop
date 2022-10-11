@@ -9,7 +9,10 @@
   border-radius: map.get(spaces.$spaces, '1');
   font-weight: 600;
   transition: box-shadow 0.15s ease-out;
-  cursor: pointer;
+
+  &:not(:disabled) {
+    cursor: pointer;
+  }
 
   &:disabled {
     background: transparent;
