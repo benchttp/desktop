@@ -1,0 +1,12 @@
+github.com/benchttp/engine v0.1.0 h1:FpQOwHklBITuRd7B/AGKqr0mAmbXgTwzQiPHlhUktbQ=
+github.com/benchttp/engine v0.1.0/go.mod h1:FRfUnUjoL1s0aHVGlrxB3pdPAEDLNCnWh6cVOur24hM=
+github.com/drykit-go/cond v0.1.0 h1:y7MNxREQLT83vGfcfSKjyFPLC/ZDjYBNp6KuaVVjOg4=
+github.com/drykit-go/testx v1.2.0 h1:UsH+tFd24z3Xu+mwvwPY+9eBEg9CUyMsUeMYyUprG0o=
+github.com/joho/godotenv v1.4.0 h1:3l4+N6zfMWnkbPEXKng2o2/MR5mSwTrBih4ZEkkz1lg=
+github.com/joho/godotenv v1.4.0/go.mod h1:f4LDr5Voq0i2e/R5DDNOoa2zzDfwtkZa6DnEwAbqwq4=
+golang.org/x/sync v0.0.0-20220722155255-886fb9371eb4 h1:uVc8UZUe6tr40fFVnUP5Oj+veunVezqYl9z7DYw9xzw=
+golang.org/x/sync v0.0.0-20220722155255-886fb9371eb4/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
+gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 h1:yhCVgyC4o1eVCa2tZl7eS0r+SDo693bJlVdllGtEeKM=
+gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
+gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=
+gopkg.in/yaml.v3 v3.0.1/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
