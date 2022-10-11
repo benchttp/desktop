@@ -36,7 +36,7 @@ export const Configuration: FC<IProps> = ({ state, setState, onSubmit }) => {
         Configuration
       </Typography>
       <div className="mb-5">
-        <div className="f f-direction-row f-align-center mb-4">
+        <div className="f f-direction-row f-align-center mb-5">
           <URLInput
             className="mr-3"
             id="url"
@@ -61,30 +61,32 @@ export const Configuration: FC<IProps> = ({ state, setState, onSubmit }) => {
           />
           <Tab link="body" text="Body" iconStart={Package} />
         </div>
-        <Routes>
-          <Route path="*" element={<Navigate to="headers" replace />} />
-          <Route
-            path="headers"
-            element={
-              <HeadersConfiguration
-                headers={state.headers}
-                onChange={(v) => setState({ headers: v })}
-              />
-            }
-          />
-          <Route
-            path="body"
-            element={
-              <TextAreaInput
-                id="body"
-                className="mt-3 mb-3"
-                value={state.body}
-                rows={5}
-                onChange={(e) => setState({ body: e.target.value })}
-              />
-            }
-          />
-        </Routes>
+        <div className="mb-5">
+          <Routes>
+            <Route path="*" element={<Navigate to="headers" replace />} />
+            <Route
+              path="headers"
+              element={
+                <HeadersConfiguration
+                  headers={state.headers}
+                  onChange={(v) => setState({ headers: v })}
+                />
+              }
+            />
+            <Route
+              path="body"
+              element={
+                <TextAreaInput
+                  id="body"
+                  className="mt-3"
+                  value={state.body}
+                  rows={5}
+                  onChange={(e) => setState({ body: e.target.value })}
+                />
+              }
+            />
+          </Routes>
+        </div>
         <div className="f f-direction-row f-ai-center mb-4">
           <NumberInput
             className="mr-3"
@@ -130,7 +132,7 @@ export const Configuration: FC<IProps> = ({ state, setState, onSubmit }) => {
           className="ml-3"
           id="test-section-enabled"
           checked={state.testsEnabled}
-          onChange={(e) => setState({ testsEnabled: e.target.checked })}
+          onChange={(e) => setState({ testsEnabled: e })}
         />
       </div>
       <TestsConfiguration
