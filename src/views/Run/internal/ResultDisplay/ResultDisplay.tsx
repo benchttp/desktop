@@ -11,8 +11,12 @@ import {
 import { RunError, RunProgress, RunReport } from '@/benchttp'
 import { AppError, Button, ProgressBar, Typography } from '@/components'
 
-import { RunErrorDisplay, StatCard, ReportSection } from './internal/components'
-
+import {
+  RunErrorDisplay,
+  StatCard,
+  ReportSection,
+  ChartsSection,
+} from './internal/components'
 interface IProps {
   progress: RunProgress | null
   report: RunReport | null
@@ -68,72 +72,78 @@ const ProgressSection: React.FC<RunProgress & { stop: () => false | void }> = ({
 )
 
 const ResultsSection: React.FC<RunReport> = ({ metrics }) => (
-  <section>
-    <Typography element="h2" className="mt-3 mb-2">
-      Results
-    </Typography>
-    <div></div>
-    <div className="f mb-3">
-      <StatCard
-        icon={ChevronsUp}
-        iconColor="blue"
-        className="mr-3"
-        stat={formatDuration(metrics.responseTimes.min)}
-        label="fastest response"
-      />
-      <StatCard
-        icon={ChevronsDown}
-        iconColor="orange"
-        className="mr-3"
-        stat={formatDuration(metrics.responseTimes.max)}
-        label="slowest response"
-      />
-      <StatCard
-        icon={BarChart2}
-        iconColor="base-white"
-        className="mr-3"
-        stat={formatDuration(metrics.responseTimes.mean)}
-        label="average response time"
-      />
-    </div>
-
-    <div className="f mb-3">
-      {metrics.responseTimes.deciles && metrics.responseTimes.deciles[8] ? (
+  <div>
+    <section>
+      <Typography element="h2" className="mt-3 mb-2">
+        Results
+      </Typography>
+      <div className="f mb-3">
         <StatCard
-          icon={Clock}
-          iconColor="primary"
+          icon={ChevronsUp}
+          iconColor="blue"
           className="mr-3"
-          stat={formatDuration(metrics.responseTimes.deciles[8])}
-          label="90% of requests are faster"
+          stat={formatDuration(metrics.responseTimes.min)}
+          label="fastest response"
         />
-      ) : (
         <StatCard
-          icon={Clock}
-          iconColor="primary"
+          icon={ChevronsDown}
+          iconColor="orange"
           className="mr-3"
-          stat="Deciles"
-          label="Not enough data"
+          stat={formatDuration(metrics.responseTimes.max)}
+          label="slowest response"
         />
-      )}
-      <StatCard
-        icon={Target}
-        iconColor="purple"
-        className="mr-3"
-        stat={formatDuration(metrics.responseTimes.standardDeviation)}
-        label="standard deviation"
-      />
-      <StatCard
-        icon={CheckCircle}
-        iconColor="get"
-        className="mr-3"
-        stat={formatSuccesfulRequestsPercentage(
-          metrics.records.length,
-          metrics.requestFailures.length
+        <StatCard
+          icon={BarChart2}
+          iconColor="base-white"
+          className="mr-3"
+          stat={formatDuration(metrics.responseTimes.mean)}
+          label="average response time"
+        />
+      </div>
+      <div className="f f-direction-row mb-3">
+        {metrics.responseTimes.deciles && metrics.responseTimes.deciles[8] ? (
+          <StatCard
+            icon={Clock}
+            iconColor="primary"
+            className="mr-3"
+            stat={formatDuration(metrics.responseTimes.deciles[8])}
+            label="90% of requests are faster"
+          />
+        ) : (
+          <StatCard
+            icon={Clock}
+            iconColor="primary"
+            className="mr-3"
+            stat="Deciles"
+            label="Not enough data"
+          />
         )}
-        label="of requests were successful"
-      />
-    </div>
-  </section>
+        <StatCard
+          icon={Target}
+          iconColor="purple"
+          className="mr-3"
+          stat={formatDuration(metrics.responseTimes.standardDeviation)}
+          label="standard deviation"
+        />
+        <StatCard
+          icon={CheckCircle}
+          iconColor="get"
+          className="mr-3"
+          stat={formatSuccesfulRequestsPercentage(
+            metrics.records.length,
+            metrics.requestFailures.length
+          )}
+          label="of requests were successful"
+        />
+      </div>
+    </section>
+    <section>
+      <Typography element="h2" className="mt-3 mb-2">
+        Charts
+      </Typography>
+      <ChartsSection metrics={metrics}></ChartsSection>
+    </section>
+  </div>
 )
 
 function formatDuration(ns: number): string {
