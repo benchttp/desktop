@@ -17,6 +17,7 @@ import {
   ReportSection,
   ChartsSection,
 } from './internal/components'
+
 interface IProps {
   progress: RunProgress | null
   report: RunReport | null

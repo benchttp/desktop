@@ -7,11 +7,10 @@ export const getBarChartData = (
   const recordsData = metrics['records']
   const maxTime = metrics['responseTimes']['max']
   const numberOfDivision = 20
-  let barChartData: {
+  const barChartData: {
     responseTimeMaxOfFourchette: number
     numberOfOccurrences: number
-  }[]
-  barChartData = []
+  }[] = []
 
   for (let i = 0; i < numberOfDivision; i++) {
     barChartData[i] = {
@@ -43,11 +42,10 @@ export const getBarChartData = (
     }
   }
 
-  let barChartDataFormatted: {
+  const barChartDataFormatted: {
     responseTimeMaxOfFourchette: string
     numberOfOccurrences: number
-  }[]
-  barChartDataFormatted = []
+  }[] = []
 
   for (let i = 0; i < numberOfDivision; i++) {
     barChartDataFormatted[i] = {

@@ -1,6 +1,5 @@
-import { FC } from 'react'
-
 import { ResponsiveBarCanvas } from '@nivo/bar'
+import { FC } from 'react'
 
 import { getClassNames } from './internal/BarChart.helpers'
 import { IProps } from './internal/BarChart.types'
@@ -9,7 +8,8 @@ export const BarChart: FC<IProps> = ({ className, data }) => {
   const classNames = getClassNames({ className })
 
   const commonProps = {
-    // Uncomment if you want to show the axis legends
+    // Comment if you want to hide the axis legends
+    // Necessary if you want them to be shown
     margin: { left: 60, bottom: 60 },
   }
 

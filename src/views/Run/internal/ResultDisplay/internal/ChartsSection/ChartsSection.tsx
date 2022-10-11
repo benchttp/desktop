@@ -3,8 +3,8 @@ import { FC } from 'react'
 import { Typography } from '@/components'
 
 import { BarChart } from './internal/BarChart'
-import { IProps } from './internal/ChartsSection.types'
 import { getBarChartData } from './internal/ChartsSection.helpers'
+import { IProps } from './internal/ChartsSection.types'
 
 export const ChartsSection: FC<IProps> = ({ metrics }) => {
   return (
