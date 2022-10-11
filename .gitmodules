@@ -1,3 +1,0 @@
-[submodule "vendor/engine"]
-	path = vendor/engine
-	url = https://github.com/benchttp/engine.git

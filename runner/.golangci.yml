@@ -1,0 +1,161 @@
+run:
+  timeout: 1m
+  uniq-by-line: false
+
+linters-settings:
+  dupl:
+    threshold: 100
+
+  errcheck:
+    exclude-functions:
+      - (net/http.ResponseWriter).Write
+      - (io.StringWriter).WriteString
+      - (io.Writer).Write
+
+  gocognit:
+    min-complexity: 15
+
+  gocritic:
+    enabled-checks:
+      - appendAssign
+      - appendCombine
+      - argOrder
+      - assignOp
+      - badCall
+      - badCond
+      - badLock
+      - badRegexp
+      - boolExprSimplify
+      - builtinShadow
+      - builtinShadowDecl
+      - captLocal
+      - caseOrder
+      - codegenComment
+      - commentedOutCode
+      - commentedOutImport
+      - commentFormatting
+      - defaultCaseOrder
+      - deferUnlambda
+      - deprecatedComment
+      - docStub
+      - dupArg
+      - dupBranchBody
+      - dupCase
+      - dupImport
+      - dupSubExpr
+      - elseif
+      - emptyFallthrough
+      - emptyStringTest
+      - equalFold
+      - evalOrder
+      - exitAfterDefer
+      - filepathJoin
+      - flagDeref
+      - flagName
+      - hexLiteral
+      - hugeParam
+      - ifElseChain
+      - importShadow
+      - indexAlloc
+      - initClause
+      - mapKey
+      - methodExprCall
+      - nestingReduce
+      - newDeref
+      - nilValReturn
+      - octalLiteral
+      - offBy1
+      - paramTypeCombine
+      - ptrToRefParam
+      - rangeExprCopy
+      - rangeValCopy
+      - regexpMust
+      - regexpPattern
+      - regexpSimplify
+      - ruleguard
+      - singleCaseSwitch
+      - sloppyLen
+      - sloppyReassign
+      - sloppyTypeAssert
+      - sortSlice
+      - sqlQuery
+      - stringXbytes
+      - switchTrue
+      - tooManyResultsChecker
+      - truncateCmp
+      - typeAssertChain
+      - typeDefFirst
+      - typeSwitchVar
+      - typeUnparen
+      - underef
+      # - unamedResult
+      - unlabelStmt
+      - unlambda
+      - unnecessaryBlock
+      - unnecessaryDefer
+      - unslice
+      - valSwap
+      - weakCond
+      # - whynolint
+      - wrapperFunc
+      - yodaStyleExpr
+
+    settings:
+      hugeParam:
+        sizeThreshold: 256
+      rangeValCopy:
+        sizeThreshold: 256
+
+  gofumpt:
+    lang-version: '1.17'
+    extra-rules: true
+
+  goimports:
+    local-prefixes: github.com/benchttp/desktop/runner
+
+  misspell:
+    locale: US
+
+  revive:
+    enableAllRules: true
+
+  staticcheck:
+    go: '1.17'
+    checks: [all]
+
+  stylecheck:
+    go: '1.17'
+    checks: [all]
+
+linters:
+  disable-all: true
+  enable:
+    - bodyclose # enforce resp.Body.Close()
+    - deadcode
+    - dupl # duplicate code
+    - errcheck
+    - exportloopref
+    - gocognit # smart complexity analyzer
+    - gocritic # opinionated linter
+    - gofumpt # stricter gofmt
+    - goimports # imports order
+    - gosec # security checks
+    - govet
+    - misspell # typos in strings, comments
+    - prealloc # enforce capacity allocation when possible
+    - revive # golint enhancement
+    - staticcheck # go vet enhancement
+    - structcheck # unused struct fields
+    - testpackage # checks on tests (*_test)
+    - thelper # enforce t.Helper()
+    - varcheck # unused global var and const
+    - wastedassign
+  fast: false
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - dupl
+        - gocognit
+        - gocyclo

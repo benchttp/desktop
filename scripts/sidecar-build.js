@@ -22,9 +22,9 @@ const targetTriple = async () => {
 const goSource = (base) => path.join(base, 'cmd', 'server')
 
 async function buildGo(outputPath) {
-  process.chdir(path.join('vendor', 'engine'))
+  process.chdir('runner')
   await execa('go', ['build', '-o', outputPath, goSource(process.cwd())])
-  process.chdir(path.join('..', '..'))
+  process.chdir(path.join('..'))
 }
 
 async function main() {
