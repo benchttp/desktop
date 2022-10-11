@@ -7,14 +7,20 @@ import {
   ITypographyWeight,
 } from './Typography.types'
 
-export const getClassName = (
-  font: ITypographyFont | undefined,
-  weight: ITypographyWeight | undefined,
-  size: ITypographySize | undefined,
-  color: IColors | undefined,
+export const getClassName = ({
+  font,
+  weight,
+  size,
+  color,
+  className,
+}: {
+  font: ITypographyFont | undefined
+  weight: ITypographyWeight | undefined
+  size: ITypographySize | undefined
+  color: IColors | undefined
   className: string | undefined
-): string => {
-  const classNames = []
+}): string => {
+  const classNames: string[] = []
 
   if (font) {
     classNames.push(s[`typography--font-${font}`])

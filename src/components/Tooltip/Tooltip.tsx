@@ -17,7 +17,7 @@ export const Tooltip: FC<IProps> = ({ icon, text, className }) => {
       <span>
         <Typography font="poppins">{text}</Typography>
       </span>
-      {icon && createIcon({ icon: icon })}
+      {icon && createIcon(icon)}
     </div>
   )
 }

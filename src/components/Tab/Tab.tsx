@@ -22,7 +22,7 @@ export const Tab: FC<IProps> = ({
   className,
 }) => {
   return (
-    <NavLink to={link} className={getClassName(disabled, className)}>
+    <NavLink to={link} className={getClassName({ disabled, className })}>
       {iconStart && createIcon(iconStart)}
       <Typography element="span" font="poppins" weight="medium">
         {text}

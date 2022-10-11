@@ -4,10 +4,13 @@ import { NavLinkProps } from 'react-router-dom'
 
 import s from './tab.module.scss'
 
-export const getClassName = (
-  disabled: boolean,
+export const getClassName = ({
+  disabled,
+  className,
+}: {
+  disabled: boolean
   className: string | undefined
-): NavLinkProps['className'] => {
+}): NavLinkProps['className'] => {
   return ({ isActive }) => {
     const classNames: string[] = [s['tab'], 'f', 'f-ai-center', 'pb-2']
 

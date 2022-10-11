@@ -47,7 +47,7 @@ export const Button: FC<IProps & TestingProps> = ({
   return (
     <button
       onClick={onClick}
-      className={getClassNames(color, style, small, className)}
+      className={getClassNames({ color, style, small, className })}
       data-testid={dataTestid}
       type={type}
       disabled={disabled}

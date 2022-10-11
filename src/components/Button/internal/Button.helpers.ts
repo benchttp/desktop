@@ -4,12 +4,17 @@ import { Icon } from 'react-feather'
 import s from './button.module.scss'
 import { IButtonColor, IButtonStyle } from './Button.types'
 
-export const getClassNames = (
-  color: IButtonColor,
-  style: IButtonStyle,
-  small: boolean,
+export const getClassNames = ({
+  color,
+  style,
+  small,
+  className,
+}: {
+  color: IButtonColor
+  style: IButtonStyle
+  small: boolean
   className: string | undefined
-): string => {
+}): string => {
   const classNames: string[] = [
     s['button'],
     s[`button--${style}-${color}`],

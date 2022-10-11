@@ -30,7 +30,7 @@ export const Typography: FC<IProps> = ({
   color,
 }) => {
   const props = {
-    className: getClassName(font, weight, size, color, className),
+    className: getClassName({ font, weight, size, color, className }),
     children,
   }
 
