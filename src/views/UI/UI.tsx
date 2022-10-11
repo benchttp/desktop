@@ -1,4 +1,10 @@
-import { FC, useState } from 'react'
+import {
+  ChangeEventHandler,
+  Dispatch,
+  FC,
+  SetStateAction,
+  useState,
+} from 'react'
 import {
   CheckCircle,
   PlusSquare,
@@ -21,7 +27,12 @@ import {
   Typography,
   Accordion,
 } from '@/components'
-import { Toggle } from '@/components/Inputs'
+import {
+  NumberInput,
+  SelectInput,
+  TextInput,
+  Toggle,
+} from '@/components/Inputs'
 import { StatCard } from '@/views/Run/internal/ResultDisplay/internal/StatCard'
 
 import { TestResult } from '../Run/internal/ResultDisplay/internal/ReportSection/internal/components'
@@ -31,11 +42,49 @@ export const UI: FC = () => {
     console.log('button clicked')
   }
 
-  const [toggle, setToggle] = useState(false)
-
-  const handleToggle = () => {
-    setToggle(!toggle)
+  const handleToggleChange = (
+    setter: Dispatch<SetStateAction<boolean>>
+  ): ((value: boolean) => void) => {
+    return (value: boolean) => {
+      setter(value)
+    }
   }
+
+  const handleTextInputChange = (
+    setter: Dispatch<SetStateAction<string>>
+  ): ChangeEventHandler<HTMLInputElement> => {
+    return (e) => {
+      setter(e.target.value)
+    }
+  }
+
+  const handleNumberInputChange = (
+    setter: Dispatch<SetStateAction<number>>
+  ): ((value: number) => void) => {
+    return (value) => {
+      setter(value)
+    }
+  }
+
+  const handleSelectInputChange = (
+    setter: Dispatch<SetStateAction<string>>
+  ): ChangeEventHandler<HTMLSelectElement> => {
+    return (e) => {
+      setter(e.target.value)
+    }
+  }
+
+  const [toggleLeft, setToggleLeft] = useState(false)
+  const [toggleRight, setToggleRight] = useState(false)
+  const [textInputValue, setTextInputValue] = useState('')
+  const [numberInputValue, setNumberInputValue] = useState(0)
+  const [selectInputValue, setSelectInputValue] = useState('')
+  const [textInputValueInvalid, setTextInputValueInvalid] = useState('')
+  const [numberInputValueInvalid, setNumberInputValueInvalid] = useState(0)
+  const [selectInputValueInvalid, setSelectInputValueInvalid] = useState('')
+  const [textInputValueDisabled, setTextInputValueDisabled] = useState('')
+  const [numberInputValueDisabled, setNumberInputValueDisabled] = useState(0)
+  const [selectInputValueDisabled, setSelectInputValueDisabled] = useState('')
 
   return (
     <div className="p-3">
@@ -213,7 +262,24 @@ export const UI: FC = () => {
           />
           <Button
             className="mr-3"
+            color="base-white"
+            style="full"
+            small={false}
+            text="button"
+            onClick={handleButtonClick}
+            disabled
+          />
+          <Button
+            className="mr-3"
             color="primary"
+            style="full"
+            small={true}
+            text="button"
+            onClick={handleButtonClick}
+          />
+          <Button
+            className="mr-3"
+            color="base-white"
             style="full"
             small={true}
             text="button"
@@ -225,6 +291,7 @@ export const UI: FC = () => {
             small={true}
             text="button"
             onClick={handleButtonClick}
+            disabled
           />
         </div>
         <div className="f f-direction-row f-ai-end mb-3">
@@ -246,7 +313,24 @@ export const UI: FC = () => {
           />
           <Button
             className="mr-3"
+            color="base-white"
+            style="outlined"
+            small={false}
+            text="button"
+            onClick={handleButtonClick}
+            disabled
+          />
+          <Button
+            className="mr-3"
             color="primary"
+            style="outlined"
+            small={true}
+            text="button"
+            onClick={handleButtonClick}
+          />
+          <Button
+            className="mr-3"
+            color="base-white"
             style="outlined"
             small={true}
             text="button"
@@ -258,6 +342,7 @@ export const UI: FC = () => {
             small={true}
             text="button"
             onClick={handleButtonClick}
+            disabled
           />
         </div>
         <div className="f f-direction-row f-ai-end mb-3">
@@ -281,7 +366,26 @@ export const UI: FC = () => {
           />
           <Button
             className="mr-3"
+            color="base-white"
+            style="full"
+            small={false}
+            text="button"
+            onClick={handleButtonClick}
+            iconEnd={PlusSquare}
+            disabled
+          />
+          <Button
+            className="mr-3"
             color="primary"
+            style="full"
+            small={true}
+            text="button"
+            onClick={handleButtonClick}
+            iconEnd={PlusSquare}
+          />
+          <Button
+            className="mr-3"
+            color="base-white"
             style="full"
             small={true}
             text="button"
@@ -295,6 +399,7 @@ export const UI: FC = () => {
             text="button"
             onClick={handleButtonClick}
             iconEnd={PlusSquare}
+            disabled
           />
         </div>
         <div className="f f-direction-row f-ai-end mb-3">
@@ -318,7 +423,26 @@ export const UI: FC = () => {
           />
           <Button
             className="mr-3"
+            color="base-white"
+            style="outlined"
+            small={false}
+            text="button"
+            onClick={handleButtonClick}
+            iconStart={PlusSquare}
+            disabled
+          />
+          <Button
+            className="mr-3"
             color="primary"
+            style="outlined"
+            small={true}
+            text="button"
+            onClick={handleButtonClick}
+            iconStart={PlusSquare}
+          />
+          <Button
+            className="mr-3"
+            color="base-white"
             style="outlined"
             small={true}
             text="button"
@@ -332,6 +456,7 @@ export const UI: FC = () => {
             text="button"
             onClick={handleButtonClick}
             iconStart={PlusSquare}
+            disabled
           />
         </div>
       </div>
@@ -379,17 +504,17 @@ export const UI: FC = () => {
         <div className="f f-direction-row f-ai-end mb-3">
           <Tab
             className="mr-3"
-            link="/"
-            text="Configure"
+            link="/non-selected"
+            text="Non selected"
             iconStart={Settings}
           />
           <Tab
             className="mr-3"
             link="/UI"
-            text="Test Results"
+            text="Selected"
             iconStart={CheckCircle}
           />
-          <Tab link="#" text="Configure" iconStart={PieChart} disabled />
+          <Tab link="#" text="Disabled" iconStart={PieChart} disabled />
         </div>
       </div>
       <div className="mb-4">
@@ -413,11 +538,19 @@ export const UI: FC = () => {
         </Typography>
         <div className="f f-direction-row f-ai-end mb-3">
           <Toggle
-            id="1"
-            onChange={handleToggle}
-            checked={toggle}
-            label="Check me"
             className="mr-3"
+            id="toggle-left"
+            onChange={handleToggleChange(setToggleLeft)}
+            checked={toggleLeft}
+            label="Check me"
+            labelPosition="left"
+          />
+          <Toggle
+            id="toggle-right"
+            onChange={handleToggleChange(setToggleRight)}
+            checked={toggleRight}
+            label="Check me"
+            labelPosition="right"
           />
         </div>
       </div>
@@ -427,6 +560,117 @@ export const UI: FC = () => {
         </Typography>
         <div className="f f-direction-row f-ai-end mb-3">
           <Tooltip icon={AlertCircle} className="mr-3" text="Tooltip text" />
+        </div>
+      </div>
+      <div className="mb-4">
+        <Typography className="mb-4" element="h1">
+          Inputs
+        </Typography>
+        <div className="f f-direction-row f-ai-center mb-3">
+          <TextInput
+            className="mr-3"
+            id="text-input"
+            label="Text input"
+            value={textInputValue}
+            onChange={handleTextInputChange(setTextInputValue)}
+            placeholder="some text"
+          />
+          <TextInput
+            className="mr-3"
+            id="text-input-diabled"
+            label="Text input disabled"
+            value={textInputValueDisabled}
+            onChange={handleTextInputChange(setTextInputValueDisabled)}
+            placeholder="some non editable text"
+            disabled
+          />
+          <TextInput
+            id="text-input-invalid"
+            label="Text input invalid"
+            value={textInputValueInvalid}
+            onChange={handleTextInputChange(setTextInputValueInvalid)}
+            placeholder="some invalid text"
+            invalid
+          />
+        </div>
+        <div className="f f-direction-row f-ai-center mb-3">
+          <NumberInput
+            className="mr-3"
+            id="number-input"
+            label="Number input"
+            value={numberInputValue}
+            onChange={handleNumberInputChange(setNumberInputValue)}
+            placeholder="some number"
+          />
+          <NumberInput
+            className="mr-3"
+            id="number-input-disabled"
+            label="Number input disabled"
+            value={numberInputValueDisabled}
+            onChange={handleNumberInputChange(setNumberInputValueDisabled)}
+            placeholder="some non editable number"
+            disabled
+          />
+          <NumberInput
+            id="number-input-invalid"
+            label="Number input invalid"
+            value={numberInputValueInvalid}
+            onChange={handleNumberInputChange(setNumberInputValueInvalid)}
+            placeholder="some invalid number"
+            invalid
+          />
+        </div>
+        <div className="f f-direction-row f-ai-center mb-3">
+          <SelectInput
+            className="mr-3"
+            id="select-input"
+            label="Select input"
+            value={selectInputValue}
+            onChange={handleSelectInputChange(setSelectInputValue)}
+            options={[
+              { display: 'Value', value: 'value' },
+              {
+                display: 'Value disabled',
+                value: 'value-disabled',
+                disabled: true,
+              },
+            ]}
+            placeholder="Select a value"
+          />
+          <SelectInput
+            className="mr-3"
+            id="select-input-disabled"
+            label="Select input disabled"
+            value={selectInputValueDisabled}
+            onChange={handleSelectInputChange(setSelectInputValueDisabled)}
+            options={[
+              { display: 'Value', value: 'value' },
+              {
+                display: 'Value disabled',
+                value: 'value-disabled',
+                disabled: true,
+              },
+            ]}
+            placeholder="Select a value"
+            disabled
+          />
+          <SelectInput
+            className="mr-3"
+            id="select-input-invalid"
+            label="Select input invalid"
+            value={selectInputValueInvalid}
+            onChange={handleSelectInputChange(setSelectInputValueInvalid)}
+            options={[
+              { display: 'Value', value: 'value' },
+              {
+                display: 'Value disabled',
+                value: 'value-disabled',
+                disabled: true,
+              },
+            ]}
+            placeholder="Select a value"
+            invalid
+          />
         </div>
       </div>
       <div className="mb-4">
