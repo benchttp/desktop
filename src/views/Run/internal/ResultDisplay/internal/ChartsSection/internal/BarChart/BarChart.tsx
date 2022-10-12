@@ -34,7 +34,22 @@ export const BarChart: FC<IProps> = ({ className, data, xLegend, yLegend }) => {
         axisLeft={axisLeft}
         axisBottom={axisBottom}
         theme={{
-          textColor: '#FFFFFF',
+          // Color of labels on the graph
+          textColor: '#1e2025',
+          axis: {
+            ticks: {
+              text: {
+                // Color of text of axis graduation
+                fill: '#FFFFFF',
+              },
+            },
+            legend: {
+              text: {
+                // Color of text of axis titles
+                fill: '#FFFFFF',
+              },
+            },
+          },
         }}
       />
     </div>
