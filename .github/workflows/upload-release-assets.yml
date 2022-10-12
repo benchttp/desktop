@@ -1,37 +1,14 @@
-name: Lint & Test & Build
+name: Build and upload assets to release
 
 on:
-  pull_request:
-  push:
-    branches:
-      - main
+  release:
+    types: [created] # not triggered by draft releases
 
 jobs:
-  test-front-end:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+  publish-tauri:
+    permissions:
+      contents: write
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.x
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Lint
-        run: npm run lint
-
-      - name: Test
-        run: npm run test
-
-      - name: Build
-        run: npm run web:build
-
-  build-tauri:
-    needs: test-front-end
     strategy:
       fail-fast: false
       matrix:
@@ -40,8 +17,10 @@ jobs:
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.release.tag_name }}
 
-      - name: Setup Node
+      - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
@@ -59,13 +38,13 @@ jobs:
 
       - name: Install dependencies (ubuntu only)
         if: matrix.platform == 'ubuntu-latest'
-        run: | # -qq flag will silence output except for errors
-          sudo apt-get -qq update
-          sudo apt-get -qq install -y --no-install-recommends libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
         env:
           DEBIAN_FRONTEND: noninteractive
 
-      - name: Install dependencies
+      - name: Install app dependencies
         run: npm ci
 
       - name: Prebuild (ubuntu and macos)
@@ -79,3 +58,5 @@ jobs:
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          releaseId: ${{ github.event.release.id }}
