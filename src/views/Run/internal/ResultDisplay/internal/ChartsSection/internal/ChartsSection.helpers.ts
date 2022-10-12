@@ -7,35 +7,20 @@ export const getResponseTimeDistribution = (
   const records = metrics.records
   const maxTime = metrics.responseTimes.max
   const partitions = 20
-  const responseTimeDistribution: {
-    timeRangeMax: number
-    count: number
-  }[] = []
+  const responseTimeDistribution = [...Array(partitions)].map((_, i) => ({
+    timeRangeMax: (maxTime / partitions) * (i + 1),
+    count: 0,
+  }))
 
-  for (let i = 0; i < partitions; i++) {
-    responseTimeDistribution[i] = {
-      timeRangeMax: (maxTime / partitions) * (i + 1),
-      count: 0,
-    }
-  }
-
-  if (records != null) {
-    for (let i = 0; i < records.length; i++) {
-      for (let j = 0; j < partitions; j++) {
-        if (
-          records[i]['responseTime'] >
-          responseTimeDistribution[j]['timeRangeMax']
-        ) {
-          continue
-        } else {
-          if (j > 0) {
-            responseTimeDistribution[j]['count'] += 1
-            break
-          } else {
-            responseTimeDistribution[0]['count'] += 1
-            break
-          }
-        }
+  for (let i = 0; i < records.length; i++) {
+    for (let j = 0; j < partitions; j++) {
+      if (
+        records[i]['responseTime'] > responseTimeDistribution[j]['timeRangeMax']
+      ) {
+        continue
+      } else {
+        responseTimeDistribution[j]['count'] += 1
+        break
       }
     }
   }
