@@ -6,7 +6,7 @@ export const getResponseTimeDistribution = (
 ): { xAxis: string; yAxis: number }[] => {
   const records = metrics.records
   const maxTime = metrics.responseTimes.max
-  const partitions = 20
+  const partitions = 10
   const responseTimeDistribution = [...Array(partitions)].map((_, i) => ({
     timeRangeMax: (maxTime / partitions) * (i + 1),
     count: 0,
