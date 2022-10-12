@@ -19,6 +19,7 @@
     color: map.get(colors.$colors, 'grey-dark');
     position: absolute;
     bottom: 100%;
+    min-width: 200px;
     border-radius: map.get(spaces.$spaces, '2');
     margin: map.get(spaces.$spaces, '2');
     padding: map.get(spaces.$spaces, '2');

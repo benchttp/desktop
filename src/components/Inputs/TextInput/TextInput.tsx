@@ -16,7 +16,7 @@ export const TextInput: FC<IProps & TestingProps> = ({
   disabled = false,
   placeholder,
   type,
-  helper,
+  tooltipContent,
   invalid,
   required,
   'data-testid': dataTestid,
@@ -28,8 +28,12 @@ export const TextInput: FC<IProps & TestingProps> = ({
       {label && (
         <label className="f" htmlFor={id}>
           {label}
-          {helper && (
-            <Tooltip className="ml-2" icon={AlertCircle} text={helper} />
+          {tooltipContent && (
+            <Tooltip
+              className="ml-2"
+              icon={AlertCircle}
+              text={tooltipContent}
+            />
           )}
         </label>
       )}

@@ -81,7 +81,7 @@ const SingleHeader: FC<IPropsSingleHeader> = ({ header, index, onChange }) => {
         value={header.value}
         onChange={handleChangeHeaderValue(header, onChange)}
         label="Values"
-        helper="Accept many if comma separated"
+        tooltipContent="Accept many if comma separated"
         invalid={!isValidHeader(header)}
         required
       />
