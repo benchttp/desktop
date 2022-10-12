@@ -1,5 +1,7 @@
 import { FC } from 'react'
+import { AlertCircle } from 'react-feather'
 
+import { Tooltip } from '@/components'
 import { TestingProps } from '@/testing'
 
 import { getClassNames } from './internal/TextInput.helpers'
@@ -14,6 +16,7 @@ export const TextInput: FC<IProps & TestingProps> = ({
   disabled = false,
   placeholder,
   type,
+  helper,
   invalid,
   required,
   'data-testid': dataTestid,
@@ -22,7 +25,14 @@ export const TextInput: FC<IProps & TestingProps> = ({
 
   return (
     <div>
-      {label && <label htmlFor={id}>{label}</label>}
+      {label && (
+        <label className="f" htmlFor={id}>
+          {label}{' '}
+          {helper && (
+            <Tooltip className="ml-2" icon={AlertCircle} text={helper} />
+          )}
+        </label>
+      )}
       <div>
         <input
           className={classNames}
