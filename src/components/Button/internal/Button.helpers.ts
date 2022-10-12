@@ -19,7 +19,6 @@ export const getClassNames = ({
     s['button'],
     s[`button--${style}-${color}`],
     'f',
-    'f-direction-row',
     'f-ai-center',
   ]
 

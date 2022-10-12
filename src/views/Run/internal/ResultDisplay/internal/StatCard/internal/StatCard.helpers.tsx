@@ -12,7 +12,6 @@ export const getClassNames = ({
     s['statCard'],
     s[`statCard-${iconColor}`],
     'f',
-    'f-direction-row',
     'f-ai-center',
     'p-3',
   ]

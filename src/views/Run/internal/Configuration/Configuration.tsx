@@ -36,7 +36,7 @@ export const Configuration: FC<IProps> = ({ state, setState, onSubmit }) => {
         Configuration
       </Typography>
       <div className="mb-5">
-        <div className="f f-direction-row f-align-center mb-5">
+        <div className="f f-align-center mb-5">
           <URLInput
             className="mr-3"
             id="url"
@@ -52,7 +52,7 @@ export const Configuration: FC<IProps> = ({ state, setState, onSubmit }) => {
             label="Method"
           />
         </div>
-        <div className="f f-direction-row f-ai-center">
+        <div className="f f-ai-center">
           <Tab
             className="mr-3"
             text="Headers"
@@ -87,7 +87,7 @@ export const Configuration: FC<IProps> = ({ state, setState, onSubmit }) => {
             />
           </Routes>
         </div>
-        <div className="f f-direction-row f-ai-center mb-4">
+        <div className="f f-ai-center mb-4">
           <NumberInput
             className="mr-3"
             id="requests"
@@ -109,7 +109,7 @@ export const Configuration: FC<IProps> = ({ state, setState, onSubmit }) => {
             label="Interval"
           />
         </div>
-        <div className="f f-direction-row f-ai-center">
+        <div className="f f-ai-center">
           <MillisecondInput
             className="mr-3"
             id="global-timeout"

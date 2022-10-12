@@ -26,10 +26,7 @@ export const HeadersConfiguration: FC<IProps> = ({ headers, onChange }) => {
   return (
     <div className="f f-direction-column f-ai-start mt-3 mb-3">
       {arrayHeaders.map((header, index) => (
-        <div
-          className="f f-direction-row f-ai-center mb-3"
-          key={`header-value-${index}`}
-        >
+        <div className="f f-ai-center mb-3" key={`header-value-${index}`}>
           <SingleHeader
             header={header}
             onChange={handleChangeHeader(arrayHeaders, index, onChange)}
@@ -63,7 +60,7 @@ interface IPropsSingleHeader {
 
 const SingleHeader: FC<IPropsSingleHeader> = ({ header, index, onChange }) => {
   return (
-    <div key={`header-${index}`} className="f f-direction-row f-ai-center">
+    <div key={`header-${index}`} className="f f-ai-center">
       <TextInput
         data-testid={`change-key-header-${index}`}
         className="mr-3"

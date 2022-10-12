@@ -73,7 +73,7 @@ const ResultsSection: React.FC<RunReport> = ({ metrics }) => (
       Results
     </Typography>
     <div></div>
-    <div className="f f-direction-row mb-3">
+    <div className="f mb-3">
       <StatCard
         icon={ChevronsUp}
         iconColor="blue"
@@ -97,7 +97,7 @@ const ResultsSection: React.FC<RunReport> = ({ metrics }) => (
       />
     </div>
 
-    <div className="f f-direction-row mb-3">
+    <div className="f mb-3">
       {metrics.responseTimes.deciles && metrics.responseTimes.deciles[8] ? (
         <StatCard
           icon={Clock}
