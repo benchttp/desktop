@@ -6,16 +6,16 @@ export const getBarChartData = (
 ): { responseTimeMaxOfFourchette: string; numberOfOccurrences: number }[] => {
   const recordsData = metrics['records']
   const maxTime = metrics['responseTimes']['max']
-  const numberOfDivision = 20
+  const numberOfDivisions = 20
   const barChartData: {
     responseTimeMaxOfFourchette: number
     numberOfOccurrences: number
   }[] = []
 
-  for (let i = 0; i < numberOfDivision; i++) {
+  for (let i = 0; i < numberOfDivisions; i++) {
     barChartData[i] = {
       responseTimeMaxOfFourchette: nanosecondsToMilliseconds(
-        (maxTime / numberOfDivision) * i
+        (maxTime / numberOfDivisions) * i
       ),
       numberOfOccurrences: 0,
     }
@@ -23,7 +23,7 @@ export const getBarChartData = (
 
   if (recordsData != null) {
     for (let i = 0; i < recordsData.length; i++) {
-      for (let j = 0; j < numberOfDivision; j++) {
+      for (let j = 0; j < numberOfDivisions; j++) {
         if (
           nanosecondsToMilliseconds(recordsData[i]['responseTime']) >
           barChartData[j]['responseTimeMaxOfFourchette']
@@ -47,7 +47,7 @@ export const getBarChartData = (
     numberOfOccurrences: number
   }[] = []
 
-  for (let i = 0; i < numberOfDivision; i++) {
+  for (let i = 0; i < numberOfDivisions; i++) {
     barChartDataFormatted[i] = {
       responseTimeMaxOfFourchette:
         barChartData[i]['responseTimeMaxOfFourchette'].toFixed(2),
