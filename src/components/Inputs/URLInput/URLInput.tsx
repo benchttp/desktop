@@ -20,7 +20,7 @@ export const URLInput: FC<IProps> = ({ value, onChange, ...props }) => (
   <TextInput
     value={value}
     onChange={(e) => onChange(e.target.value)}
-    type="text"
+    type="url"
     invalid={!isValidURL(value)}
     {...props}
   />
