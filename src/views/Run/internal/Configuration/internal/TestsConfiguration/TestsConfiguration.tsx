@@ -45,10 +45,7 @@ export const TestsConfiguration: FC<IProps> = ({
   return (
     <div className="f f-direction-column f-ai-start">
       {tests.map((test, index) => (
-        <div
-          key={`test-${index}`}
-          className="f f-direction-row f-ai-center mb-3"
-        >
+        <div key={`test-${index}`} className="f f-ai-center mb-3">
           <SingleTest
             test={test}
             index={index}

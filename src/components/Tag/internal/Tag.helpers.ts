@@ -1,13 +1,16 @@
 import s from './tag.module.scss'
-import { IProps } from './tag.typings'
+import { ITagColor } from './Tag.types'
 
-export const getClassNames = ({
+export const getClassName = ({
   color,
   className,
-}: Pick<IProps, 'className'> & Pick<Required<IProps>, 'color'>) => {
+}: {
+  color: ITagColor
+  className: string | undefined
+}): string => {
   const classNames: string[] = [
     s['tag'],
-    s[`tag-${color}`],
+    s[`tag--${color}`],
     'f',
     'f-jc-center',
     'f-direction-row',
@@ -18,5 +21,5 @@ export const getClassNames = ({
     classNames.push(className)
   }
 
-  return classNames
+  return classNames.join(' ')
 }

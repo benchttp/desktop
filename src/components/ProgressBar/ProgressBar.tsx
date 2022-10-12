@@ -1,8 +1,12 @@
 import { FC } from 'react'
 
 import { Typography } from '../Typography'
-import s from './core/progressbar.module.scss'
-import { IProps } from './core/progressbar.typings'
+import s from './internal/progress-bar.module.scss'
+
+interface IProps {
+  value: number
+  max: number
+}
 
 export const ProgressBar: FC<IProps> = ({ max, value }) => {
   const percentage = (value: number, max: number) => (100 * value) / max

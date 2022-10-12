@@ -9,10 +9,15 @@
   border-radius: map.get(spaces.$spaces, '1');
   font-weight: 600;
   transition: box-shadow 0.15s ease-out;
-  cursor: pointer;
-  svg {
-    margin-top: -3px;
-    margin-bottom: -3px;
+
+  &:not(:disabled) {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    background: transparent;
+    color: map.get(colors.$colors, 'grey-light');
+    box-shadow: 0 0 0 1.5px map.get(colors.$colors, 'grey-light');
   }
 
   &--full-primary {
@@ -21,16 +26,21 @@
     box-shadow: 0 0 0 1.5px map.get(colors.$colors, 'primary');
 
     &:hover {
-      box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'primary');
+      &:not(:disabled) {
+        box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'primary');
+      }
     }
   }
-  &--full-white {
+
+  &--full-base-white {
     background: map.get(colors.$colors, 'base-white');
     color: map.get(colors.$colors, 'grey');
     box-shadow: 0 0 0 1.5px map.get(colors.$colors, 'base-white');
 
     &:hover {
-      box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'base-white');
+      &:not(:disabled) {
+        box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'base-white');
+      }
     }
   }
 
@@ -40,20 +50,30 @@
     box-shadow: 0 0 0 1.5px map.get(colors.$colors, 'primary');
 
     &:hover {
-      box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'primary');
+      &:not(:disabled) {
+        box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'primary');
+      }
     }
   }
-  &--outlined-white {
+
+  &--outlined-base-white {
     background: transparent;
     color: map.get(colors.$colors, 'base-white');
     box-shadow: 0 0 0 1.5px map.get(colors.$colors, 'base-white');
 
     &:hover {
-      box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'base-white');
+      &:not(:disabled) {
+        box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'base-white');
+      }
     }
   }
 
   &--small {
     @include font-config.small-font-config;
+  }
+
+  &__icon {
+    margin-top: -3px;
+    margin-bottom: -3px;
   }
 }

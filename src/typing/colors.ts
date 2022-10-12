@@ -1,12 +1,17 @@
-export enum IColors {
-  httpGet = 'http-get',
-  httpPost = 'http-post',
-  httpPut = 'http-put',
-  httpPatch = 'http-patch',
-  httpDelete = 'http-delete',
-  grey = 'grey',
-  greyLight = 'grey-light',
-  greyDark = 'grey-dark',
-  primary = 'primary',
-  baseWhite = 'base-white',
-}
+export type IColors =
+  | 'http-get'
+  | 'http-post'
+  | 'http-put'
+  | 'http-patch'
+  | 'http-delete'
+  | 'grey'
+  | 'grey-light'
+  | 'grey-dark'
+  | 'primary'
+  | 'base-white'
+  | 'base-blue'
+  | 'base-orange'
+  | 'base-purple'
+  | 'base-yellow'
+  | 'base-green'
+  | 'base-red'

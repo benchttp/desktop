@@ -14,10 +14,8 @@ export const TextAreaInput: FC<IProps> = ({
   disabled,
   placeholder,
 }) => {
-  const classNames = getClassNames({ className })
-
   return (
-    <div className={classNames.join(' ')}>
+    <div className={getClassNames(className)}>
       {label && <label htmlFor={id}>{label}</label>}
       <textarea
         className={s['textarea']}

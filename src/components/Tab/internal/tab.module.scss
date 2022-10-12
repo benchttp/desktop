@@ -1,0 +1,23 @@
+@use 'sass:map';
+@use '../../../style/variables/colors.scss';
+
+.tab {
+  text-decoration: none;
+  color: map.get(colors.$colors, 'base-white');
+  box-shadow: 0 1px 0 0 map.get(colors.$colors, 'base-white');
+  transition: box-shadow 0.2s ease-out, color 0.2s ease-out,
+    transform 0.2s ease-out;
+
+  &:hover,
+  &--selected {
+    color: map.get(colors.$colors, 'primary');
+    box-shadow: 0 2px 0 0 map.get(colors.$colors, 'primary');
+    transform: translateY(-1px);
+  }
+
+  &--disabled {
+    box-shadow: 0 1px 0 0 map.get(colors.$colors, 'grey-light');
+    color: map.get(colors.$colors, 'grey-light');
+    pointer-events: none;
+  }
+}

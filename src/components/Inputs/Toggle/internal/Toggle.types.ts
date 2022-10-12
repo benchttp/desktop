@@ -1,9 +1,1 @@
-import { ChangeEventHandler } from 'react'
-
-export interface IProps {
-  className?: string
-  id: string
-  checked: boolean
-  onChange: ChangeEventHandler<HTMLInputElement>
-  label?: string
-}
+export type IToggleLabelPosition = 'left' | 'right'

@@ -1,9 +1,35 @@
-import { FC } from 'react'
+import { ButtonHTMLAttributes, FC, MouseEventHandler } from 'react'
+import { Icon } from 'react-feather'
 
 import { TestingProps } from '@/testing'
 
 import { createIcon, getClassNames } from './internal/Button.helpers'
-import { IProps } from './internal/Button.types'
+import { IButtonColor, IButtonStyle } from './internal/Button.types'
+
+interface IPropsBase {
+  className?: string
+  text: string
+  onClick?: MouseEventHandler | never
+  color?: IButtonColor
+  style?: IButtonStyle
+  small?: boolean
+  iconStart?: Icon
+  iconEnd?: Icon
+  type?: ButtonHTMLAttributes<HTMLButtonElement>['type']
+  disabled?: boolean
+}
+
+interface IPropsSubmit extends IPropsBase {
+  type: 'submit'
+  onClick?: never
+}
+
+interface IPropsButton extends IPropsBase {
+  type?: 'button' | 'reset'
+  onClick: MouseEventHandler
+}
+
+type IProps = IPropsButton | IPropsSubmit
 
 export const Button: FC<IProps & TestingProps> = ({
   text,
@@ -16,15 +42,15 @@ export const Button: FC<IProps & TestingProps> = ({
   className,
   'data-testid': dataTestid,
   type = 'button',
+  disabled,
 }) => {
-  const classNames = getClassNames({ color, style, small, className })
-
   return (
     <button
       onClick={onClick}
-      className={classNames.join(' ')}
+      className={getClassNames({ color, style, small, className })}
       data-testid={dataTestid}
       type={type}
+      disabled={disabled}
     >
       {iconStart && createIcon({ icon: iconStart, small, position: 'start' })}
       {text}
