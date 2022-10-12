@@ -80,3 +80,19 @@ export function useRunStream() {
 
 const isPristine = (state: RunState): boolean =>
   state.progress === null || state.report === null || state.error === null
+
+export const getTestResultsDisabledState = ({
+  report,
+  progress,
+  error,
+  appError,
+}: {
+  report: RunReport | null
+  progress: RunProgress | null
+  error: RunError | null
+  appError: Error | null
+}) => {
+  return (
+    report === null && progress === null && error === null && appError === null
+  )
+}

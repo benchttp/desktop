@@ -1,6 +1,7 @@
-import { ChangeEventHandler, MouseEventHandler } from 'react'
+import { MouseEventHandler } from 'react'
 
-import { Header, Headers } from './HeadersConfiguration.types'
+import { Headers } from './HeadersConfiguration.types'
+import { Header } from './SingleHeader/internal/SingleHeader.types'
 
 export const arrayifyHeaders = (headers: Headers): Header[] => {
   return Object.entries(headers).map(([key, value]) => ({
@@ -43,17 +44,12 @@ export const handleChangeHeader = (
   }
 }
 
-const placeholderHeader = (i: number) => `Custom-Header-${i + 1}`
-
 export const handleAddHeader = (
   headers: Header[],
   onChange: (headers: Headers) => void
 ): MouseEventHandler => {
   return () => {
-    const newHeaders = [
-      ...headers,
-      { key: placeholderHeader(headers.length), value: '' },
-    ]
+    const newHeaders = [...headers, { key: '', value: '' }]
     adaptChangeHandler(onChange)(newHeaders)
   }
 }
@@ -67,28 +63,4 @@ export const handleRemoveHeader = (
     const newHeaders = headers.filter((_, i) => i !== index)
     adaptChangeHandler(onChange)(newHeaders)
   }
-}
-
-export const handleChangeHeaderKey = (
-  header: Header,
-  onChange: (header: Header) => void
-): ChangeEventHandler<HTMLInputElement> => {
-  return (e) => {
-    header.key = e.target.value
-    onChange(header)
-  }
-}
-
-export const handleChangeHeaderValue = (
-  header: Header,
-  onChange: (header: Header) => void
-): ChangeEventHandler<HTMLInputElement> => {
-  return (e) => {
-    header.value = e.target.value
-    onChange(header)
-  }
-}
-
-export const isValidHeader = (header: Header): boolean => {
-  return header.key !== '' && header.value !== ''
 }

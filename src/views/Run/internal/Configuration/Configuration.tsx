@@ -1,4 +1,4 @@
-import { FC, FormEvent } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import { Mail, Package, Play } from 'react-feather'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
@@ -16,6 +16,7 @@ import { HeadersConfiguration, TestsConfiguration } from './internal/components'
 import {
   ConfigurationState,
   ConfigurationField,
+  handleSubmit,
 } from './internal/Configuration.helpers'
 
 interface IProps {
@@ -25,13 +26,19 @@ interface IProps {
 }
 
 export const Configuration: FC<IProps> = ({ state, setState, onSubmit }) => {
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    onSubmit()
-  }
+  const [formValid, setFormValid] = useState(false)
+  const formRef = useRef<HTMLFormElement>(null)
+
+  useEffect(() => {
+    if (!formRef.current) {
+      return
+    }
+
+    setFormValid(formRef.current.checkValidity())
+  }, [state])
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
       <Typography element="h1" className="mb-4">
         Configuration
       </Typography>
@@ -82,6 +89,8 @@ export const Configuration: FC<IProps> = ({ state, setState, onSubmit }) => {
                   value={state.body}
                   rows={5}
                   onChange={(e) => setState({ body: e.target.value })}
+                  placeholder="{ name: John Doe }"
+                  resize="vertical"
                 />
               }
             />
@@ -142,7 +151,12 @@ export const Configuration: FC<IProps> = ({ state, setState, onSubmit }) => {
       />
 
       <div className="f f-ai-center f-jc-end">
-        <Button text="Run test" type="submit" iconEnd={Play} />
+        <Button
+          disabled={!formValid}
+          text="Run test"
+          type="submit"
+          iconEnd={Play}
+        />
       </div>
     </form>
   )

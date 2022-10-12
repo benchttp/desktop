@@ -5,7 +5,11 @@ import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import { Tab } from '@/components'
 
 import { Configuration, ResultDisplay } from './internal/components'
-import { useRunStream, useConfiguration } from './internal/Run.helpers'
+import {
+  useRunStream,
+  useConfiguration,
+  getTestResultsDisabledState,
+} from './internal/Run.helpers'
 
 export const Run: FC = () => {
   const { start, stop, progress, report, error, appError } = useRunStream()
@@ -27,6 +31,12 @@ export const Run: FC = () => {
           text="Tests results"
           link="tests-results"
           iconStart={CheckCircle}
+          disabled={getTestResultsDisabledState({
+            report,
+            progress,
+            error,
+            appError,
+          })}
         />
       </div>
 
