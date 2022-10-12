@@ -36,9 +36,10 @@ export const SingleHeader: FC<IProps> = ({ header, index, onChange }) => {
         id={`header-${index}-values`}
         value={header.value}
         onChange={handleChangeHeaderValue(header, onChange)}
-        label="Values ( comma separated )"
+        label="Values"
         invalid={!isValidHeader(header)}
         placeholder="text/html, multipart/form-data"
+        hint="accept multiple values if comma separated"
         required
       />
     </div>

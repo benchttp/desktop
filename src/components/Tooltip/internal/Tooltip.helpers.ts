@@ -15,7 +15,7 @@ export const getClassName = (className: string | undefined): string => {
 
 export const createIcon = (icon: Icon): ReactNode => {
   return createElement(icon, {
-    size: 18,
     className: s['tooltip__icon'],
+    size: 18,
   })
 }
