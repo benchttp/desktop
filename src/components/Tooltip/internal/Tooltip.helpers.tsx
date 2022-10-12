@@ -23,7 +23,7 @@ export const getClassNames = ({ className }: Pick<IProps, 'className'>) => {
 export const createIcon = ({ icon }: { icon: Icon }): ReactNode => {
   return createElement(icon, {
     className: 'mr-1',
-    size: 24,
+    size: 20,
     style: { transform: 'rotate(180deg)' },
   })
 }

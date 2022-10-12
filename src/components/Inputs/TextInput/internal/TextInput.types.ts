@@ -6,6 +6,7 @@ export interface IProps {
   value: string
   onChange: ChangeEventHandler<HTMLInputElement>
   label?: string
+  tooltipContent?: string
   disabled?: boolean
   placeholder?: string
   type?: HTMLInputTypeAttribute
