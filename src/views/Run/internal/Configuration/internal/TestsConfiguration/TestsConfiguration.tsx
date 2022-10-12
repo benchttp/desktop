@@ -2,9 +2,10 @@ import { FC } from 'react'
 import { PlusSquare, Trash } from 'react-feather'
 
 import { ConfigurationTestCase } from '@/benchttp/configuration'
-import { Button } from '@/components'
+import { Button, IconButton } from '@/components'
 
 import { SingleTest } from './internal/components'
+import s from './internal/tests-configuration.module.scss'
 import {
   handleRemoveTest,
   handleAddTest,
@@ -32,21 +33,22 @@ export const TestsConfiguration: FC<IProps> = ({
             tests={tests}
             enabled={enabled}
           />
-          <div>
-            <Trash
-              size={20}
-              data-testid={`remove-test-${index}`}
-              onClick={handleRemoveTest(tests, index, enabled, onChange)}
-            />
-          </div>
+          <IconButton
+            className="ml-3"
+            disabled={!enabled}
+            icon={Trash}
+            onClick={handleRemoveTest({ tests, index, onChange })}
+            data-testid={`remove-test-${index}`}
+          />
         </div>
       ))}
       <Button
+        className={s['test-configuration__add-button']}
         data-testid="add-test"
         text="Add a new test"
         small
         iconEnd={PlusSquare}
-        onClick={handleAddTest(tests, enabled, onChange)}
+        onClick={handleAddTest({ tests, enabled, onChange })}
         style="outlined"
         disabled={!enabled}
       />

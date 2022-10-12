@@ -18,7 +18,7 @@ interface IProps {
 
 export const SingleHeader: FC<IProps> = ({ header, index, onChange }) => {
   return (
-    <div key={`header-${index}`} className="f f-direction-row f-ai-center mr-3">
+    <div key={`header-${index}`} className="f f-direction-row f-ai-center">
       <TextInput
         data-testid={`change-key-header-${index}`}
         className="mr-3"

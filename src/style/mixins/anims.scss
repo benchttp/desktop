@@ -1,0 +1,19 @@
+@mixin spinningButton {
+  svg {
+    line {
+      transition: transform 0.2s ease-out;
+      transform-origin: 50% 50%;
+      transform: rotate(0deg);
+    }
+  }
+
+  &:hover {
+    &:not(:disabled) {
+      svg {
+        line {
+          transform: rotate(90deg);
+        }
+      }
+    }
+  }
+}

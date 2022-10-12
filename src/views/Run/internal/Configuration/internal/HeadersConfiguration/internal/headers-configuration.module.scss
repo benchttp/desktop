@@ -1,0 +1,7 @@
+@use '../../../../../../../style//mixins/anims.scss';
+
+.header-configuration {
+  &__add-button {
+    @include anims.spinningButton;
+  }
+}

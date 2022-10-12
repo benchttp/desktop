@@ -2,6 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { expect, test } from 'vitest'
 
 import { ConfigurationTestCase } from '@/benchttp/configuration'
+import { sleep } from '@/tools/utilities'
 
 import { TestsConfiguration } from './TestsConfiguration'
 
@@ -79,11 +80,12 @@ test('add a test (happy path)', () => {
   expect(input.changeTarget(0).getAttribute('aria-invalid')).not.toBe('true')
 })
 
-test('remove a test', () => {
+test('remove a test', async () => {
   const { actual, button, rerender } = setup()
   fireEvent.click(button.addTest)
   rerender()
   fireEvent.click(button.removeTest(0))
+  await sleep(500)
   rerender()
   expect(actual.value).toEqual([])
 })

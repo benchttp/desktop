@@ -1,9 +1,10 @@
 import { FC } from 'react'
 import { PlusSquare, Trash } from 'react-feather'
 
-import { Button } from '@/components'
+import { Button, IconButton } from '@/components'
 
 import { SingleHeader } from './internal/components'
+import s from './internal/headers-configuration.module.scss'
 import {
   arrayifyHeaders,
   handleAddHeader,
@@ -26,22 +27,33 @@ export const HeadersConfiguration: FC<IProps> = ({ headers, onChange }) => {
         <div className="f f-ai-center mb-4" key={`header-value-${index}`}>
           <SingleHeader
             header={header}
-            onChange={handleChangeHeader(arrayHeaders, index, onChange)}
+            onChange={handleChangeHeader({
+              headers: arrayHeaders,
+              index,
+              onChange,
+            })}
             index={index}
             key={index}
           />
-          <Trash
+          <IconButton
+            className="ml-3"
+            icon={Trash}
             data-testid={`remove-header-${index}`}
-            onClick={handleRemoveHeader(arrayHeaders, index, onChange)}
+            onClick={handleRemoveHeader({
+              headers: arrayHeaders,
+              index,
+              onChange,
+            })}
           />
         </div>
       ))}
       <Button
+        className={s['header-configuration__add-button']}
         data-testid="add-header"
         text="Add a new header"
         small
         iconEnd={PlusSquare}
-        onClick={handleAddHeader(arrayHeaders, onChange)}
+        onClick={handleAddHeader({ headers: arrayHeaders, onChange })}
         style="outlined"
       />
     </div>

@@ -1,0 +1,9 @@
+@use 'sass:map';
+@use '../../../../../../../style/variables/colors.scss';
+@use '../../../../../../../style/mixins/anims.scss';
+
+.test-configuration {
+  &__add-button {
+    @include anims.spinningButton;
+  }
+}

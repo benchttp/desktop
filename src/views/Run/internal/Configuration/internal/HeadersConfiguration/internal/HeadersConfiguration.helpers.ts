@@ -1,5 +1,7 @@
 import { MouseEventHandler } from 'react'
 
+import { sleep } from '@/tools/utilities'
+
 import { Headers } from './HeadersConfiguration.types'
 import { Header } from './SingleHeader/internal/SingleHeader.types'
 
@@ -32,11 +34,15 @@ const adaptChangeHandler = (handler: (headers: Headers) => void) => {
   }
 }
 
-export const handleChangeHeader = (
-  headers: Header[],
-  index: number,
+export const handleChangeHeader = ({
+  headers,
+  index,
+  onChange,
+}: {
+  headers: Header[]
+  index: number
   onChange: (headers: Headers) => void
-): ((header: Header) => void) => {
+}): ((header: Header) => void) => {
   return (header) => {
     const newHeaders = [...headers]
     newHeaders[index] = header
@@ -44,22 +50,31 @@ export const handleChangeHeader = (
   }
 }
 
-export const handleAddHeader = (
-  headers: Header[],
+export const handleAddHeader = ({
+  headers,
+  onChange,
+}: {
+  headers: Header[]
   onChange: (headers: Headers) => void
-): MouseEventHandler => {
+}): MouseEventHandler => {
   return () => {
     const newHeaders = [...headers, { key: '', value: '' }]
     adaptChangeHandler(onChange)(newHeaders)
   }
 }
 
-export const handleRemoveHeader = (
-  headers: Header[],
-  index: number,
+export const handleRemoveHeader = ({
+  headers,
+  index,
+  onChange,
+}: {
+  headers: Header[]
+  index: number
   onChange: (headers: Headers) => void
-): MouseEventHandler => {
-  return () => {
+}): MouseEventHandler => {
+  return async () => {
+    await sleep(500)
+
     const newHeaders = headers.filter((_, i) => i !== index)
     adaptChangeHandler(onChange)(newHeaders)
   }
