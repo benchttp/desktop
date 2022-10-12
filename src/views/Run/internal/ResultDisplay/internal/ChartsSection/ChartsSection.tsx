@@ -9,11 +9,6 @@ import { IProps } from './internal/ChartsSection.types'
 export const ChartsSection: FC<IProps> = ({ metrics }) => {
   return (
     <div>
-      <div className="f f-ai-center mb-4">
-        <Typography className="mr-1" element="h1">
-          Charts:
-        </Typography>
-      </div>
       <Typography element="p" size="h4" className="mb-4">
         Bar chart
       </Typography>
