@@ -27,7 +27,7 @@ export const BarChart: FC<IProps> = ({ className, data, xLegend, yLegend }) => {
     <div className={classNames.join(' ')} style={{ height: '350px' }}>
       <ResponsiveBarCanvas
         {...commonProps}
-        colors={{ scheme: 'dark2' }}
+        colors="#f1b445"
         data={data}
         keys={['yAxis']}
         indexBy="xAxis"
