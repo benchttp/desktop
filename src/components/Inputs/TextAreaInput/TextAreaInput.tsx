@@ -1,8 +1,22 @@
-import { FC } from 'react'
+import { ChangeEventHandler, FC } from 'react'
 
-import s from './internal/text-area-input.module.scss'
-import { getClassNames } from './internal/TextAreaInput.helpers'
-import { IProps } from './internal/TextAreaInput.types'
+import {
+  getClassName,
+  getTextAreaClassName,
+} from './internal/TextAreaInput.helpers'
+import { ITextAreaResize } from './internal/TextAreaInput.types'
+
+interface IProps {
+  className?: string
+  id: string
+  value: string
+  onChange: ChangeEventHandler<HTMLTextAreaElement>
+  label?: string
+  disabled?: boolean
+  placeholder?: string
+  rows?: number
+  resize?: ITextAreaResize
+}
 
 export const TextAreaInput: FC<IProps> = ({
   className,
@@ -13,12 +27,13 @@ export const TextAreaInput: FC<IProps> = ({
   rows,
   disabled,
   placeholder,
+  resize,
 }) => {
   return (
-    <div className={getClassNames(className)}>
+    <div className={getClassName(className)}>
       {label && <label htmlFor={id}>{label}</label>}
       <textarea
-        className={s['textarea']}
+        className={getTextAreaClassName(resize)}
         disabled={disabled}
         rows={rows}
         placeholder={placeholder}
