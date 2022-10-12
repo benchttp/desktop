@@ -14,7 +14,7 @@ export const getRequestTimeDistributionData = (
 
   for (let i = 0; i < numberOfDivisions; i++) {
     requestTimeDistributionData[i] = {
-      timeRangeMax: (maxTime / numberOfDivisions) * i,
+      timeRangeMax: (maxTime / numberOfDivisions) * (i + 1),
       numberOfOccurrences: 0,
     }
   }
