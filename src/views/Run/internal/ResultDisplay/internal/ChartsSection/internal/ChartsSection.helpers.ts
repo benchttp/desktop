@@ -4,8 +4,8 @@ import { nanosecondsToMilliseconds } from '@/tools/converters'
 export const getRequestTimeDistributionData = (
   metrics: RunReport['metrics']
 ): { xAxis: string; yAxis: number }[] => {
-  const recordsData = metrics['records']
-  const maxTime = metrics['responseTimes']['max']
+  const recordsData = metrics.records
+  const maxTime = metrics.responseTimes.max
   const numberOfDivisions = 20
   const requestTimeDistributionData: {
     timeRangeMax: number
