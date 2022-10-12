@@ -8,8 +8,6 @@ export const BarChart: FC<IProps> = ({ className, data, xLegend, yLegend }) => {
   const classNames = getClassNames({ className })
 
   const commonProps = {
-    // Comment if you want to hide the axis legends
-    // Necessary if you want them to be shown
     margin: { left: 60, bottom: 60 },
   }
 
