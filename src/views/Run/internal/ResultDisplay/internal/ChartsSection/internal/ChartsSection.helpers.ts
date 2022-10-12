@@ -2,20 +2,20 @@ import { RunReport } from '@/benchttp'
 import { nanosecondsToMilliseconds } from '@/tools/converters'
 
 export const getResponseTimeDistribution = (
-  metrics: RunReport['metrics']
+  responseTimes: { responseTime: number }[],
+  maxTime: RunReport['metrics']['responseTimes']['max']
 ): { xAxis: string; yAxis: number }[] => {
-  const records = metrics.records
-  const maxTime = metrics.responseTimes.max
   const partitions = 10
   const responseTimeDistribution = [...Array(partitions)].map((_, i) => ({
     timeRangeMax: (maxTime / partitions) * (i + 1),
     count: 0,
   }))
 
-  for (let i = 0; i < records.length; i++) {
+  for (let i = 0; i < responseTimes.length; i++) {
     for (let j = 0; j < partitions; j++) {
       if (
-        records[i]['responseTime'] > responseTimeDistribution[j]['timeRangeMax']
+        responseTimes[i]['responseTime'] >
+        responseTimeDistribution[j]['timeRangeMax']
       ) {
         continue
       } else {

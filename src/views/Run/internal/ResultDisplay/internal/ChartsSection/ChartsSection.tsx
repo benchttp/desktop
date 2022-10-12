@@ -14,7 +14,10 @@ export const ChartsSection: FC<IProps> = ({ metrics }) => {
       </Typography>
       <div>
         <BarChart
-          data={getResponseTimeDistribution(metrics)}
+          data={getResponseTimeDistribution(
+            metrics.records,
+            metrics.responseTimes.max
+          )}
           xLegend="Time per request (ms)"
           yLegend="Number of requests"
         />
