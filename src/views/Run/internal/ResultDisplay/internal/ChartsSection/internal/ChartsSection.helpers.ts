@@ -1,38 +1,38 @@
 import { RunReport } from '@/benchttp'
 import { nanosecondsToMilliseconds } from '@/tools/converters'
 
-export const getRequestTimeDistributionData = (
+export const getResponseTimeDistribution = (
   metrics: RunReport['metrics']
 ): { xAxis: string; yAxis: number }[] => {
-  const recordsData = metrics.records
+  const records = metrics.records
   const maxTime = metrics.responseTimes.max
-  const numberOfDivisions = 20
-  const requestTimeDistributionData: {
+  const partitions = 20
+  const responseTimeDistribution: {
     timeRangeMax: number
-    numberOfOccurrences: number
+    count: number
   }[] = []
 
-  for (let i = 0; i < numberOfDivisions; i++) {
-    requestTimeDistributionData[i] = {
-      timeRangeMax: (maxTime / numberOfDivisions) * (i + 1),
-      numberOfOccurrences: 0,
+  for (let i = 0; i < partitions; i++) {
+    responseTimeDistribution[i] = {
+      timeRangeMax: (maxTime / partitions) * (i + 1),
+      count: 0,
     }
   }
 
-  if (recordsData != null) {
-    for (let i = 0; i < recordsData.length; i++) {
-      for (let j = 0; j < numberOfDivisions; j++) {
+  if (records != null) {
+    for (let i = 0; i < records.length; i++) {
+      for (let j = 0; j < partitions; j++) {
         if (
-          recordsData[i]['responseTime'] >
-          requestTimeDistributionData[j]['timeRangeMax']
+          records[i]['responseTime'] >
+          responseTimeDistribution[j]['timeRangeMax']
         ) {
           continue
         } else {
           if (j > 0) {
-            requestTimeDistributionData[j]['numberOfOccurrences'] += 1
+            responseTimeDistribution[j]['count'] += 1
             break
           } else {
-            requestTimeDistributionData[0]['numberOfOccurrences'] += 1
+            responseTimeDistribution[0]['count'] += 1
             break
           }
         }
@@ -40,19 +40,19 @@ export const getRequestTimeDistributionData = (
     }
   }
 
-  const requestTimeDistributionDataFormatted: {
+  const responseTimeDistributionFormatted: {
     xAxis: string
     yAxis: number
   }[] = []
 
-  for (let i = 0; i < numberOfDivisions; i++) {
-    requestTimeDistributionDataFormatted[i] = {
+  for (let i = 0; i < partitions; i++) {
+    responseTimeDistributionFormatted[i] = {
       xAxis: nanosecondsToMilliseconds(
-        requestTimeDistributionData[i]['timeRangeMax']
+        responseTimeDistribution[i]['timeRangeMax']
       ).toFixed(2),
-      yAxis: requestTimeDistributionData[i]['numberOfOccurrences'],
+      yAxis: responseTimeDistribution[i]['count'],
     }
   }
 
-  return requestTimeDistributionDataFormatted
+  return responseTimeDistributionFormatted
 }
