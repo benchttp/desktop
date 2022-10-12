@@ -4,7 +4,7 @@ import { FC } from 'react'
 import { getClassNames } from './internal/BarChart.helpers'
 import { IProps } from './internal/BarChart.types'
 
-export const BarChart: FC<IProps> = ({ className, data }) => {
+export const BarChart: FC<IProps> = ({ className, data, xLegend, yLegend }) => {
   const classNames = getClassNames({ className })
 
   const commonProps = {
@@ -14,12 +14,12 @@ export const BarChart: FC<IProps> = ({ className, data }) => {
   }
 
   const axisLeft = {
-    legend: 'Number of requests',
+    legend: yLegend,
     legendOffset: -40,
   }
 
   const axisBottom = {
-    legend: 'Time per request (ms)',
+    legend: xLegend,
     legendOffset: 40,
   }
 
@@ -29,8 +29,8 @@ export const BarChart: FC<IProps> = ({ className, data }) => {
         {...commonProps}
         colors={{ scheme: 'dark2' }}
         data={data}
-        keys={['numberOfOccurrences']}
-        indexBy="responseTimeMaxOfFourchette"
+        keys={['yAxis']}
+        indexBy="xAxis"
         axisLeft={axisLeft}
         axisBottom={axisBottom}
         theme={{

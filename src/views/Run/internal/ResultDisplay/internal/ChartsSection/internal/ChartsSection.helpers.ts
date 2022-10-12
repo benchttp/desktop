@@ -1,22 +1,20 @@
 import { RunReport } from '@/benchttp'
 import { nanosecondsToMilliseconds } from '@/tools/converters'
 
-export const getBarChartData = (
+export const getRequestTimeDistributionData = (
   metrics: RunReport['metrics']
-): { responseTimeMaxOfFourchette: string; numberOfOccurrences: number }[] => {
+): { xAxis: string; yAxis: number }[] => {
   const recordsData = metrics['records']
   const maxTime = metrics['responseTimes']['max']
   const numberOfDivisions = 20
-  const barChartData: {
-    responseTimeMaxOfFourchette: number
+  const requestTimeDistributionData: {
+    timeRangeMax: number
     numberOfOccurrences: number
   }[] = []
 
   for (let i = 0; i < numberOfDivisions; i++) {
-    barChartData[i] = {
-      responseTimeMaxOfFourchette: nanosecondsToMilliseconds(
-        (maxTime / numberOfDivisions) * i
-      ),
+    requestTimeDistributionData[i] = {
+      timeRangeMax: (maxTime / numberOfDivisions) * i,
       numberOfOccurrences: 0,
     }
   }
@@ -25,16 +23,16 @@ export const getBarChartData = (
     for (let i = 0; i < recordsData.length; i++) {
       for (let j = 0; j < numberOfDivisions; j++) {
         if (
-          nanosecondsToMilliseconds(recordsData[i]['responseTime']) >
-          barChartData[j]['responseTimeMaxOfFourchette']
+          recordsData[i]['responseTime'] >
+          requestTimeDistributionData[j]['timeRangeMax']
         ) {
           continue
         } else {
           if (j > 0) {
-            barChartData[j - 1]['numberOfOccurrences'] += 1
+            requestTimeDistributionData[j]['numberOfOccurrences'] += 1
             break
           } else {
-            barChartData[0]['numberOfOccurrences'] += 1
+            requestTimeDistributionData[0]['numberOfOccurrences'] += 1
             break
           }
         }
@@ -42,18 +40,19 @@ export const getBarChartData = (
     }
   }
 
-  const barChartDataFormatted: {
-    responseTimeMaxOfFourchette: string
-    numberOfOccurrences: number
+  const requestTimeDistributionDataFormatted: {
+    xAxis: string
+    yAxis: number
   }[] = []
 
   for (let i = 0; i < numberOfDivisions; i++) {
-    barChartDataFormatted[i] = {
-      responseTimeMaxOfFourchette:
-        barChartData[i]['responseTimeMaxOfFourchette'].toFixed(2),
-      numberOfOccurrences: barChartData[i]['numberOfOccurrences'],
+    requestTimeDistributionDataFormatted[i] = {
+      xAxis: nanosecondsToMilliseconds(
+        requestTimeDistributionData[i]['timeRangeMax']
+      ).toFixed(2),
+      yAxis: requestTimeDistributionData[i]['numberOfOccurrences'],
     }
   }
 
-  return barChartDataFormatted
+  return requestTimeDistributionDataFormatted
 }

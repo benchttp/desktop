@@ -1,4 +1,6 @@
 export interface IProps {
   className?: string
-  data: { responseTimeMaxOfFourchette: string; numberOfOccurrences: number }[]
+  data: { xAxis: string; yAxis: number }[]
+  xLegend: string
+  yLegend: string
 }
