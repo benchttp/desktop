@@ -65,10 +65,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 1600,
         "resizable": true,
         "title": "Benchttp",
-        "width": 800
+        "width": 2560
       }
     ]
   }
