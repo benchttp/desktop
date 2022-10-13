@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 import { RunProgress, RunReport, RunError, RunConfiguration } from '@/benchttp'
 
 export type RunStream = ProgressStream | ReportStream | ErrorStream
@@ -117,7 +116,6 @@ const decodeStream = (chunk: Uint8Array): RunStream => {
 const assertRunStream = (data: unknown): RunStream => {
   if (isProgress(data)) return { kind: 'progress', data }
   if (isReport(data)) return { kind: 'report', data }
-  debugger
   if (isError(data)) return { kind: 'error', data }
   throw new Error('Unhandled stream value')
 }
