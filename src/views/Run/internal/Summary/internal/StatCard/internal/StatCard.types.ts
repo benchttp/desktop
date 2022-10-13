@@ -1,9 +1,11 @@
-import { Icon } from 'react-feather'
+import { IColors } from '@/typing/colors'
 
-export interface IProps {
-  className?: string
-  icon: Icon
-  iconColor: 'blue' | 'primary' | 'get' | 'base-white' | 'purple' | 'orange'
-  stat: string
-  label: string
-}
+export type IStatCardColor = Extract<
+  IColors,
+  | 'base-white'
+  | 'base-blue'
+  | 'base-purple'
+  | 'base-green'
+  | 'base-orange'
+  | 'primary'
+>

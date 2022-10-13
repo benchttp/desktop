@@ -3,112 +3,147 @@
 @use '../../../../../../../style/variables/spaces.scss';
 @use '../../../../../../../style/mixins/font-config.scss';
 
-.statCard {
+.stat-card {
   background: map.get(colors.$colors, 'grey');
   border-radius: map.get(spaces.$spaces, '1');
-  width: 100%;
 
-  // Left block with icon and circle
-  div:nth-of-type(1) {
-    position: relative;
-    margin: auto;
-    max-height: map.get(spaces.$spaces, '5');
-    max-width: map.get(spaces.$spaces, '5');
-    // Icon div
-    div:nth-of-type(1) {
-      position: relative;
-      margin: auto;
-      z-index: 2;
-      svg {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translateX(-50%) translateY(-50%);
-      }
+  &__icon {
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+
+    &--base-white {
+      color: map.get(colors.$colors, 'base-white');
+      background: rgba(map.get(colors.$colors, 'base-white'), 0.35);
     }
-    // Circle div
-    div:nth-of-type(2) {
-      position: absolute;
-      border-radius: 50%;
-      height: 100%;
-      width: 100%;
-      padding: map.get(spaces.$spaces, '4');
-      opacity: 35%;
-      left: 50%;
-      top: 50%;
-      transform: translateX(-50%) translateY(-50%);
-      z-index: 3;
+
+    &--base-blue {
+      color: map.get(colors.$colors, 'base-blue');
+      background: rgba(map.get(colors.$colors, 'base-blue'), 0.35);
+    }
+
+    &--base-purple {
+      color: map.get(colors.$colors, 'base-purple');
+      background: rgba(map.get(colors.$colors, 'base-purple'), 0.35);
+    }
+
+    &--base-green {
+      color: map.get(colors.$colors, 'base-green');
+      background: rgba(map.get(colors.$colors, 'base-green'), 0.35);
+    }
+
+    &--base-orange {
+      color: map.get(colors.$colors, 'base-orange');
+      background: rgba(map.get(colors.$colors, 'base-orange'), 0.35);
+    }
+
+    &--primary {
+      color: map.get(colors.$colors, 'primary');
+      background: rgba(map.get(colors.$colors, 'primary'), 0.35);
     }
   }
 
-  // Right block with text
-  div:nth-of-type(2) {
-    position: relative;
-    width: 75%;
-    margin: auto;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    padding: map.get(spaces.$spaces, '1');
-    // Stat
-    div:nth-of-type(1) {
-      margin: 0;
-      padding: 0;
-      text-align: left;
-    }
-    // Label
-    div:nth-of-type(2) {
-      padding: 0;
-      margin: 0;
-      text-align: left;
-    }
-  }
+  // // Left block with icon and circle
+  // div:nth-of-type(1) {
+  //   position: relative;
+  //   margin: auto;
+  //   max-height: map.get(spaces.$spaces, '5');
+  //   max-width: map.get(spaces.$spaces, '5');
+  //   // Icon div
+  //   div:nth-of-type(1) {
+  //     position: relative;
+  //     margin: auto;
+  //     z-index: 2;
+  //     svg {
+  //       position: absolute;
+  //       left: 50%;
+  //       top: 50%;
+  //       transform: translateX(-50%) translateY(-50%);
+  //     }
+  //   }
+  //   // Circle div
+  //   div:nth-of-type(2) {
+  //     position: absolute;
+  //     border-radius: 50%;
+  //     height: 100%;
+  //     width: 100%;
+  //     padding: map.get(spaces.$spaces, '4');
+  //     opacity: 35%;
+  //     left: 50%;
+  //     top: 50%;
+  //     transform: translateX(-50%) translateY(-50%);
+  //     z-index: 3;
+  //   }
+  // }
 
-  &-blue {
-    div:nth-of-type(1) {
-      div:nth-of-type(2) {
-        background-color: map.get(colors.$colors, 'base-blue');
-      }
-    }
-  }
+  // // Right block with text
+  // div:nth-of-type(2) {
+  //   position: relative;
+  //   width: 75%;
+  //   margin: auto;
+  //   text-align: left;
+  //   display: flex;
+  //   flex-direction: column;
+  //   padding: map.get(spaces.$spaces, '1');
+  //   // Stat
+  //   div:nth-of-type(1) {
+  //     margin: 0;
+  //     padding: 0;
+  //     text-align: left;
+  //   }
+  //   // Label
+  //   div:nth-of-type(2) {
+  //     padding: 0;
+  //     margin: 0;
+  //     text-align: left;
+  //   }
+  // }
 
-  &-primary {
-    div:nth-of-type(1) {
-      div:nth-of-type(2) {
-        background-color: map.get(colors.$colors, 'primary');
-      }
-    }
-  }
+  // &-blue {
+  //   div:nth-of-type(1) {
+  //     div:nth-of-type(2) {
+  //       background-color: map.get(colors.$colors, 'base-blue');
+  //     }
+  //   }
+  // }
 
-  &-base-white {
-    div:nth-of-type(1) {
-      div:nth-of-type(2) {
-        background-color: map.get(colors.$colors, 'base-white');
-      }
-    }
-  }
+  // &-primary {
+  //   div:nth-of-type(1) {
+  //     div:nth-of-type(2) {
+  //       background-color: map.get(colors.$colors, 'primary');
+  //     }
+  //   }
+  // }
 
-  &-get {
-    div:nth-of-type(1) {
-      div:nth-of-type(2) {
-        background-color: map.get(colors.$colors, 'http-get');
-      }
-    }
-  }
+  // &-base-white {
+  //   div:nth-of-type(1) {
+  //     div:nth-of-type(2) {
+  //       background-color: map.get(colors.$colors, 'base-white');
+  //     }
+  //   }
+  // }
 
-  &-purple {
-    div:nth-of-type(1) {
-      div:nth-of-type(2) {
-        background-color: map.get(colors.$colors, 'base-purple');
-      }
-    }
-  }
+  // &-get {
+  //   div:nth-of-type(1) {
+  //     div:nth-of-type(2) {
+  //       background-color: map.get(colors.$colors, 'http-get');
+  //     }
+  //   }
+  // }
 
-  &-orange {
-    div:nth-of-type(1) {
-      div:nth-of-type(2) {
-        background-color: map.get(colors.$colors, 'base-orange');
-      }
-    }
-  }
+  // &-purple {
+  //   div:nth-of-type(1) {
+  //     div:nth-of-type(2) {
+  //       background-color: map.get(colors.$colors, 'base-purple');
+  //     }
+  //   }
+  // }
+
+  // &-orange {
+  //   div:nth-of-type(1) {
+  //     div:nth-of-type(2) {
+  //       background-color: map.get(colors.$colors, 'base-orange');
+  //     }
+  //   }
+  // }
 }

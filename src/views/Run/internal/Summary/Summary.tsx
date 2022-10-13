@@ -37,22 +37,19 @@ export const Summary: FC<IProps> = ({ report, appError, error }) => {
             <div className={s['summary__metrics']}>
               <StatCard
                 icon={ChevronsUp}
-                iconColor="blue"
-                className="mr-3"
+                color="base-blue"
                 stat={formatDuration(report.metrics.responseTimes.min)}
                 label="fastest response"
               />
               <StatCard
                 icon={ChevronsDown}
-                iconColor="orange"
-                className="mr-3"
+                color="base-orange"
                 stat={formatDuration(report.metrics.responseTimes.max)}
                 label="slowest response"
               />
               <StatCard
                 icon={BarChart2}
-                iconColor="base-white"
-                className="mr-3"
+                color="base-white"
                 stat={formatDuration(report.metrics.responseTimes.mean)}
                 label="average response time"
               />
@@ -60,24 +57,21 @@ export const Summary: FC<IProps> = ({ report, appError, error }) => {
               report.metrics.responseTimes.deciles[8] ? (
                 <StatCard
                   icon={Clock}
-                  iconColor="primary"
-                  className="mr-3"
+                  color="primary"
                   stat={formatDuration(report.metrics.responseTimes.deciles[8])}
                   label="90% of requests are faster"
                 />
               ) : (
                 <StatCard
                   icon={Clock}
-                  iconColor="primary"
-                  className="mr-3"
+                  color="primary"
                   stat="Deciles"
                   label="Not enough data"
                 />
               )}
               <StatCard
                 icon={Target}
-                iconColor="purple"
-                className="mr-3"
+                color="base-purple"
                 stat={formatDuration(
                   report.metrics.responseTimes.standardDeviation
                 )}
@@ -85,8 +79,7 @@ export const Summary: FC<IProps> = ({ report, appError, error }) => {
               />
               <StatCard
                 icon={CheckCircle}
-                iconColor="get"
-                className="mr-3"
+                color="base-green"
                 stat={formatSuccesfulRequestsPercentage({
                   recordsNb: report.metrics.records.length,
                   failuresNb: report.metrics.requestFailures.length,
