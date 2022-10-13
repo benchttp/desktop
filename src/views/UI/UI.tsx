@@ -33,7 +33,7 @@ import {
   TextInput,
   Toggle,
 } from '@/components/Inputs'
-import { StatCard } from '@/views/Run/internal/ResultDisplay/internal/StatCard'
+import { StatCard } from '@/views/Run/internal/Summary/internal/StatCard'
 
 import { TestResult } from '../Run/internal/ResultDisplay/internal/ReportSection/internal/components'
 
