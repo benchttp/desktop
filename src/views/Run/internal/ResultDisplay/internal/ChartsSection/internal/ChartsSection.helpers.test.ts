@@ -17,7 +17,7 @@ test('getResponseTimeDistribution()', () => {
   ]
   const maxTime = 10000000
 
-  expect(getResponseTimeDistribution(responseTimes, maxTime)).toStrictEqual([
+  expect(getResponseTimeDistribution(responseTimes, maxTime)).toEqual([
     { xAxis: '1.00', yAxis: 1 },
     { xAxis: '2.00', yAxis: 1 },
     { xAxis: '3.00', yAxis: 1 },
