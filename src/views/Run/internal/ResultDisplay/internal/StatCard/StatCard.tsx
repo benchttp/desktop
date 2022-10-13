@@ -17,7 +17,7 @@ export const StatCard: FC<IProps> = ({
     <div className={classNames.join(' ')}>
       <div>
         <div>{icon && createIcon({ icon: icon })}</div>
-        <div></div>
+        <div className="circle-background"></div>
       </div>
       <div>
         <div>
