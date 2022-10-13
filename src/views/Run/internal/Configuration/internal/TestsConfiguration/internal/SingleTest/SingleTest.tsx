@@ -12,6 +12,7 @@ import {
 } from '@/components/Inputs'
 
 import {
+  getClassName,
   handleDurationTargetChange,
   handleFieldChange,
   handleNameChange,
@@ -22,6 +23,7 @@ import {
 } from './internal/SingleTest.helpers'
 
 interface IProps {
+  className?: string | undefined
   test: ConfigurationTestCase
   enabled: boolean
   tests: ConfigurationTestCase[]
@@ -30,6 +32,7 @@ interface IProps {
 }
 
 export const SingleTest: FC<IProps> = ({
+  className,
   test,
   index,
   onChange,
@@ -37,7 +40,7 @@ export const SingleTest: FC<IProps> = ({
   enabled,
 }) => {
   return (
-    <>
+    <div className={getClassName(className)}>
       <TextInput
         data-testid={`change-name-test-${index}`}
         id={`test-name-${index}`}
@@ -98,6 +101,6 @@ export const SingleTest: FC<IProps> = ({
           invalid={!isValidTestTarget(test.target, test.field)}
         />
       )}
-    </>
+    </div>
   )
 }

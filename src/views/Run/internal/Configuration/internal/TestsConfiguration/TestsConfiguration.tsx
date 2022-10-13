@@ -27,6 +27,7 @@ export const TestsConfiguration: FC<IProps> = ({
       {tests.map((test, index) => (
         <div key={`test-${index}`} className="f f-ai-center mb-4">
           <SingleTest
+            className={s['test-configuration__test']}
             test={test}
             index={index}
             onChange={onChange}

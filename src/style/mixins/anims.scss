@@ -1,3 +1,6 @@
+@use 'sass:map';
+@use '../variables/spaces.scss';
+
 @mixin spinningButton {
   svg {
     line {
@@ -14,6 +17,23 @@
           transform: rotate(90deg);
         }
       }
+    }
+  }
+}
+
+@mixin slideIn {
+  animation: slideIn 0.8s ease-out forwards;
+
+  @keyframes slideIn {
+    0% {
+      opacity: 0;
+      transform: translateX(-#{map.get(spaces.$spaces, '1')});
+    }
+    50% {
+      transform: translateX(0);
+    }
+    100% {
+      opacity: 1;
     }
   }
 }

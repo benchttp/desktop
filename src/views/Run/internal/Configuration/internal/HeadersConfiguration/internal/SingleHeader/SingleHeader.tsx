@@ -4,6 +4,7 @@ import { TextInput } from '@/components/Inputs'
 
 import s from './internal/single-header.module.scss'
 import {
+  getClassName,
   handleChangeHeaderKey,
   handleChangeHeaderValue,
   isValidHeader,
@@ -11,14 +12,20 @@ import {
 import { Header } from './internal/SingleHeader.types'
 
 interface IProps {
+  className?: string | undefined
   header: Header
   index: number
   onChange: (value: Header) => void
 }
 
-export const SingleHeader: FC<IProps> = ({ header, index, onChange }) => {
+export const SingleHeader: FC<IProps> = ({
+  header,
+  index,
+  onChange,
+  className,
+}) => {
   return (
-    <div key={`header-${index}`} className="f f-direction-row f-ai-center">
+    <div key={`header-${index}`} className={getClassName(className)}>
       <TextInput
         data-testid={`change-key-header-${index}`}
         className="mr-3"

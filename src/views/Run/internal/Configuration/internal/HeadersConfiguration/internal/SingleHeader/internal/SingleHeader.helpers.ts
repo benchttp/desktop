@@ -2,6 +2,16 @@ import { ChangeEventHandler } from 'react'
 
 import { Header } from './SingleHeader.types'
 
+export const getClassName = (className: string | undefined): string => {
+  const classNames: string[] = ['f', 'f-ai-center']
+
+  if (className) {
+    classNames.push(className)
+  }
+
+  return classNames.join(' ')
+}
+
 export const handleChangeHeaderKey = (
   header: Header,
   onChange: (header: Header) => void

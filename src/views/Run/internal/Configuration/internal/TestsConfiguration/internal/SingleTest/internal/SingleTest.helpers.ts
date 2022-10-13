@@ -9,6 +9,16 @@ import {
 } from '@/benchttp/metrics'
 import { parseInteger } from '@/tools/parsers'
 
+export const getClassName = (className: string | undefined): string => {
+  const classNames: string[] = ['f', 'f-ai-center']
+
+  if (className) {
+    classNames.push(className)
+  }
+
+  return classNames.join(' ')
+}
+
 export const isValidTestField = (field: string) => isMetricField(field)
 
 export const handleNameChange = (
