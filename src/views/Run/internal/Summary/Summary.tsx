@@ -96,8 +96,8 @@ export const Summary: FC<IProps> = ({ report, appError, error }) => {
           </div>
         </>
       )}
-      {appError && <AppError error={appError.message} />}
-      {error && <RunErrorDisplay errors={error.errors} />}
+      {appError && <AppError className="mt-3" error={appError.message} />}
+      {error && <RunErrorDisplay className="mt-3" errors={error.errors} />}
     </div>
   )
 }

@@ -25,13 +25,9 @@ export const ResultDisplay: React.FC<IProps> = ({
     {progress && !progress.done && (
       <ProgressSection {...progress} stop={stop} />
     )}
-    {report && (
-      <>
-        <ReportSection report={report} />
-      </>
-    )}
-    {appError && <AppError error={appError.message} />}
-    {error && <RunErrorDisplay errors={error.errors} />}
+    {report && <ReportSection report={report} />}
+    {appError && <AppError className="mt-3" error={appError.message} />}
+    {error && <RunErrorDisplay className="mt-3" errors={error.errors} />}
   </div>
 )
 
