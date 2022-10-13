@@ -1,12 +1,9 @@
 import { ResponsiveBarCanvas } from '@nivo/bar'
 import { FC } from 'react'
 
-import { getClassNames } from './internal/BarChart.helpers'
-import { IProps } from './internal/BarChart.types'
+import { IBarChartEntry } from './internal/BarChart.types'
 
-export const BarChart: FC<IProps> = ({ className, data, xLegend, yLegend }) => {
-  const classNames = getClassNames({ className })
-
+export const BarChart: FC<IBarChartEntry> = ({ data, xLegend, yLegend }) => {
   const commonProps = {
     margin: { left: 60, bottom: 60 },
   }
@@ -22,7 +19,7 @@ export const BarChart: FC<IProps> = ({ className, data, xLegend, yLegend }) => {
   }
 
   return (
-    <div className={classNames.join(' ')} style={{ height: '350px' }}>
+    <div style={{ height: '350px' }}>
       <ResponsiveBarCanvas
         {...commonProps}
         colors="#f1b445"
