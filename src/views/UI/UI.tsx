@@ -677,47 +677,47 @@ export const UI: FC = () => {
         <Typography className="mb-4" element="h1">
           Results
         </Typography>
-        <div className="g f-direction-row mb-3">
+        <div className="f f-ai-center mb-3">
           <StatCard
             icon={ChevronsUp}
-            iconColor="blue"
+            color="base-blue"
             className="mr-3"
             stat="100ms"
             label="fastest response"
           />
           <StatCard
             icon={ChevronsDown}
-            iconColor="orange"
+            color="base-orange"
             className="mr-3"
             stat="250ms"
             label="slowest response"
           />
           <StatCard
             icon={BarChart2}
-            iconColor="base-white"
+            color="base-white"
             className="mr-3"
             stat="135ms"
             label="average response time"
           />
         </div>
-        <div className="g f-direction-row f-ai-end mb-3">
+        <div className="f f-ai-center mb-3">
           <StatCard
             icon={Clock}
-            iconColor="primary"
+            color="primary"
             className="mr-3"
             stat="150ms"
             label="90% of requests are faster"
           />
           <StatCard
             icon={Target}
-            iconColor="purple"
+            color="base-purple"
             className="mr-3"
             stat="50ms"
             label="standard deviation"
           />
           <StatCard
             icon={CheckCircle}
-            iconColor="get"
+            color="base-green"
             className="mr-3"
             stat="92%"
             label="of requests were successful"
