@@ -1,11 +1,16 @@
 import { FC } from 'react'
-import { CheckCircle, Settings } from 'react-feather'
+import { CheckCircle, PieChart, Settings } from 'react-feather'
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 
 import { Tab } from '@/components'
 
-import { Configuration, ResultDisplay } from './internal/components'
-import { useRunStream, useConfiguration } from './internal/Run.helpers'
+import { Configuration, ResultDisplay, Summary } from './internal/components'
+import {
+  useRunStream,
+  useConfiguration,
+  getTestResultsDisabled,
+  getSummaryDisabled,
+} from './internal/Run.helpers'
 
 export const Run: FC = () => {
   const { start, stop, progress, report, error, appError } = useRunStream()
@@ -24,9 +29,22 @@ export const Run: FC = () => {
           iconStart={Settings}
         />
         <Tab
+          className="mr-3"
           text="Tests results"
           link="tests-results"
           iconStart={CheckCircle}
+          disabled={getTestResultsDisabled({
+            report,
+            progress,
+            error,
+            appError,
+          })}
+        />
+        <Tab
+          text="Summary"
+          link="summary"
+          iconStart={PieChart}
+          disabled={getSummaryDisabled({ report, error, appError })}
         />
       </div>
 
@@ -45,7 +63,6 @@ export const Run: FC = () => {
             />
           }
         />
-
         <Route
           path="tests-results"
           element={
@@ -56,6 +73,12 @@ export const Run: FC = () => {
               appError={appError}
               stop={stop}
             />
+          }
+        />
+        <Route
+          path="summary"
+          element={
+            <Summary report={report} error={error} appError={appError} />
           }
         />
       </Routes>

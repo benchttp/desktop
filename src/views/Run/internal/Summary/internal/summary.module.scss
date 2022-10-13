@@ -1,0 +1,10 @@
+@use 'sass:map';
+@use '../../../../../style/variables/spaces.scss';
+
+.summary {
+  &__metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: map.get(spaces.$spaces, '2');
+  }
+}

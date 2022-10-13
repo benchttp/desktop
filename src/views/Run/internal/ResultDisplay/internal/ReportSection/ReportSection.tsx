@@ -11,23 +11,28 @@ import {
 } from './internal/ReportSection.helpers'
 
 export interface IProps {
+  className?: string
   report: RunReport
 }
 
-export const ReportSection: FC<IProps> = ({ report }) => {
+export const ReportSection: FC<IProps> = ({ report, className }) => {
   const failedTestCount: number = getFailedTestCount(report.tests.results)
 
   return (
-    <div>
+    <div className={className}>
       <div className="f f-ai-center mb-4">
         <Typography className="mr-1" element="h1">
           Status:
         </Typography>
-        <Tag text={`Test ${report.tests.pass ? 'passed' : 'failed'}`} />
+        <Tag
+          color={report.tests.pass ? 'base-green' : 'base-red'}
+          text={`Test ${report.tests.pass ? 'passed' : 'failed'}`}
+        />
       </div>
-      <Typography element="p" size="h4" className="mb-4">
+      <Typography element="p" weight="medium" className="mb-4">
         {report.tests.pass ? report.tests.results.length : failedTestCount}/
-        {report.tests.results.length} tests{' '}
+        {report.tests.results.length} test
+        {report.tests.results.length > 1 ? 's' : ''}{' '}
         {report.tests.pass ? 'passed' : 'failed'}
       </Typography>
       {report.tests.results.map((result, index) => (

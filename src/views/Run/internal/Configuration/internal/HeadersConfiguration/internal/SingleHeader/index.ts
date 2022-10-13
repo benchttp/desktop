@@ -1,0 +1,1 @@
+export { SingleHeader } from './SingleHeader'

@@ -1,19 +1,17 @@
 import { FC } from 'react'
 import { PlusSquare, Trash } from 'react-feather'
 
-import { Button } from '@/components'
-import { TextInput } from '@/components/Inputs'
+import { Button, IconButton } from '@/components'
 
+import { SingleHeader } from './internal/components'
+import s from './internal/headers-configuration.module.scss'
 import {
   arrayifyHeaders,
   handleAddHeader,
   handleChangeHeader,
-  handleChangeHeaderKey,
-  handleChangeHeaderValue,
   handleRemoveHeader,
-  isValidHeader,
 } from './internal/HeadersConfiguration.helpers'
-import { Header, Headers } from './internal/HeadersConfiguration.types'
+import { Headers } from './internal/HeadersConfiguration.types'
 
 interface IProps {
   headers: Headers
@@ -24,63 +22,40 @@ export const HeadersConfiguration: FC<IProps> = ({ headers, onChange }) => {
   const arrayHeaders = arrayifyHeaders(headers)
 
   return (
-    <div className="f f-direction-column f-ai-start mt-3 mb-3">
+    <div className="f f-direction-column f-ai-start mt-3">
       {arrayHeaders.map((header, index) => (
-        <div className="f f-ai-center mb-3" key={`header-value-${index}`}>
+        <div className="f f-ai-center mb-4" key={`header-value-${index}`}>
           <SingleHeader
+            className={s['header-configuration__header']}
             header={header}
-            onChange={handleChangeHeader(arrayHeaders, index, onChange)}
+            onChange={handleChangeHeader({
+              headers: arrayHeaders,
+              index,
+              onChange,
+            })}
             index={index}
             key={index}
           />
-          <Trash
+          <IconButton
+            className="ml-3"
+            icon={Trash}
             data-testid={`remove-header-${index}`}
-            onClick={handleRemoveHeader(arrayHeaders, index, onChange)}
-            className="mr-3"
+            onClick={handleRemoveHeader({
+              headers: arrayHeaders,
+              index,
+              onChange,
+            })}
           />
         </div>
       ))}
       <Button
+        className={s['header-configuration__add-button']}
         data-testid="add-header"
         text="Add a new header"
         small
         iconEnd={PlusSquare}
-        onClick={handleAddHeader(arrayHeaders, onChange)}
+        onClick={handleAddHeader({ headers: arrayHeaders, onChange })}
         style="outlined"
-      />
-    </div>
-  )
-}
-
-interface IPropsSingleHeader {
-  header: Header
-  index: number
-  onChange: (value: Header) => void
-}
-
-const SingleHeader: FC<IPropsSingleHeader> = ({ header, index, onChange }) => {
-  return (
-    <div key={`header-${index}`} className="f f-ai-center">
-      <TextInput
-        data-testid={`change-key-header-${index}`}
-        className="mr-3"
-        id={`header-${index}-key`}
-        value={header.key}
-        onChange={handleChangeHeaderKey(header, onChange)}
-        label="Key"
-        invalid={!isValidHeader(header)}
-        required
-      />
-      <TextInput
-        data-testid={`change-value-header-${index}`}
-        className="mr-3"
-        id={`header-${index}-values`}
-        value={header.value}
-        onChange={handleChangeHeaderValue(header, onChange)}
-        label="Values"
-        hint="Accept many if comma separated"
-        invalid={!isValidHeader(header)}
-        required
       />
     </div>
   )

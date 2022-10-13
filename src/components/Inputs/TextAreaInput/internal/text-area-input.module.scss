@@ -9,10 +9,23 @@
   padding: map.get(spaces.$spaces, '2');
   outline: none;
   color: map.get(colors.$colors, 'base-white');
+  resize: none;
   transition: border-color 0.2s ease-out;
 
   &:hover,
   &:focus {
     border-color: map.get(colors.$colors, 'base-white');
+  }
+
+  &--horizontal {
+    resize: horizontal;
+  }
+
+  &--vertical {
+    resize: vertical;
+  }
+
+  &--both {
+    resize: both;
   }
 }

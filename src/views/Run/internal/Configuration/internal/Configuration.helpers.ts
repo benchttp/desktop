@@ -1,4 +1,4 @@
-import { useReducer } from 'react'
+import { FormEvent, useReducer } from 'react'
 
 import {
   RunConfiguration,
@@ -22,14 +22,14 @@ export interface ConfigurationState {
 
 const initState = (): ConfigurationState => ({
   method: 'GET',
-  url: 'http://example.com',
+  url: '',
   headers: {},
   body: '',
-  requests: 1000,
-  concurrency: 10,
+  requests: 0,
+  concurrency: 0,
   interval: '0ms',
-  requestTimeout: '1000ms',
-  globalTimeout: '30000ms',
+  requestTimeout: '0ms',
+  globalTimeout: '0ms',
   tests: [],
   testsEnabled: false,
 })
@@ -94,5 +94,12 @@ export function useConfiguration() {
         tests: state.testsEnabled ? state.tests : undefined,
       }
     },
+  }
+}
+
+export const handleSubmit = (onSubmit: () => void) => {
+  return (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    onSubmit()
   }
 }

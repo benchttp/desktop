@@ -1,6 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { expect, test } from 'vitest'
 
+import { sleep } from '@/tools/utilities'
+
 import { HeadersConfiguration } from './HeadersConfiguration'
 import { Headers } from './internal/HeadersConfiguration.types'
 
@@ -56,11 +58,12 @@ test('add a header (happy path)', () => {
   expect(input.changeValue(0).getAttribute('aria-invalid')).not.toBe('true')
 })
 
-test('remove a header', () => {
+test('remove a header', async () => {
   const { actual, button, rerender } = setup()
   fireEvent.click(button.addHeader)
   rerender()
   fireEvent.click(button.removeHeader(0))
+  await sleep(500)
   rerender()
   expect(actual.value).toEqual({})
 })

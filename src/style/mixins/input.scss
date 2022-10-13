@@ -10,7 +10,7 @@
   outline: none;
   border: none;
   box-shadow: 0 1px 0 0 map.get(colors.$colors, 'grey-light');
-  transition: box-shadow 0.2s ease-out;
+  transition: box-shadow 0.2s ease-out, color 0.2s ease-out;
 
   &:focus,
   &:hover {
@@ -31,6 +31,8 @@
 }
 
 @mixin label {
+  transition: color 0.2s ease-out;
+
   &--disabled {
     color: map.get(colors.$colors, 'grey-light');
   }
