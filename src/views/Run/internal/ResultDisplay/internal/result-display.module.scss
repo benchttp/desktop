@@ -1,0 +1,7 @@
+@use '../../../../../style/mixins/anims.scss';
+
+.result-display {
+  &__dots {
+    @include anims.jumpingDots;
+  }
+}
