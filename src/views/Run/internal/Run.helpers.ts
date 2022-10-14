@@ -49,15 +49,17 @@ function reducer(state: RunState, [type, data]: Mutation) {
   throw new Error(`Unknown action type: ${type.toString()}`)
 }
 
+const getNewRunStreamer = (dispatch: (v: Mutation) => void) => {
+  return new RunStreamer(address, {
+    onError: (err) => dispatch(['ERROR', err]),
+    onStream: (stream) => dispatch(['STREAM', stream]),
+  })
+}
+
 export function useRunStream() {
   const [state, dispatch] = useReducer(reducer, initState())
 
-  const stream = useRef(
-    new RunStreamer(address, {
-      onError: (err) => dispatch(['ERROR', err]),
-      onStream: (stream) => dispatch(['STREAM', stream]),
-    })
-  )
+  const stream = useRef(getNewRunStreamer(dispatch))
 
   return {
     ...state,
@@ -67,6 +69,13 @@ export function useRunStream() {
      * call to start, they will be reset and the run will start over.
      */
     start: (config: RunConfiguration) => {
+      // HACK the stream may be in a corrupted state:
+      // "ReadableStreamDefaultController is not in a state where it can be closed". See issue #13.
+      // This error will be caught in `appError`. Reset here for next run if it happens.
+      if (state.appError !== null) {
+        stream.current = getNewRunStreamer(dispatch)
+      }
+
       if (isStarted(state)) {
         stream.current.cancel()
         dispatch(['RESET'])
