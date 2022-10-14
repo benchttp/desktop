@@ -46,7 +46,11 @@ export const TextInput: FC<IProps & TestingProps> = ({
             </Typography>
           </label>
         )}
-        {hint && <Tooltip className="ml-2" icon={AlertCircle} text={hint} />}
+        {hint && (
+          <Tooltip className="ml-2" icon={AlertCircle}>
+            {hint}
+          </Tooltip>
+        )}
       </div>
       <input
         className={`${s['text-input__input']} pb-2`}
