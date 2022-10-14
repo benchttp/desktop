@@ -52,6 +52,7 @@ const ProgressSection: React.FC<RunProgress & { stop: () => false | void }> = ({
     <div>
       <ProgressBar max={maxCount} value={doneCount} />
       <Typography className="mt-2 mb-5">
+        Timeout in:{' '}
         {applyThreshold(0)(nanosecondsToSeconds(timeout - elapsed)).toFixed(0)}s
       </Typography>
     </div>
