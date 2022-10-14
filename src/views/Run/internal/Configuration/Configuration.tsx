@@ -62,21 +62,23 @@ export const Configuration: FC<IProps> = ({ state, setState, onSubmit }) => {
       <Typography element="h1" className="mb-4">
         Configuration
       </Typography>
-      <div className="mb-5">
+      <div className={`${s['configuration__config-wrapper']} mb-5`}>
         <div className="f f-align-center mb-5">
-          <URLInput
-            className="mr-3"
-            id="url"
-            value={state.url}
-            onChange={(v) => setState({ url: v })}
-            label="URL"
-            required
-          />
           <HTTPMethodSelect
+            className="mr-3"
             id="method"
             value={state.method}
             onChange={(v) => setState({ method: v })}
             label="Method"
+          />
+          <URLInput
+            className={s['configuration__url-input']}
+            id="url"
+            value={state.url}
+            onChange={(v) => setState({ url: v })}
+            label="URL"
+            placeholder="https://example.com"
+            required
           />
         </div>
         <div className="f f-ai-center">
