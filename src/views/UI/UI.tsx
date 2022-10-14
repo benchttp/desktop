@@ -562,6 +562,10 @@ export const UI: FC = () => {
           <Tooltip icon={AlertCircle} className="mr-3">
             Tooltip text
           </Tooltip>
+          <Tooltip icon={AlertCircle} className="mr-3">
+            <a href="#">Go top</a>
+            <p>blabla</p>
+          </Tooltip>
         </div>
       </div>
       <div className="mb-4">
