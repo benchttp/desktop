@@ -4,6 +4,7 @@
 
 @mixin input {
   appearance: none;
+  -webkit-appearance: none;
   background: transparent;
   width: 100%;
   color: map.get(colors.$colors, 'base-white');
