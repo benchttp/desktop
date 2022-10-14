@@ -41,7 +41,7 @@
       }
     }
 
-    &:hover {
+    &:hover:not(:disabled) {
       svg {
         polygon {
           transform: scale(1.15);
