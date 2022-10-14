@@ -52,9 +52,12 @@ export const TextInput: FC<IProps & TestingProps> = ({
           </label>
         )}
         {hint && (
-          <Tooltip className="ml-2" icon={AlertCircle}>
-            {hint}
-          </Tooltip>
+          <Tooltip
+            width={150}
+            className="ml-2"
+            icon={AlertCircle}
+            content={hint}
+          />
         )}
       </div>
       <input

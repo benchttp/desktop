@@ -32,3 +32,8 @@ h3 {
 h4 {
   @include font-config.h4-font-config;
 }
+
+a {
+  color: map.get(colors.$colors, 'primary');
+  font-weight: 500;
+}

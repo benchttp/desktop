@@ -1,0 +1,9 @@
+@use 'sass:map';
+@use 'sass:math';
+@use '../../../../../../../../../style/variables/spaces.scss';
+
+.single-test {
+  &__doc-link-icon {
+    margin-left: math.div(map.get(spaces.$spaces, '1'), 2);
+  }
+}

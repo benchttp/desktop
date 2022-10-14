@@ -7,13 +7,13 @@ import { createIcon, getClassName } from './internal/Tooltip.helpers'
 import s from './internal/tooltip.module.scss'
 
 export interface IProps {
-  children: ReactNode
   icon: Icon
   className?: string
+  content: ReactNode
   width?: number
 }
 
-export const Tooltip: FC<IProps> = ({ children, icon, className, width }) => {
+export const Tooltip: FC<IProps> = ({ icon, content, className, width }) => {
   return (
     <div className={getClassName(className)}>
       <div
@@ -21,7 +21,7 @@ export const Tooltip: FC<IProps> = ({ children, icon, className, width }) => {
         className={`${s['tooltip__popup']} p-2`}
       >
         <Typography size="small" color="grey-dark">
-          {children}
+          {content}
         </Typography>
       </div>
       {icon && createIcon(icon)}
