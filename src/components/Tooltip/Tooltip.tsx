@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import { Icon } from 'react-feather'
 
 import { Typography } from '@/components'
@@ -7,13 +7,13 @@ import { createIcon, getClassName } from './internal/Tooltip.helpers'
 import s from './internal/tooltip.module.scss'
 
 export interface IProps {
+  children: ReactNode
   icon: Icon
   className?: string
-  text: string
   width?: number
 }
 
-export const Tooltip: FC<IProps> = ({ icon, text, className, width }) => {
+export const Tooltip: FC<IProps> = ({ children, icon, className, width }) => {
   return (
     <div className={getClassName(className)}>
       <div
@@ -21,7 +21,7 @@ export const Tooltip: FC<IProps> = ({ icon, text, className, width }) => {
         className={`${s['tooltip__popup']} p-2`}
       >
         <Typography size="small" color="grey-dark">
-          {text}
+          {children}
         </Typography>
       </div>
       {icon && createIcon(icon)}
