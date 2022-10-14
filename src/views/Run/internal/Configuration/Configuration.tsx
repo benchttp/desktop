@@ -150,7 +150,7 @@ export const Configuration: FC<IProps> = ({ state, setState, onSubmit }) => {
         enabled={state.testsEnabled}
       />
 
-      <div className="f f-ai-center f-jc-end">
+      <div className="fix bot-3 right-3">
         <Button
           disabled={!formValid}
           text="Run test"
