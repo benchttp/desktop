@@ -67,7 +67,7 @@ export function useRunStream() {
      * call to start, they will be reset and the run will start over.
      */
     start: (config: RunConfiguration) => {
-      if (!isPristine(state)) {
+      if (hasRunStarted(state)) {
         stream.current.cancel()
         dispatch(['RESET'])
       }
@@ -78,8 +78,8 @@ export function useRunStream() {
   }
 }
 
-const isPristine = (state: RunState): boolean =>
-  state.progress === null || state.report === null || state.error === null
+const hasRunStarted = (state: RunState): boolean =>
+  state.progress !== null || state.report !== null || state.error !== null
 
 export const getTestResultsDisabled = ({
   report,
