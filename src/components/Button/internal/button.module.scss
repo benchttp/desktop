@@ -26,20 +26,20 @@
     background: map.get(colors.$colors, 'primary');
     box-shadow: 0 0 0 1.5px map.get(colors.$colors, 'primary');
 
-    &:active {
-      color: rgba(map.get(colors.$colors, 'base-white'), 0.5);
-      box-shadow: 0 0 0 1.5px rgba(map.get(colors.$colors, 'primary'), 0.5);
-      background: rgba(map.get(colors.$colors, 'primary'), 0.5);
-
-      &:hover {
+    &:not(:disabled) {
+      &:active {
         color: rgba(map.get(colors.$colors, 'base-white'), 0.5);
         box-shadow: 0 0 0 1.5px rgba(map.get(colors.$colors, 'primary'), 0.5);
         background: rgba(map.get(colors.$colors, 'primary'), 0.5);
-      }
-    }
 
-    &:hover {
-      &:not(:disabled) {
+        &:hover {
+          color: rgba(map.get(colors.$colors, 'base-white'), 0.5);
+          box-shadow: 0 0 0 1.5px rgba(map.get(colors.$colors, 'primary'), 0.5);
+          background: rgba(map.get(colors.$colors, 'primary'), 0.5);
+        }
+      }
+
+      &:hover {
         box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'primary');
 
         &:active {
@@ -54,14 +54,14 @@
     color: map.get(colors.$colors, 'grey');
     box-shadow: 0 0 0 1.5px map.get(colors.$colors, 'base-white');
 
-    &:active {
-      background: rgba(map.get(colors.$colors, 'base-white'), 0.5);
-      color: rgba(map.get(colors.$colors, 'grey'), 0.5);
-      box-shadow: 0 0 0 1.5px rgba(map.get(colors.$colors, 'base-white'), 0.5);
-    }
+    &:not(:disabled) {
+      &:active {
+        background: rgba(map.get(colors.$colors, 'base-white'), 0.5);
+        color: rgba(map.get(colors.$colors, 'grey'), 0.5);
+        box-shadow: 0 0 0 1.5px rgba(map.get(colors.$colors, 'base-white'), 0.5);
+      }
 
-    &:hover {
-      &:not(:disabled) {
+      &:hover {
         box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'base-white');
 
         &:active {
@@ -77,13 +77,13 @@
     color: map.get(colors.$colors, 'primary');
     box-shadow: 0 0 0 1.5px map.get(colors.$colors, 'primary');
 
-    &:active {
-      color: rgba(map.get(colors.$colors, 'primary'), 0.5);
-      box-shadow: 0 0 0 1.5px rgba(map.get(colors.$colors, 'primary'), 0.5);
-    }
+    &:not(:disabled) {
+      &:active {
+        color: rgba(map.get(colors.$colors, 'primary'), 0.5);
+        box-shadow: 0 0 0 1.5px rgba(map.get(colors.$colors, 'primary'), 0.5);
+      }
 
-    &:hover {
-      &:not(:disabled) {
+      &:hover {
         box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'primary');
 
         &:active {
@@ -98,13 +98,13 @@
     color: map.get(colors.$colors, 'base-white');
     box-shadow: 0 0 0 1.5px map.get(colors.$colors, 'base-white');
 
-    &:active {
-      color: rgba(map.get(colors.$colors, 'base-white'), 0.5);
-      box-shadow: 0 0 0 1.5px rgba(map.get(colors.$colors, 'base-white'), 0.5);
-    }
+    &:not(:disabled) {
+      &:active {
+        color: rgba(map.get(colors.$colors, 'base-white'), 0.5);
+        box-shadow: 0 0 0 1.5px rgba(map.get(colors.$colors, 'base-white'), 0.5);
+      }
 
-    &:hover {
-      &:not(:disabled) {
+      &:hover {
         box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'base-white');
 
         &:active {

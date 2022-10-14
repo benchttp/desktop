@@ -41,7 +41,7 @@ const ProgressSection: React.FC<RunProgress & { stop: () => false | void }> = ({
 }) => (
   <section>
     <Typography element="h2" className="mb-4 f f-ai-center">
-      Recording Progress{' '}
+      Running in progress{' '}
       <div className={`${s['result-display__dots']} ml-2`}>
         <span>.</span>
         <span>.</span>

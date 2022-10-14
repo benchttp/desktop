@@ -9,7 +9,9 @@ interface IProps {
 }
 
 export const ProgressBar: FC<IProps> = ({ max, value }) => {
-  const percentage = (value: number, max: number) => (100 * value) / max
+  const percentage = (value: number, max: number) =>
+    Math.round((100 * value) / max)
+
   return (
     <div className={s['container']}>
       <Typography className={s['percentage']}>

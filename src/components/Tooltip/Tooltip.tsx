@@ -16,6 +16,7 @@ export interface IProps {
 export const Tooltip: FC<IProps> = ({ icon, content, className, width }) => {
   return (
     <div className={getClassName(className)}>
+      {icon && createIcon(icon)}
       <div
         style={{ width: width || 100 }}
         className={`${s['tooltip__popup']} p-2`}
@@ -24,7 +25,6 @@ export const Tooltip: FC<IProps> = ({ icon, content, className, width }) => {
           {content}
         </Typography>
       </div>
-      {icon && createIcon(icon)}
     </div>
   )
 }

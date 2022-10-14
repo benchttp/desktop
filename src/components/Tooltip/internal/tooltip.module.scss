@@ -7,15 +7,15 @@
 .tooltip {
   position: relative;
 
-  &:hover {
-    .tooltip__popup {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
-  }
-
   &__icon {
     cursor: pointer;
+
+    &:hover {
+      & + .tooltip__popup {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+    }
   }
 
   &__popup {

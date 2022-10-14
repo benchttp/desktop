@@ -18,15 +18,15 @@ test('getResponseTimeDistribution()', () => {
   const maxTime = 10000000
 
   expect(getResponseTimeDistribution(responseTimes, maxTime)).toEqual([
-    { xAxis: '1.00', yAxis: 1 },
-    { xAxis: '2.00', yAxis: 1 },
-    { xAxis: '3.00', yAxis: 1 },
-    { xAxis: '4.00', yAxis: 0 },
-    { xAxis: '5.00', yAxis: 3 },
-    { xAxis: '6.00', yAxis: 0 },
-    { xAxis: '7.00', yAxis: 1 },
-    { xAxis: '8.00', yAxis: 1 },
-    { xAxis: '9.00', yAxis: 1 },
-    { xAxis: '10.00', yAxis: 1 },
+    { xAxis: '1', yAxis: 1 },
+    { xAxis: '2', yAxis: 1 },
+    { xAxis: '3', yAxis: 1 },
+    { xAxis: '4', yAxis: 0 },
+    { xAxis: '5', yAxis: 3 },
+    { xAxis: '6', yAxis: 0 },
+    { xAxis: '7', yAxis: 1 },
+    { xAxis: '8', yAxis: 1 },
+    { xAxis: '9', yAxis: 1 },
+    { xAxis: '10', yAxis: 1 },
   ])
 })
