@@ -172,6 +172,7 @@ export const Configuration: FC<IProps> = ({ state, setState, onSubmit }) => {
 
       <div className={getActionClassName(isScrolledBottom)}>
         <Button
+          className={s['configuration__run-btn']}
           disabled={!formValid}
           text="Run test"
           type="submit"

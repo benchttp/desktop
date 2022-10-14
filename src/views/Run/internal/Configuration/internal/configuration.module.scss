@@ -20,4 +20,25 @@
       border-color: map.get(colors.$colors, 'grey-dark');
     }
   }
+
+  &__run-btn {
+    svg {
+      height: 18px;
+      width: 18px;
+
+      polygon {
+        transform: scale(1);
+        transform-origin: 50% 50%;
+        transition: transform 0.2s ease-out;
+      }
+    }
+
+    &:hover {
+      svg {
+        polygon {
+          transform: scale(1.15);
+        }
+      }
+    }
+  }
 }
