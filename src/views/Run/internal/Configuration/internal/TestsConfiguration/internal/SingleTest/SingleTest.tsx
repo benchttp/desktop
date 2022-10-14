@@ -12,6 +12,7 @@ import {
   TextInput,
 } from '@/components/Inputs'
 
+import s from './internal/single-test.module.scss'
 import {
   getClassName,
   handleDurationTargetChange,
@@ -63,14 +64,21 @@ export const SingleTest: FC<IProps> = ({
         disabled={!enabled}
         invalid={!isValidTestField(test.field)}
         hint={
-          <a
-            href="https://github.com/benchttp/engine/wiki/Fields"
-            target="_blank"
-            rel="noreferrer"
-          >
-            See the wiki for possible fields
-            <ExternalLink size={18} />
-          </a>
+          <>
+            Check all available fields in our{' '}
+            <a
+              target="_blank"
+              href="https://github.com/benchttp/engine/wiki/Fields"
+              rel="noreferrer"
+              className="f f-ai-center"
+            >
+              documentation
+              <ExternalLink
+                className={s['single-test__doc-link-icon']}
+                size={14}
+              />
+            </a>
+          </>
         }
         required
       />

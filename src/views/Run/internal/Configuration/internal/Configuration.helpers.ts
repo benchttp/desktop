@@ -1,10 +1,12 @@
-import { FormEvent, useReducer } from 'react'
+import { Dispatch, FormEvent, SetStateAction, useReducer } from 'react'
 
 import {
   RunConfiguration,
   ConfigurationTestCase,
 } from '@/benchttp/configuration'
 import { ExactlyOne } from '@/typing'
+
+import s from './configuration.module.scss'
 
 export interface ConfigurationState {
   method: 'GET'
@@ -25,11 +27,11 @@ const initState = (): ConfigurationState => ({
   url: '',
   headers: {},
   body: '',
-  requests: 0,
-  concurrency: 0,
+  requests: 100,
+  concurrency: 10,
   interval: '0ms',
-  requestTimeout: '0ms',
-  globalTimeout: '0ms',
+  requestTimeout: '5000ms',
+  globalTimeout: '30000ms',
   tests: [],
   testsEnabled: false,
 })
@@ -101,5 +103,40 @@ export const handleSubmit = (onSubmit: () => void) => {
   return (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     onSubmit()
+  }
+}
+
+export const getActionClassName = (isScrolledBottom: boolean): string => {
+  const classNames = [
+    s['configuration__action'],
+    'f',
+    'f-ai-center',
+    'f-jc-end',
+    'p-4',
+  ]
+
+  if (isScrolledBottom) {
+    classNames.push(s['configuration__action--bottom'])
+  }
+
+  return classNames.join(' ')
+}
+
+export const handleScroll = ({
+  isScrolledBottom,
+  setIsScrolledBottom,
+}: {
+  setIsScrolledBottom: Dispatch<SetStateAction<boolean>>
+  isScrolledBottom: boolean
+}): (() => void) => {
+  return () => {
+    if (
+      window.innerHeight + window.pageYOffset >=
+      document.body.offsetHeight - 2
+    ) {
+      setIsScrolledBottom(true)
+    } else if (isScrolledBottom) {
+      setIsScrolledBottom(false)
+    }
   }
 }

@@ -1,0 +1,44 @@
+@use 'sass:map';
+@use '../../../../../style/variables/colors.scss';
+
+.configuration {
+  &__form {
+    padding-bottom: 107.4px;
+  }
+
+  &__action {
+    border-top: 1px solid map.get(colors.$colors, 'grey-light');
+    background: map.get(colors.$colors, 'grey-dark');
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease-out;
+
+    &--bottom {
+      border-color: map.get(colors.$colors, 'grey-dark');
+    }
+  }
+
+  &__run-btn {
+    svg {
+      height: 18px;
+      width: 18px;
+
+      polygon {
+        transform: scale(1);
+        transform-origin: 50% 50%;
+        transition: transform 0.2s ease-out;
+      }
+    }
+
+    &:hover {
+      svg {
+        polygon {
+          transform: scale(1.15);
+        }
+      }
+    }
+  }
+}

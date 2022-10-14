@@ -559,13 +559,7 @@ export const UI: FC = () => {
           Tooltip
         </Typography>
         <div className="f f-direction-row f-ai-end mb-3">
-          <Tooltip icon={AlertCircle} className="mr-3">
-            Tooltip text
-          </Tooltip>
-          <Tooltip icon={AlertCircle} className="mr-3">
-            <a href="#">Go top</a>
-            <p>blabla</p>
-          </Tooltip>
+          <Tooltip icon={AlertCircle} className="mr-3" content="Tooltip text" />
         </div>
       </div>
       <div className="mb-4">
