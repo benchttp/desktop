@@ -52,6 +52,7 @@ export const SingleTest: FC<IProps> = ({
         onChange={handleNameChange(tests, index, onChange)}
         disabled={!enabled}
         invalid={test.name === ''}
+        placeholder="max response time"
         required
       />
       <TextInput
