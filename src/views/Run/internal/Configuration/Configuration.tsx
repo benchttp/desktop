@@ -176,7 +176,7 @@ export const Configuration: FC<IProps> = ({ state, setState, onSubmit }) => {
         <Button
           className={s['configuration__run-btn']}
           disabled={!formValid}
-          text="Run test"
+          text="Launch run"
           type="submit"
           iconEnd={Play}
         />
