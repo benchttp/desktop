@@ -44,7 +44,7 @@ export const Run: FC = () => {
           text="Summary"
           link="summary"
           iconStart={PieChart}
-          disabled={isSummaryDisabled({ report, error, appError })}
+          disabled={isSummaryDisabled({ report, progress, error, appError })}
         />
       </div>
 
