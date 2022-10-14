@@ -46,11 +46,13 @@ const ProgressSection: React.FC<RunProgress & { stop: () => false | void }> = ({
       onClick={() => stop()}
       style="outlined"
       iconEnd={StopCircle}
+      className="mb-3"
     />
-    <p>
+    <div>
       <ProgressBar max={maxCount} value={doneCount} />
-      <br />
-      {((timeout - elapsed) / 1_000_000_000).toFixed(0)}s
-    </p>
+      <Typography className="mt-2 mb-5">
+        Timeout in: {((timeout - elapsed) / 1_000_000_000).toFixed(0)}s
+      </Typography>
+    </div>
   </section>
 )
