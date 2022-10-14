@@ -8,7 +8,8 @@
   border: none;
   border-radius: map.get(spaces.$spaces, '1');
   font-weight: 600;
-  transition: box-shadow 0.15s ease-out, color 0.2s ease-out;
+  transition: box-shadow 0.2s ease-out, color 0.2s ease-out,
+    background 0.2s ease-out;
 
   &:not(:disabled) {
     cursor: pointer;
@@ -25,9 +26,25 @@
     background: map.get(colors.$colors, 'primary');
     box-shadow: 0 0 0 1.5px map.get(colors.$colors, 'primary');
 
+    &:active {
+      color: rgba(map.get(colors.$colors, 'base-white'), 0.5);
+      box-shadow: 0 0 0 1.5px rgba(map.get(colors.$colors, 'primary'), 0.5);
+      background: rgba(map.get(colors.$colors, 'primary'), 0.5);
+
+      &:hover {
+        color: rgba(map.get(colors.$colors, 'base-white'), 0.5);
+        box-shadow: 0 0 0 1.5px rgba(map.get(colors.$colors, 'primary'), 0.5);
+        background: rgba(map.get(colors.$colors, 'primary'), 0.5);
+      }
+    }
+
     &:hover {
       &:not(:disabled) {
         box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'primary');
+
+        &:active {
+          box-shadow: 0 0 0 2.5px rgba(map.get(colors.$colors, 'primary'), 0.5);
+        }
       }
     }
   }
@@ -37,9 +54,20 @@
     color: map.get(colors.$colors, 'grey');
     box-shadow: 0 0 0 1.5px map.get(colors.$colors, 'base-white');
 
+    &:active {
+      background: rgba(map.get(colors.$colors, 'base-white'), 0.5);
+      color: rgba(map.get(colors.$colors, 'grey'), 0.5);
+      box-shadow: 0 0 0 1.5px rgba(map.get(colors.$colors, 'base-white'), 0.5);
+    }
+
     &:hover {
       &:not(:disabled) {
         box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'base-white');
+
+        &:active {
+          box-shadow: 0 0 0 2.5px
+            rgba(map.get(colors.$colors, 'base-white'), 0.5);
+        }
       }
     }
   }
@@ -49,9 +77,18 @@
     color: map.get(colors.$colors, 'primary');
     box-shadow: 0 0 0 1.5px map.get(colors.$colors, 'primary');
 
+    &:active {
+      color: rgba(map.get(colors.$colors, 'primary'), 0.5);
+      box-shadow: 0 0 0 1.5px rgba(map.get(colors.$colors, 'primary'), 0.5);
+    }
+
     &:hover {
       &:not(:disabled) {
         box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'primary');
+
+        &:active {
+          box-shadow: 0 0 0 2.5px rgba(map.get(colors.$colors, 'primary'), 0.5);
+        }
       }
     }
   }
@@ -61,9 +98,19 @@
     color: map.get(colors.$colors, 'base-white');
     box-shadow: 0 0 0 1.5px map.get(colors.$colors, 'base-white');
 
+    &:active {
+      color: rgba(map.get(colors.$colors, 'base-white'), 0.5);
+      box-shadow: 0 0 0 1.5px rgba(map.get(colors.$colors, 'base-white'), 0.5);
+    }
+
     &:hover {
       &:not(:disabled) {
         box-shadow: 0 0 0 2.5px map.get(colors.$colors, 'base-white');
+
+        &:active {
+          box-shadow: 0 0 0 2.5px
+            rgba(map.get(colors.$colors, 'base-white'), 0.5);
+        }
       }
     }
   }
