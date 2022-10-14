@@ -34,6 +34,8 @@ export const ResultDisplay: React.FC<IProps> = ({
 const ProgressSection: React.FC<RunProgress & { stop: () => false | void }> = ({
   doneCount,
   maxCount,
+  elapsed,
+  timeout,
 }) => (
   <section>
     <Typography element="h2" className="mt-3 mb-2">
@@ -46,6 +48,11 @@ const ProgressSection: React.FC<RunProgress & { stop: () => false | void }> = ({
       iconEnd={StopCircle}
       className="mb-3"
     />
-    <ProgressBar max={maxCount} value={doneCount} />
+    <p>
+      <ProgressBar max={maxCount} value={doneCount} />
+      <Typography className="mt-2 mb-5">
+        Timeout in: {((timeout - elapsed) / 1_000_000_000).toFixed(0)}s
+      </Typography>
+    </p>
   </section>
 )
