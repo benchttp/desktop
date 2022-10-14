@@ -1,4 +1,9 @@
-import { ChangeEventHandler, FC, HTMLInputTypeAttribute } from 'react'
+import {
+  ChangeEventHandler,
+  FC,
+  HTMLInputTypeAttribute,
+  ReactNode,
+} from 'react'
 import { AlertCircle } from 'react-feather'
 
 import { Tooltip } from '@/components'
@@ -17,7 +22,7 @@ interface IProps {
   disabled?: boolean
   placeholder?: string
   type?: HTMLInputTypeAttribute
-  hint?: string
+  hint?: ReactNode
   invalid?: boolean
   required?: boolean
 }

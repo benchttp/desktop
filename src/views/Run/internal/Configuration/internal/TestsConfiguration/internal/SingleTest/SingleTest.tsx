@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { ExternalLink } from 'react-feather'
 
 import {
   ConfigurationTestCase,
@@ -61,6 +62,16 @@ export const SingleTest: FC<IProps> = ({
         onChange={handleFieldChange(tests, index, onChange)}
         disabled={!enabled}
         invalid={!isValidTestField(test.field)}
+        hint={
+          <a
+            href="https://github.com/benchttp/engine/wiki/Fields"
+            target="_blank"
+            rel="noreferrer"
+          >
+            See the wiki for possible fields
+            <ExternalLink size={18} />
+          </a>
+        }
         required
       />
       <SelectInput
