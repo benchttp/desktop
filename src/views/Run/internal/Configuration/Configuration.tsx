@@ -17,7 +17,10 @@ import {
   ConfigurationState,
   ConfigurationField,
   handleSubmit,
+  getActionClassName,
+  handleScroll,
 } from './internal/Configuration.helpers'
+import s from './internal/configuration.module.scss'
 
 interface IProps {
   state: ConfigurationState
@@ -27,6 +30,7 @@ interface IProps {
 
 export const Configuration: FC<IProps> = ({ state, setState, onSubmit }) => {
   const [formValid, setFormValid] = useState(false)
+  const [isScrolledBottom, setIsScrolledBottom] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
 
   useEffect(() => {
@@ -37,8 +41,24 @@ export const Configuration: FC<IProps> = ({ state, setState, onSubmit }) => {
     setFormValid(formRef.current.checkValidity())
   }, [state])
 
+  useEffect(() => {
+    const scrollListener = handleScroll({
+      isScrolledBottom,
+      setIsScrolledBottom,
+    })
+    window.addEventListener('scroll', scrollListener)
+
+    return () => {
+      window.removeEventListener('scroll', scrollListener)
+    }
+  }, [isScrolledBottom])
+
   return (
-    <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className={s['configuration__form']}
+      ref={formRef}
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <Typography element="h1" className="mb-4">
         Configuration
       </Typography>
@@ -150,7 +170,7 @@ export const Configuration: FC<IProps> = ({ state, setState, onSubmit }) => {
         enabled={state.testsEnabled}
       />
 
-      <div className="f f-ai-center f-jc-end">
+      <div className={getActionClassName(isScrolledBottom)}>
         <Button
           disabled={!formValid}
           text="Run test"
