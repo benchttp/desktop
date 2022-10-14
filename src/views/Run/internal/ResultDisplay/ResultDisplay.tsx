@@ -2,7 +2,7 @@ import { StopCircle } from 'react-feather'
 
 import { RunError, RunProgress, RunReport } from '@/benchttp'
 import { AppError, Button, ProgressBar, Typography } from '@/components'
-import { nanosecondsToSeconds, withThreshold } from '@/tools/converters'
+import { nanosecondsToSeconds, applyThreshold } from '@/tools/converters'
 
 import { RunErrorDisplay } from '../components'
 import { ReportSection } from './internal/components'
@@ -52,7 +52,7 @@ const ProgressSection: React.FC<RunProgress & { stop: () => false | void }> = ({
     <div>
       <ProgressBar max={maxCount} value={doneCount} />
       <Typography className="mt-2 mb-5">
-        {withThreshold(0)(nanosecondsToSeconds(timeout - elapsed)).toFixed(0)}s
+        {applyThreshold(0)(nanosecondsToSeconds(timeout - elapsed)).toFixed(0)}s
       </Typography>
     </div>
   </section>
