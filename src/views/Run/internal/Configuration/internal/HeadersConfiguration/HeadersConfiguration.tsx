@@ -24,7 +24,10 @@ export const HeadersConfiguration: FC<IProps> = ({ headers, onChange }) => {
   return (
     <div className="f f-direction-column f-ai-start mt-3">
       {arrayHeaders.map((header, index) => (
-        <div className="f f-ai-center mb-4" key={`header-value-${index}`}>
+        <div
+          className={`${s['header-configuration__header-wrapper']} f f-ai-center mb-4`}
+          key={`header-value-${index}`}
+        >
           <SingleHeader
             className={s['header-configuration__header']}
             header={header}
