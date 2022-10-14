@@ -47,6 +47,6 @@ const findRank = (value: number, distribution: Bar[]): number => {
 }
 
 const formatEntry = ({ timeRangeMax, count }: Bar): IBarChartData => ({
-  xAxis: nanosecondsToMilliseconds(timeRangeMax).toFixed(2),
+  xAxis: nanosecondsToMilliseconds(timeRangeMax).toFixed(0),
   yAxis: count,
 })
