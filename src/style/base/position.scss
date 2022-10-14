@@ -1,0 +1,20 @@
+@use '../variables/spaces.scss';
+@use 'sass:map';
+
+.fix {
+  position: fixed;
+}
+@each $spaceName, $spaceValue in spaces.$spaces {
+  .bot-#{$spaceName} {
+    bottom: #{$spaceValue};
+  }
+  .top-#{$spaceName} {
+    top: #{$spaceValue};
+  }
+  .right-#{$spaceName} {
+    right: #{$spaceValue};
+  }
+  .left-#{$spaceName} {
+    left: #{$spaceValue};
+  }
+}
