@@ -67,7 +67,7 @@ export function useRunStream() {
      * call to start, they will be reset and the run will start over.
      */
     start: (config: RunConfiguration) => {
-      if (hasRunStarted(state)) {
+      if (isStarted(state)) {
         stream.current.cancel()
         dispatch(['RESET'])
       }
@@ -78,33 +78,16 @@ export function useRunStream() {
   }
 }
 
-const hasRunStarted = (state: RunState): boolean =>
-  state.progress !== null || state.report !== null || state.error !== null
+const isStarted = (state: RunState): boolean =>
+  state.progress !== null || isFinished(state)
 
-export const getTestResultsDisabled = ({
-  report,
-  progress,
-  error,
-  appError,
-}: {
-  report: RunReport | null
-  progress: RunProgress | null
-  error: RunError | null
-  appError: Error | null
-}) => {
-  return (
-    report === null && progress === null && error === null && appError === null
-  )
+const isFinished = (state: RunState): boolean =>
+  state.error !== null || state.report !== null
+
+export const isTestResultsDisabled = (state: RunState) => {
+  return !isStarted(state)
 }
 
-export const getSummaryDisabled = ({
-  report,
-  error,
-  appError,
-}: {
-  report: RunReport | null
-  error: RunError | null
-  appError: Error | null
-}) => {
-  return report === null && error === null && appError === null
+export const isSummaryDisabled = (state: RunState) => {
+  return !isFinished(state)
 }

@@ -8,8 +8,8 @@ import { Configuration, ResultDisplay, Summary } from './internal/components'
 import {
   useRunStream,
   useConfiguration,
-  getTestResultsDisabled,
-  getSummaryDisabled,
+  isTestResultsDisabled,
+  isSummaryDisabled,
 } from './internal/Run.helpers'
 
 export const Run: FC = () => {
@@ -33,7 +33,7 @@ export const Run: FC = () => {
           text="Tests results"
           link="tests-results"
           iconStart={CheckCircle}
-          disabled={getTestResultsDisabled({
+          disabled={isTestResultsDisabled({
             report,
             progress,
             error,
@@ -44,7 +44,7 @@ export const Run: FC = () => {
           text="Summary"
           link="summary"
           iconStart={PieChart}
-          disabled={getSummaryDisabled({ report, error, appError })}
+          disabled={isSummaryDisabled({ report, error, appError })}
         />
       </div>
 
