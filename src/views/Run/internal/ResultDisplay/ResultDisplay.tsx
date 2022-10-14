@@ -6,6 +6,7 @@ import { nanosecondsToSeconds, applyThreshold } from '@/tools/converters'
 
 import { RunErrorDisplay } from '../components'
 import { ReportSection } from './internal/components'
+import s from './internal/result-display.module.scss'
 
 interface IProps {
   progress: RunProgress | null
@@ -39,8 +40,13 @@ const ProgressSection: React.FC<RunProgress & { stop: () => false | void }> = ({
   timeout,
 }) => (
   <section>
-    <Typography element="h2" className="mt-3 mb-2">
-      Recording Progress
+    <Typography element="h2" className="mb-4 f f-ai-center">
+      Recording Progress{' '}
+      <div className={`${s['result-display__dots']} ml-2`}>
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+      </div>
     </Typography>
     <Button
       text="Stop run"
