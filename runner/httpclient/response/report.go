@@ -3,10 +3,10 @@ package response
 import (
 	"time"
 
-	"github.com/benchttp/engine/runner"
+	"github.com/benchttp/sdk/benchttp"
 )
 
-func Report(rep *runner.Report) Response {
+func Report(rep *benchttp.Report) Response {
 	return newResponse(reportResponse{
 		Metadata: metadataResponse{
 			FinishedAt:    rep.Metadata.FinishedAt,
@@ -87,7 +87,7 @@ type requestFailureResponse struct {
 	Reason string `json:"reason"`
 }
 
-func toTestResultsResponse(testResults []runner.TestCaseResult) []testResultResponse {
+func toTestResultsResponse(testResults []benchttp.TestCaseResult) []testResultResponse {
 	resp := make([]testResultResponse, len(testResults))
 	for i, r := range testResults {
 		resp[i] = testResultResponse{
@@ -104,7 +104,7 @@ func toTestResultsResponse(testResults []runner.TestCaseResult) []testResultResp
 	return resp
 }
 
-func toTimeStatsResponse(stats runner.MetricsTimeStats) timeStatsResponse {
+func toTimeStatsResponse(stats benchttp.MetricsTimeStats) timeStatsResponse {
 	return timeStatsResponse{
 		Min:       stats.Min,
 		Max:       stats.Max,
@@ -116,7 +116,7 @@ func toTimeStatsResponse(stats runner.MetricsTimeStats) timeStatsResponse {
 	}
 }
 
-func toRequestEventTimesResponse(in map[string]runner.MetricsTimeStats) map[string]timeStatsResponse {
+func toRequestEventTimesResponse(in map[string]benchttp.MetricsTimeStats) map[string]timeStatsResponse {
 	resp := map[string]timeStatsResponse{}
 	for k, v := range in {
 		resp[k] = toTimeStatsResponse(v)

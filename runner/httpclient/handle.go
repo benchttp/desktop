@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/benchttp/engine/configparse"
-	"github.com/benchttp/engine/runner"
+	"github.com/benchttp/sdk/benchttp"
+	"github.com/benchttp/sdk/configparse"
 
 	"github.com/benchttp/desktop/runner/httpclient/response"
 )
@@ -22,18 +22,19 @@ func handle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	cfg, err := configparse.JSON(b)
-	if err != nil {
+	runner := benchttp.DefaultRunner()
+	runner.OnProgress = streamProgress(w)
+	if err := configparse.JSON(b, &runner); err != nil {
 		clientError(w, err)
 		return
 	}
 
-	rep, err := runner.New(streamProgress(w)).Run(r.Context(), cfg)
-	var invalidConfigError *runner.InvalidConfigError
+	rep, err := runner.Run(r.Context())
+	var invalidConfigError *benchttp.InvalidRunnerError
 	switch {
 	case err == nil:
 		// Pass through.
-	case err == runner.ErrCanceled:
+	case err == benchttp.ErrCanceled:
 		clientError(w, err)
 		return
 	case errors.As(err, &invalidConfigError):
@@ -55,8 +56,8 @@ func handle(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func streamProgress(w http.ResponseWriter) func(runner.RecordingProgress) {
-	return func(progress runner.RecordingProgress) {
+func streamProgress(w http.ResponseWriter) func(benchttp.RecordingProgress) {
+	return func(progress benchttp.RecordingProgress) {
 		if err := response.Progress(progress).EncodeJSON(w); err != nil {
 			internalError(w, err)
 		}
