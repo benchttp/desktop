@@ -2,13 +2,12 @@ package httpclient
 
 import (
 	"errors"
-	"io"
 	"log"
 	"net/http"
 	"time"
 
 	"github.com/benchttp/sdk/benchttp"
-	"github.com/benchttp/sdk/configparse"
+	"github.com/benchttp/sdk/configio"
 
 	"github.com/benchttp/desktop/runner/httpclient/response"
 )
@@ -16,29 +15,24 @@ import (
 func handle(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
-	b, err := io.ReadAll(r.Body)
-	if err != nil {
-		internalError(w, err)
-		return
-	}
-
 	runner := benchttp.DefaultRunner()
 	runner.OnProgress = streamProgress(w)
-	if err := configparse.JSON(b, &runner); err != nil {
+
+	if err := configio.NewJSONDecoder(r.Body).DecodeRunner(&runner); err != nil {
 		clientError(w, err)
 		return
 	}
 
-	rep, err := runner.Run(r.Context())
-	var invalidConfigError *benchttp.InvalidRunnerError
+	report, err := runner.Run(r.Context())
+	var errInvalidRunner *benchttp.InvalidRunnerError
 	switch {
 	case err == nil:
 		// Pass through.
 	case err == benchttp.ErrCanceled:
 		clientError(w, err)
 		return
-	case errors.As(err, &invalidConfigError):
-		clientError(w, invalidConfigError.Errors...)
+	case errors.As(err, &errInvalidRunner):
+		clientError(w, errInvalidRunner.Errors...)
 		return
 	default:
 		internalError(w, err)
@@ -50,7 +44,7 @@ func handle(w http.ResponseWriter, r *http.Request) {
 	// The issue is likely on the read side (front-end), but this is
 	// the easiest fix for now.
 	time.Sleep(10 * time.Millisecond)
-	if err := response.Report(rep).EncodeJSON(w); err != nil {
+	if err := response.Report(report).EncodeJSON(w); err != nil {
 		internalError(w, err)
 		return
 	}
