@@ -3,10 +3,10 @@ package response
 import (
 	"time"
 
-	"github.com/benchttp/engine/runner"
+	"github.com/benchttp/sdk/benchttp"
 )
 
-func Progress(in runner.RecordingProgress) Response {
+func Progress(in benchttp.RecordingProgress) Response {
 	return newResponse(progressResponse{
 		Done:      in.Done,
 		Error:     in.Error,
